@@ -95,7 +95,7 @@ export default function Header() {
             <NavbarItem className="hidden lg:flex ml-10">
                <Link
                   className="text-black font-semibold hover:text-danger"
-                  href="#"
+                  href="/login"
                >
                   Вход
                </Link>
@@ -104,7 +104,7 @@ export default function Header() {
                <Button
                   as={Link}
                   color="danger"
-                  href="#"
+                  href="/register"
                   variant="bordered"
                   className="font-semibold hover:bg-danger hover:text-white"
                >
