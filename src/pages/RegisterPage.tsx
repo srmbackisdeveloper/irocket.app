@@ -14,8 +14,8 @@ export const RegisterPage = () => {
     return (
         <div className="grid justify-center items-center gap-5 p-40">
             <div className="grid justify-center items-center">
-                <h2 className="text-3xl font-semibold text-center">Добро пожаловать</h2>
-                <p className="font-semibold text-center text-sm text-gray-500 mt-1">Укажите данные для входа</p>
+                <h2 className="text-3xl font-semibold text-center">Регистрация</h2>
+                <p className="font-semibold text-center text-sm text-gray-500 mt-1">Пришло время быть первым!</p>
             </div>
             <div className="grid justify-center items-center">
                 <p className="font-semibold text-start text-sm text-gray-500">Эл. почта</p>
