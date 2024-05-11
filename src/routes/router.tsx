@@ -5,6 +5,10 @@ import { HomePage } from '../pages/HomePage'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import { LoginPage } from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage'
+import { Shops } from '../pages/Dashboard/Shops'
+import { Products } from '../pages/Dashboard/Products'
+import { Analytics } from '../pages/Dashboard/Analytics'
+import { Workers } from '../pages/Dashboard/Workers'
 
 export const router = createBrowserRouter([
    {
@@ -32,5 +36,25 @@ export const router = createBrowserRouter([
       path: '/dashboard',
       element: <Dashboard />,
       errorElement: <Error />,
+   },
+   {
+      path: '/shops',
+      element: <Shops/>,
+      errorElement: <Error/>,
+   },
+   {
+      path: '/products',
+      element: <Products/>,
+      errorElement: <Error/>,
+   },
+   {
+      path: '/analytics',
+      element: <Analytics/>,
+      errorElement: <Error/>,
+   },
+   {
+      path: '/workers',
+      element: <Workers/>,
+      errorElement: <Error/>,
    }
 ])
