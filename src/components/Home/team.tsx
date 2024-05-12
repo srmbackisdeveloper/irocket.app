@@ -1,5 +1,5 @@
-import { Avatar } from '@nextui-org/react'
-import AvatarImage from './../../assets/home/avatar.png'
+import { Avatar } from '@nextui-org/react';
+import AvatarImage from './../../assets/home/avatar.png';
 
 export const Team = () => {
    return (
