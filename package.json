@@ -11,6 +11,9 @@
       "format": "prettier --write ."
    },
    "dependencies": {
+      "@emotion/react": "^11.11.4",
+      "@emotion/styled": "^11.11.5",
+      "@mui/material": "^5.15.17",
       "@nextui-org/react": "^2.3.6",
       "@svgr/plugin-svgo": "^8.1.0",
       "framer-motion": "^11.1.9",
