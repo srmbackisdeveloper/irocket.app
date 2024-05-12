@@ -9,6 +9,7 @@ import { Shops } from '../pages/Dashboard/Shops'
 import { Products } from '../pages/Dashboard/Products'
 import { Analytics } from '../pages/Dashboard/Analytics'
 import { Workers } from '../pages/Dashboard/Workers'
+import DashboardContent from '../pages/Dashboard/DashboardContent'
 
 export const router = createBrowserRouter([
    {
@@ -36,25 +37,32 @@ export const router = createBrowserRouter([
       path: '/dashboard',
       element: <Dashboard />,
       errorElement: <Error />,
+      children: [
+         {
+            path: '',
+            element: <DashboardContent />,
+            errorElement: <Error />,
+         },
+         {
+            path: 'shops',
+            element: <Shops/>,
+            errorElement: <Error/>,
+         },
+         {
+            path: 'products',
+            element: <Products/>,
+            errorElement: <Error/>,
+         },
+         {
+            path: 'analytics',
+            element: <Analytics/>,
+            errorElement: <Error/>,
+         },
+         {
+            path: 'workers',
+            element: <Workers/>,
+            errorElement: <Error/>,
+         }
+      ]
    },
-   {
-      path: '/shops',
-      element: <Shops/>,
-      errorElement: <Error/>,
-   },
-   {
-      path: '/products',
-      element: <Products/>,
-      errorElement: <Error/>,
-   },
-   {
-      path: '/analytics',
-      element: <Analytics/>,
-      errorElement: <Error/>,
-   },
-   {
-      path: '/workers',
-      element: <Workers/>,
-      errorElement: <Error/>,
-   }
 ])
