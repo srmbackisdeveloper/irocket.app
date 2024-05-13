@@ -4,15 +4,14 @@ import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <DashboardHeader />
-      <Outlet />
+      <div className="flex-grow">
+        <Outlet />
+      </div>
       <DashboardFooter />
-    </>
+    </div>
   );
 };
 
 export default Dashboard;
-
-
-
