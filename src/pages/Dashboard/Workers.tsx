@@ -1,7 +1,6 @@
 import { Button } from "@nextui-org/react"
 
 export const Workers = () => {
-<<<<<<< HEAD
     return(
         <div className="grid p-5 gap-5">
             <div className="flex flex-wrap justify-between items-center">
@@ -19,7 +18,3 @@ export const Workers = () => {
         </div>
     )
 }
-=======
-   return <div>Workers</div>
-}
->>>>>>> b8c00a1b8bc8e60111ed34012023c1fe0b3863b5
