@@ -24,7 +24,7 @@ const DashboardHeader = () => {
    useEffect(() => {
       const handleScroll = () => {
          const scrollTop = window.scrollY
-         const shouldHide = scrollTop > 50
+         const shouldHide = scrollTop > 55
          setIsScrolled(shouldHide)
       }
 
@@ -33,8 +33,8 @@ const DashboardHeader = () => {
    }, [])
 
    const variants = {
-      visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-      hidden: { opacity: 0, y: -100, transition: { duration: 0.3 } },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+      hidden: { opacity: 0, y: -100, transition: { duration: 0.5 } },
    }
 
    return (

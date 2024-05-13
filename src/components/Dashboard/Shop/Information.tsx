@@ -11,8 +11,8 @@ export const Information = () => {
                   <p className="text-xs text-danger font-medium">
                      Наведите на иконку, чтобы увидеть подсказку
                   </p>
-                  <div className="mt-4 pr-4 w-full text-xs text-gray-400 font-semibold border-r-1 border-gray-300 h-[85%]">
-                     <div className="py-2 pl-1 flex items-center justify-between border-b-1 border-gray-300">
+                  <div className="mt-4 pr-4 w-full text-xs text-gray-500 font-semibold border-r-1 border-gray-200 h-[86%]">
+                     <div className="h-10 py-2 pl-1 flex items-center justify-between border-b-1 border-gray-200">
                         <div className="flex items-center gap-2">
                            <ActiveIcon />
                            <span>Активен</span>
@@ -22,21 +22,21 @@ export const Information = () => {
                               size="sm"
                            />
                      </div>
-                     <div className="py-2 px-1 flex items-center justify-between border-b-1 border-gray-300">
+                     <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200">
                         <div className="flex items-center gap-2">
                            <DeliveryIcon />
                            <span>Стоимость KASPI доставки</span>
                         </div>
-                        <div className="text-right font-bold text-gray-500">0.00 ₸</div>
+                        <div className="text-right font-bold text-gray-600">0.00 ₸</div>
                      </div>
-                     <div className="py-2 px-1 flex items-center justify-between border-b-1 border-gray-300">
+                     <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200">
                         <div className="flex items-center gap-2">
                            <TagIcon />
                            <span>Минус процент от маржи</span>
                         </div>
-                        <div className="text-right font-bold text-gray-500">0.00 %</div>
+                        <div className="text-right font-bold text-gray-600">0.00 %</div>
                      </div>
-                     <div className="py-2 pl-1 flex items-center justify-between border-b-1 border-gray-300">
+                     <div className="h-10 py-2 pl-1 flex items-center justify-between border-b-1 border-gray-200">
                         <div className="flex items-center gap-2">
                            <TagIcon />
                            <span>Маржа с учетом доставки</span>
@@ -46,12 +46,12 @@ export const Information = () => {
                            size="sm"
                         />
                      </div>
-                     <div className="py-2 px-1 flex items-center justify-between">
+                     <div className="h-10 py-2 px-1 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                            <BanknotesIcon />
                            <span>Маржа с учетом доставки</span>
                         </div>
-                        <div className="text-right font-bold text-gray-500">0.00 %</div>
+                        <div className="text-right font-bold text-gray-600">0.00 %</div>
                      </div>
                   </div>
                </div>
