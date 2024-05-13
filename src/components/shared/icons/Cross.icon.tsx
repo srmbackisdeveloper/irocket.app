@@ -1,4 +1,4 @@
-export const Graph = () => {
+export const CrossIcon = () => {
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -6,12 +6,12 @@ export const Graph = () => {
          viewBox="0 0 24 24"
          strokeWidth={1.5}
          stroke="currentColor"
-         className="w-6 h-6"
+         className="w-8 h-8 text-gray-300 hover:text-black transition-colors duration-300 cursor-pointer"
       >
          <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"
+            d="M6 18 18 6M6 6l12 12"
          />
       </svg>
    )

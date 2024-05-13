@@ -20,17 +20,17 @@ export const router = createBrowserRouter([
          {
             path: '/',
             element: <HomePage />,
-         }
+         },
       ],
    },
    {
       path: '/login',
-      element: <LoginPage/>,
+      element: <LoginPage />,
       errorElement: <Error />,
    },
    {
       path: '/register',
-      element: <RegisterPage/>,
+      element: <RegisterPage />,
       errorElement: <Error />,
    },
    {
@@ -45,24 +45,24 @@ export const router = createBrowserRouter([
          },
          {
             path: 'shops',
-            element: <Shops/>,
-            errorElement: <Error/>,
+            element: <Shops />,
+            errorElement: <Error />,
          },
          {
             path: 'products',
-            element: <Products/>,
-            errorElement: <Error/>,
+            element: <Products />,
+            errorElement: <Error />,
          },
          {
             path: 'analytics',
-            element: <Analytics/>,
-            errorElement: <Error/>,
+            element: <Analytics />,
+            errorElement: <Error />,
          },
          {
             path: 'workers',
-            element: <Workers/>,
-            errorElement: <Error/>,
-         }
-      ]
+            element: <Workers />,
+            errorElement: <Error />,
+         },
+      ],
    },
 ])

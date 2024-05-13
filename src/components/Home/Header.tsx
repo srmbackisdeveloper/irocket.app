@@ -9,7 +9,7 @@ import {
    Link,
    Button,
 } from '@nextui-org/react'
-import { Logo } from './shared/Logo'
+import { Logo } from '../shared/Logo'
 
 export default function Header() {
    const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -26,8 +26,8 @@ export default function Header() {
    return (
       <Navbar onMenuOpenChange={setIsMenuOpen}>
          <NavbarContent>
-            <div className='grid lg:ml-[-5em] mt-[1em]'>
-               <Logo/>
+            <div className="grid lg:ml-[-5em] mt-[1em]">
+               <Logo />
             </div>
          </NavbarContent>
 
@@ -109,9 +109,9 @@ export default function Header() {
             </NavbarItem>
          </NavbarContent>
          <NavbarMenuToggle
-               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-               className="lg:hidden"
-            />
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="lg:hidden"
+         />
          <NavbarMenu>
             {menuItems.map((item, index) => (
                <NavbarMenuItem key={`${item}-${index}`}>
