@@ -5,6 +5,12 @@ import Rating from '@mui/material/Rating';
 
 const DashboardContent = () => {
     const [value, setValue] = useState<number | null>(2);
+
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number | null) => {
+      if (newValue !== null) {
+        setValue(newValue);
+      }
+    };
   
     return (
       <>
@@ -100,9 +106,7 @@ const DashboardContent = () => {
               <Rating
                 name="simple-controlled"
                 value={value}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
+                onChange={handleChange}
               />
             <Textarea
               label="Ваш отзыв"

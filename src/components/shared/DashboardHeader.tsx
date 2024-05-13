@@ -32,13 +32,17 @@ const DashboardHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const variants = {
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    hidden: { opacity: 0, y: -100, transition: { duration: 0.3 } },
+  };
+
   return (
     <>
       <motion.div
-        className="mx-5 mt-2"
-        initial={{ y: 0 }}
-        animate={{ y: isScrolled ? "-100%" : 0 }}
-        transition={{ duration: 0.3 }}
+        animate={isScrolled ? "hidden" : "visible"}
+        variants={variants}
+        className="px-5 pt-4"
       >
         <div className="flex justify-between items-center">
           <Logo />
@@ -47,10 +51,14 @@ const DashboardHeader = () => {
         <Divider />
       </motion.div>
       <motion.div
-        className={`hidden sm:block ${isScrolled ? "fixed top-0 left-0 right-0 bg-white z-10" : ""}`}
-        initial={{ y: 0 }}
-        animate={{ y: isScrolled ? "-%" : 0 }}
+        initial="hidden"
+        animate="visible"
+        variants={{
+          visible: { opacity: 1, y: 0 },
+          hidden: { opacity: 0, y: -50 },
+        }}
         transition={{ duration: 0.3 }}
+        className="sticky top-0 z-50 bg-white"
       >
         <div className="px-5 py-4">
           <Tabs
