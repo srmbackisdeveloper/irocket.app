@@ -6,7 +6,7 @@ import Rating from '@mui/material/Rating';
 const DashboardContent = () => {
     const [value, setValue] = useState<number | null>(2);
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number | null) => {
+    const handleChange = (_event: React.ChangeEvent<{}>, newValue: number | null) => {
       if (newValue !== null) {
         setValue(newValue);
       }
