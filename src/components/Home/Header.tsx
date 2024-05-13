@@ -9,7 +9,7 @@ import {
    Link,
    Button,
 } from '@nextui-org/react'
-import { Logo } from './shared/Logo'
+import { Logo } from '../shared/Logo';
 
 export default function Header() {
    const [isMenuOpen, setIsMenuOpen] = React.useState(false)
