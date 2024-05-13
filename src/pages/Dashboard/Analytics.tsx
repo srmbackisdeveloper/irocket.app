@@ -1,7 +1,3 @@
 export const Analytics = () => {
-    return(
-        <div>
-            Analytics
-        </div>
-    )
+   return <div>Analytics</div>
 }
