@@ -3,13 +3,14 @@ import { Button } from "@nextui-org/react"
 export const Workers = () => {
     return(
         <div className="grid p-5 gap-5">
-            <div className="flex flex-wrap justify-between items-center">
+            <div className="flex flex-wrap justify-between items-center border rounded-lg p-3">
                 <h2 className="text-lg font-semibold">Сотрудники</h2>
-                <Button 
+                <Button
                     color="danger"
-                    variant="shadow"
-                    className="min-w-44 font-semibold">
-                        Добавить
+                    variant="bordered"
+                    className="text-black px-7 font-semibold hover:bg-danger hover:text-white"
+                    >
+                    Добавить
                 </Button>
             </div>
             <div className="grid border rounded-lg p-5">
