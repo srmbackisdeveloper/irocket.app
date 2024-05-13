@@ -48,7 +48,7 @@ export const Shops = () => {
                </div>
             </div>
             <Divider />
-            <div className="p-2 grid grid-cols-3 border-b-1 border-gray-300">
+            <div className="p-2 pl-3 grid grid-cols-3 border-b-1 border-gray-200">
                <Information />
                <BotConfig />
                <TarifLimit />
