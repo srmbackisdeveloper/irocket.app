@@ -24,7 +24,7 @@ const DashboardHeader = () => {
    useEffect(() => {
       const handleScroll = () => {
          const scrollTop = window.scrollY
-         const shouldHide = scrollTop > 0
+         const shouldHide = scrollTop > 50
          setIsScrolled(shouldHide)
       }
 
