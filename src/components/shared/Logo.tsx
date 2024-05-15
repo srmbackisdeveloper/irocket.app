@@ -10,7 +10,7 @@ export const Logo = () => {
          <div className="flex flex-col">
             {' '}
             {/* Flex container for text */}
-            <h1 className="font-bold text-4xl tracking-wider">iRocket</h1>
+            <h1 className="font-semibold text-4xl tracking-wider">iRocket</h1>
             <p className="uppercase text-[10px] text-gray-400">
                система роста продаж
             </p>

@@ -23,9 +23,13 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                <ProfileAvatar />
             </button>
          </DropdownTrigger>
-         <DropdownMenu aria-label="User Profile">
+         <DropdownMenu aria-label="User Profile" disabledKeys={['profile']}>
             <DropdownSection>
-               <DropdownItem key="profile">
+               <DropdownItem
+                  key="profile" 
+                  isReadOnly
+                  className="opacity-100"
+               >
                   <div className="flex w-1/4 items-center">
                      <ProfileAvatar />
                      <p className="pl-4 text-xl text-wrap">{username}</p>
