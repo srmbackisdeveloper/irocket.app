@@ -6,7 +6,7 @@ export const LoginPage = () => {
    const [password, setPassword] = useState('')
 
    return (
-      <div className="grid justify-center items-center gap-5 p-40">
+      <div className="grid justify-center items-center gap-5 mt-[5em]">
          <div>
             <h2 className="text-3xl font-semibold text-center">
                Добро пожаловать

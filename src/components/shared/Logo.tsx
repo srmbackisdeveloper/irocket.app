@@ -11,7 +11,7 @@ export const Logo = () => {
             {' '}
             {/* Flex container for text */}
             <h1 className="font-semibold text-4xl tracking-wider">iRocket</h1>
-            <p className="uppercase text-[10px] text-gray-400">
+            <p className="uppercase text-[10px] text-gray-400 hidden sm:block">
                система роста продаж
             </p>
          </div>
