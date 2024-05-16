@@ -13,7 +13,7 @@ const labeledData = dataSizes.map(size => ({
 
 export const ProductSearch = () => {
     const [selectedSize, setSelectedSize] = useState<number>(labeledData[0].value);
-    const [isChecked, setIsChecked] = useState(true);
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleCheckboxChange = () => {
       setIsChecked(!isChecked);

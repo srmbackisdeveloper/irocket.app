@@ -4,6 +4,7 @@ import { useState } from 'react'
 export const LoginPage = () => {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
+   document.title = "Вход в систему | iRocket";
 
    return (
       <div className="grid justify-center items-center gap-5 p-40">
