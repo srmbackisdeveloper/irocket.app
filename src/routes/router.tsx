@@ -10,6 +10,7 @@ import { Products } from '../pages/Dashboard/Products'
 import { Analytics } from '../pages/Dashboard/Analytics'
 import { Workers } from '../pages/Dashboard/Workers'
 import DashboardContent from '../pages/Dashboard/DashboardContent'
+import { Profile } from '../pages/Dashboard/Profile'
 
 export const router = createBrowserRouter([
    {
@@ -63,6 +64,11 @@ export const router = createBrowserRouter([
             element: <Workers />,
             errorElement: <Error />,
          },
+         {
+            path: 'profile',
+            element: <Profile/>,
+            errorElement: <Error/>
+         }
       ],
    },
 ])
