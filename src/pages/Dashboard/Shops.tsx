@@ -1,12 +1,12 @@
 import { Divider, Switch } from '@nextui-org/react';
 import { CartIcon } from '../../components/shared/icons/Cart.icon';
-import { CrossIcon } from '../../components/shared/icons/Cross.icon';
 import { Information } from '../../components/Dashboard/Shop/Information';
 import { BotConfig } from '../../components/Dashboard/Shop/BotConfig';
 import { TarifLimit } from '../../components/Dashboard/Shop/TarifLimit';
 import { useState } from 'react';
 import { AddModal } from '../../components/Dashboard/Shop/AddModal';
 import { EditModal } from '../../components/Dashboard/Shop/EditModal';
+import { DeleteModal } from '../../components/Dashboard/Shop/DeleteModal';
 
 export const Shops = () => {
    const [marginEnabled, setMarginEnabled] = useState(false);
@@ -37,24 +37,24 @@ export const Shops = () => {
                      <p className="text-sm font-meduim">ID: Shop ID</p>
                   </div>
                </div>
-               <div className="flex gap-3 items-center">
+               <div className="flex items-center">
                   <EditModal/>
-                  <CrossIcon />
+                  <DeleteModal />
                </div>
             </div>
             <Divider />
             <div className="md:p-2 md:pl-3 border-b border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <div className="col-span-1">
+              <div className="col-span-1 md:border-r-1">
                 <Information />
               </div>
-              <div className="col-span-1">
+              <div className="col-span-1 md:border-r-1">
                 <BotConfig />
               </div>
               <div className="col-span-1">
                 <TarifLimit />
               </div>
             </div>
-            <div className="p-3 w-full md:w-">
+            <div className="p-3 w-full md:w-2/3">
                <div className="flex items-center gap-3 pb-3">
                   <h4 className="text-base font-medium">Настройки маржинальности</h4>
                   <Switch color="success" size="sm" checked={marginEnabled} onChange={handleMarginToggle} />

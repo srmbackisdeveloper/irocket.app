@@ -71,7 +71,7 @@ export const Profile: React.FC<IProfile> = ({ username, email }) => {
                         variant="shadow"
                         className="bg-danger text-white px-7 font-semibold"
                     >
-                        Добавить
+                        Сохранить
                     </Button>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import { CalendarIcon } from "../../shared/icons/Calendar.icon"
 
 export const TarifLimit = () => {
     return (
-        <div className="p-3 w-full">
+        <div className="p-1 md:p-3 w-full">
                   <h4 className="text-base font-medium">Тарифы / Лимиты</h4>
                   <p className="text-xs text-danger font-medium">
                      Оплата списывается автоматически с баланса

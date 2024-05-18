@@ -12,7 +12,7 @@ export const BotConfig = () => {
                   <p className="text-xs text-danger font-medium">
                      Наведите на иконку, чтобы увидеть подсказку
                   </p>
-                  <div className="mt-4 w-full text-xs text-gray-500 font-semibold md:border-r-1 border-gray-200">
+                  <div className="mt-4 w-full text-xs text-gray-500 font-semibold">
                      <div className="h-10 py-2 pl-1 flex items-center justify-between border-b-1 border-gray-200">
                         <div className="flex items-center gap-2">
                            <TrendUpIcon />
