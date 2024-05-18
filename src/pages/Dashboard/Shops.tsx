@@ -43,12 +43,18 @@ export const Shops = () => {
                </div>
             </div>
             <Divider />
-            <div className="p-2 pl-3 grid grid-cols-3 border-b-1 border-gray-200">
-               <Information />
-               <BotConfig />
-               <TarifLimit />
+            <div className="md:p-2 md:pl-3 border-b border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="col-span-1">
+                <Information />
+              </div>
+              <div className="col-span-1">
+                <BotConfig />
+              </div>
+              <div className="col-span-1">
+                <TarifLimit />
+              </div>
             </div>
-            <div className="p-3 w-2/3">
+            <div className="p-3 w-full md:w-">
                <div className="flex items-center gap-3 pb-3">
                   <h4 className="text-base font-medium">Настройки маржинальности</h4>
                   <Switch color="success" size="sm" checked={marginEnabled} onChange={handleMarginToggle} />

@@ -1,10 +1,24 @@
 import { Button } from '@nextui-org/react'
 import { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext';
 
 export const LoginPage = () => {
-   const [email, setEmail] = useState('')
-   const [password, setPassword] = useState('')
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const { login } = useAuth();
    document.title = "Вход в систему | iRocket";
+  
+   const handleSubmit = async (event: React.FormEvent) => {
+      event.preventDefault();
+      const success = await login(email, password);
+      if (success) {
+        // Redirect to a different page or perform additional actions upon successful login
+        console.log('Login successful');
+      } else {
+        // Show an error message or perform actions upon failed login
+        console.error('Login failed');
+      }
+    };
 
    return (
       <div className="grid justify-center items-center gap-5 mt-[5em]">
@@ -45,6 +59,7 @@ export const LoginPage = () => {
                color="danger"
                variant="shadow"
                className="min-w-72 font-semibold"
+               onClick={handleSubmit}
             >
                Войти
             </Button>

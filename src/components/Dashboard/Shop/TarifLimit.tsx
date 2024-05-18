@@ -7,11 +7,11 @@ import { CalendarIcon } from "../../shared/icons/Calendar.icon"
 export const TarifLimit = () => {
     return (
         <div className="p-3 w-full">
-                  <h4 className="text-base font-medium">Информация</h4>
+                  <h4 className="text-base font-medium">Тарифы / Лимиты</h4>
                   <p className="text-xs text-danger font-medium">
                      Оплата списывается автоматически с баланса
                   </p>
-                  <div className="mt-4 pr-4 w-full text-xs text-gray-500 font-semibold">
+                  <div className="mt-4 w-full text-xs text-gray-500 font-semibold">
                      <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-300">
                         <div className="flex items-center gap-2">
                            <HomeIcon />
