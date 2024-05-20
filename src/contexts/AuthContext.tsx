@@ -1,7 +1,6 @@
 import React, {
    createContext,
    useState,
-   useEffect,
    ReactNode,
    useContext,
 } from 'react'
@@ -79,24 +78,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
    }
 
-   const refresh = async (storedToken: string): Promise<boolean> => {
-      try {
-         const response = await axios.post(
-            'http://164.90.181.189/refresh_token/',
-            { token: storedToken },
-         )
-         const { token, user } = response.data
-         const mappedUser = mapUserResponse(user)
-         setToken(token)
-         setUser(mappedUser)
-         localStorage.setItem('token', token)
-         localStorage.setItem('user', JSON.stringify(mappedUser))
-         return true
-      } catch (error) {
-         console.error('Refresh failed', error)
-         return false
-      }
-   }
+   // const refresh = async (storedToken: string): Promise<boolean> => {
+   //    try {
+   //       const response = await axios.post(
+   //          BASE_URL + '/refresh_token/',
+   //          { token: storedToken },
+   //       )
+   //       const { token, user } = response.data
+   //       const mappedUser = mapUserResponse(user)
+   //       setToken(token)
+   //       setUser(mappedUser)
+   //       localStorage.setItem('token', token)
+   //       localStorage.setItem('user', JSON.stringify(mappedUser))
+   //       return true
+   //    } catch (error) {
+   //       console.error('Refresh failed', error)
+   //       return false
+   //    }
+   // }
 
    const logout = () => {
       setToken(null)
