@@ -2,9 +2,11 @@ import { Avatar, Divider, Textarea } from '@nextui-org/react'
 import AvatarImage from './../../assets/home/avatar.png'
 import { useState } from 'react'
 import Rating from '@mui/material/Rating'
+import { useAuth } from '../../contexts/AuthContext'
 
 const DashboardContent = () => {
-   const [value, setValue] = useState<number | null>(2)
+   const [value, setValue] = useState<number | null>(2);
+   const { user } = useAuth();
 
    const handleChange = (
       _event: React.ChangeEvent<{}>,
@@ -63,7 +65,7 @@ const DashboardContent = () => {
                         </svg>
                         Компания
                      </p>
-                     <p className="font-bold text-sm">Company Name</p>
+                     <p className="font-bold text-sm">{user?.companyName}</p>
                   </div>
                   <Divider />
                   <div className="flex flex-wrap justify-between items-center">

@@ -39,33 +39,41 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
    useEffect(() => {
       const storedToken = localStorage.getItem('token')
       if (storedToken) {
-         setToken(storedToken)
-         // Optionally, fetch the user data using the token here
+         setToken(storedToken);
+         refresh(storedToken);
       }
    }, [])
+   const mapUserResponse = (user: any): User => {
+    return {
+      id: user.id,
+      username: user.username,
+      fullName: user.full_name,
+      phoneNumber: user.phone_number, // Assuming the API might return a phone number
+      email: user.email,
+      companyName: user.company_name,
+      availableFunds: user.available_funds, // Assuming these fields are returned by the API
+      monthlyFee: user.monthly_fee,         // Adjust as per your API response
+      debitAmount: user.debit_amount,       // Adjust as per your API response
+    };
+  };
 
-   const login = async (username: string, password: string): Promise<boolean> => {
+  const login = async (username: string, password: string): Promise<boolean> => {
     try {
       const response = await axios.post(
         BASE_URL + '/login/',
-        { username, password },
-        {
-          headers: {
-            'Content-Type': 'application/json', // Ensures the server treats the request body as JSON
-            // Add any other headers your server expects here
-          },
-        }
+        { username, password }
       );
       const { token, user } = response.data;
+      const mappedUser = mapUserResponse(user); // Map the user response to match the User type
       setToken(token);
-      setUser(user);
+      setUser(mappedUser);
       localStorage.setItem('token', token);
       return true;
     } catch (error) {
       console.error('Login failed', error);
       return false;
     }
-  };  
+  };
 
   //  const register = async (
   //     email: string,
@@ -81,6 +89,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   //        return false
   //     }
   //  }
+
+  const refresh = async (storedToken: string): Promise<boolean> => {
+   try {
+      const response = await axios.post(
+         BASE_URL + '/refresh_token/',
+         { token: storedToken }
+      )
+      const { token, user } = response.data
+      const mappedUser = mapUserResponse(user)
+      setToken(token)
+      setUser(mappedUser)
+      localStorage.setItem('token', token)
+      return true
+   } catch (error) {
+      console.error('Refresh failed', error)
+      logout()
+      return false
+   }
+};
 
    const logout = () => {
       setToken(null)

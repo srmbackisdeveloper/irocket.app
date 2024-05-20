@@ -9,11 +9,13 @@ import { Shop } from './icons/Shop.icon'
 import { Box } from './icons/Box.icon'
 import { Graph } from './icons/Graph.icon'
 import { Profile } from './icons/Profile.icon'
+import { useAuth } from '../../contexts/AuthContext'
 
 const DashboardHeader = () => {
-   const [isScrolled, setIsScrolled] = useState(false)
-   const [selectedTab, setSelectedTab] = useState('dashboard')
-   const location = useLocation()
+   const [isScrolled, setIsScrolled] = useState(false);
+   const [selectedTab, setSelectedTab] = useState('dashboard');
+   const location = useLocation();
+   const { user } = useAuth();
 
    useEffect(() => {
       const pathSegments = location.pathname.split('/')
@@ -46,7 +48,7 @@ const DashboardHeader = () => {
          >
             <div className="flex justify-between items-center">
                <Logo />
-               <ProfileDropdown />
+               <ProfileDropdown username={user?.fullName}/>
             </div>
             <Divider />
          </motion.div>
