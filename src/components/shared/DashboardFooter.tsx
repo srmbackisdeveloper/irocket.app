@@ -2,7 +2,7 @@ import { Divider } from '@nextui-org/react'
 
 export const DashboardFooter = () => {
    return (
-      <div className="mt-[2em]">
+      <div className="pt-[2em]">
          <Divider />
          <div className="flex justify-between px-5 py-3">
             <a

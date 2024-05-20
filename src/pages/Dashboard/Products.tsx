@@ -1,5 +1,5 @@
-import { ProductSearch } from "../../components/Dashboard/Products/ProductSearch"
-import { ProductsList } from "../../components/Dashboard/Products/ProductsList"
+import { ProductSearch } from '../../components/Dashboard/Products/ProductSearch'
+import { ProductsList } from '../../components/Dashboard/Products/ProductsList'
 
 export const Products = () => {
    return (

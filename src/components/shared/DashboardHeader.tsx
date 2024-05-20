@@ -66,7 +66,7 @@ const DashboardHeader = () => {
                   color="danger"
                   variant="bordered"
                   selectedKey={selectedTab}
-                  className='flex flex-wrap'
+                  className="flex flex-wrap"
                >
                   <Tab
                      key="dashboard"
