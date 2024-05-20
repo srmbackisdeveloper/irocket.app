@@ -1,7 +1,7 @@
 export type User = {
    id: number
    username: string
-	 fullName: string
+	fullName: string
    phoneNumber?: string
    email: string
    companyName?: string
