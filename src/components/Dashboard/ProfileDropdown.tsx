@@ -9,6 +9,7 @@ import { ProfileAvatar } from '../shared/ProfileAvatar'
 import { Profile } from '../shared/icons/Profile.icon'
 import { ArrowOut } from '../shared/icons/ArrowOut.icon'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 
 interface ProfileDropdownProps {
    username?: string
@@ -17,6 +18,7 @@ interface ProfileDropdownProps {
 export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
    username = 'Новый пользователь',
 }) => {
+   const { logout } = useAuth();
    return (
       <Dropdown>
          <DropdownTrigger>
@@ -56,12 +58,10 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                   key="exit" 
                   textValue="Выйти"
                >
-                  <Link to={'/'}>
-                     <div className="flex items-center gap-2">
-                        <ArrowOut />
-                        <p>Выйти</p>
-                     </div>
-                  </Link>
+                  <div className="flex items-center gap-2" onClick={logout}>
+                     <ArrowOut />
+                     <p>Выйти</p>
+                  </div>
                </DropdownItem>
             </DropdownSection>
          </DropdownMenu>

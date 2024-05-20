@@ -104,6 +104,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem('user')
    }
 
+   // const changePassword = () => {
+
+   // }
    return (
       <AuthContext.Provider value={{ user, token, login, logout }}>
          {children}
