@@ -1,4 +1,4 @@
-import { Button, Modal, ModalContent, ModalHeader, Spinner } from '@nextui-org/react';
+import { Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
