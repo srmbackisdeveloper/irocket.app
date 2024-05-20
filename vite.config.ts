@@ -5,6 +5,15 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+   server: {
+      proxy: {
+          '/api': {
+              target: 'http://164.90.181.189',
+              changeOrigin: true,
+              rewrite: (path) => path.replace(/^\/api/, '')
+          }
+      }
+  },
    plugins: [
       react(),
       svgr({
