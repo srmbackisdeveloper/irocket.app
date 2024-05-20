@@ -4,9 +4,9 @@ import { axiosInstance } from './api';
 class ProductsAPI {
     private axios = axiosInstance("kaspi_products");
 
-    getProducts = async() => {
+    getProducts = async (): Promise<TProducts[]> => {
         const response = await this.axios.get<TProducts[]>("/");
-        return response.data;
+        return Array.isArray(response.data) ? response.data : [];
     }
 }
 
