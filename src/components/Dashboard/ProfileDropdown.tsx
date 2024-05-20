@@ -26,7 +26,12 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
          </DropdownTrigger>
          <DropdownMenu aria-label="User Profile" disabledKeys={['profile']}>
             <DropdownSection>
-               <DropdownItem key="profile" isReadOnly className="opacity-100">
+               <DropdownItem 
+                  key="profile" 
+                  isReadOnly 
+                  className="opacity-100"
+                  textValue={username}
+               >
                   <div className="flex w-1/4 items-center">
                      <ProfileAvatar />
                      <p className="pl-4 text-xl text-wrap">{username}</p>
@@ -34,7 +39,10 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                </DropdownItem>
             </DropdownSection>
             <DropdownSection>
-               <DropdownItem key="my-profile">
+               <DropdownItem 
+                  key="my-profile" 
+                  textValue="Мой профиль"
+               >
                   <Link to={'/dashboard/profile'}>
                      <div className="flex items-center gap-2">
                         <Profile />
@@ -44,7 +52,10 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                </DropdownItem>
             </DropdownSection>
             <DropdownSection>
-               <DropdownItem key="exit">
+               <DropdownItem 
+                  key="exit" 
+                  textValue="Выйти"
+               >
                   <Link to={'/'}>
                      <div className="flex items-center gap-2">
                         <ArrowOut />
