@@ -1,32 +1,38 @@
-import { Button, Divider, Select, SelectItem, VisuallyHidden } from "@nextui-org/react";
-import { Search } from "../../shared/icons/Search.icon";
-import { useState } from "react";
+import {
+   Button,
+   Divider,
+   Select,
+   SelectItem,
+   VisuallyHidden,
+} from '@nextui-org/react'
+import { Search } from '../../shared/icons/Search.icon'
+import { useState } from 'react'
 
-const dataSizes = [
-    10, 20, 30
-];
+const dataSizes = [10, 20, 30]
 
-const labeledData = dataSizes.map(size => ({
-    label: size.toString(),
-    value: size
-}));
+const labeledData = dataSizes.map((size) => ({
+   label: size.toString(),
+   value: size,
+}))
 
 export const ProductSearch = () => {
-    const [selectedSize, setSelectedSize] = useState<number>(labeledData[0].value);
-    const [isChecked, setIsChecked] = useState(false);
+   const [selectedSize, setSelectedSize] = useState<number>(
+      labeledData[0].value,
+   )
+   const [isChecked, setIsChecked] = useState(false)
 
-    const handleCheckboxChange = () => {
-      setIsChecked(!isChecked);
-    };
+   const handleCheckboxChange = () => {
+      setIsChecked(!isChecked)
+   }
 
-    const handleSizeChange = (value: number) => {
-        setSelectedSize(value);
-    };
+   const handleSizeChange = (value: number) => {
+      setSelectedSize(value)
+   }
 
     return (
         <div className="border rounded-lg">
             <div className="p-3">
-                <div className="flex flex-wrap items-center justify-between pb-5 gap-5">
+                <div className="flex items-center justify-between pb-5">
                     <div className="flex items-center gap-3">
                         <div className="flex border-gray-200 border-2 rounded-lg p-[6px] gap-2 max-w-[16em] max-h-fit items-center focus:border-black duration-200 focus-within:border-black">
                             <Search/>
