@@ -1,9 +1,7 @@
 import { AddModal } from '../../components/Dashboard/Shop/AddModal'
 import { ShopList } from '../../components/Dashboard/Shop/ShopList';
-import { useGetShops } from '../../hooks/useGetShop'
 
 export const Shops = () => {
-   const query = useGetShops();
 
    return (
       <div className="p-5">
@@ -11,7 +9,7 @@ export const Shops = () => {
             <h2 className="text-2xl font-semibold">Магазины</h2>
             <AddModal />
          </div>
-         <ShopList query={query} />
+         <ShopList />
       </div>
    )
 }

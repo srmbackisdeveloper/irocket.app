@@ -38,28 +38,32 @@ export const Information: FC<InformationProps> = ({ shop }) => {
                   onChange={handleToggle}
                />
             </div>
-            <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200">
+            <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200 opacity-50 cursor-not-allowed">
                <div className="flex items-center gap-2">
                   <DeliveryIcon />
                   <span>Стоимость KASPI доставки</span>
                </div>
                <div className="text-right font-bold text-gray-600">0.00 ₸</div>
             </div>
-            <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200">
+            <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200 opacity-50 cursor-not-allowed">
                <div className="flex items-center gap-2">
                   <TagIcon />
                   <span>Минус процент от маржи</span>
                </div>
                <div className="text-right font-bold text-gray-600">0.00 %</div>
             </div>
-            <div className="h-10 py-2 pl-1 flex items-center justify-between border-b-1 border-gray-200">
-               <div className="flex items-center gap-2">
+            <div className="h-10 py-2 pl-1 flex items-center justify-between border-b-1 border-gray-200 cursor-not-allowed">
+               <div className="flex items-center gap-2 opacity-50">
                   <TagIcon />
                   <span>Маржа с учетом доставки</span>
                </div>
-               <Switch color="success" size="sm" />
+               <Switch
+                  color="success" 
+                  size="sm" 
+                  isDisabled
+               />
             </div>
-            <div className="h-10 py-2 px-1 flex items-center justify-between">
+            <div className="h-10 py-2 px-1 flex items-center justify-between opacity-50 cursor-not-allowed">
                <div className="flex items-center gap-2">
                   <BanknotesIcon />
                   <span>Скидка на комиссии</span>
