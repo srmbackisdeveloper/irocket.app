@@ -58,8 +58,6 @@ export const RegisterPage = () => {
       // Remove all non-digit characters
       const digits = value.replace(/\D/g, '');
       
-      // Slice the string to the desired lengths
-      const part1 = digits.slice(0, 1); // Country code (7)
       const part2 = digits.slice(1, 4); // First 3 digits
       const part3 = digits.slice(4, 7); // Next 3 digits
       const part4 = digits.slice(7, 9); // Next 2 digits

@@ -1,12 +1,12 @@
-import { TShop } from '../core/shop.type';
+import { TShop, TShopResponse } from '../core/shop.type';
 import { axiosInstance } from './api';
 
 class ShopAPI {
     private axios = axiosInstance("merchants");
 
     getShops = async() => {
-        const response = await this.axios.get<TShop[]>("/");
-        return response.data;
+        const response = await this.axios.get<TShopResponse>("/");
+        return response.data.results;
     }
 
     getShop = async(id: TShop["id"]) => {

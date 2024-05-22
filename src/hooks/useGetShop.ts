@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { shopAPI } from "../services/shop"
-import { TShop } from "../core/shop.type"
 
-export const useGetShop = (id: TShop["id"]) => {
+export const useGetShops = () => {
     return useQuery({
-        queryKey: ["merchants", id],
-        queryFn: () => shopAPI.getShop(id),
+        queryKey: ["merchants"],
+        queryFn: shopAPI.getShops,
     })
 }
