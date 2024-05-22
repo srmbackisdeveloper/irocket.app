@@ -1,15 +1,11 @@
 import { Button } from '@nextui-org/react'
 import { useState } from 'react'
-import React from 'react'
+import { useAuth } from '../../contexts/AuthContext'
 
-interface IProfile {
-   username?: string
-   email?: string
-}
-
-export const Profile: React.FC<IProfile> = ({ username, email }) => {
+export const Profile = () => {
    const [password, setPassword] = useState('')
    const [number, setNumber] = useState('+7')
+   const { user } = useAuth();
 
    return (
       <div className="grid p-5 gap-5">
@@ -18,7 +14,7 @@ export const Profile: React.FC<IProfile> = ({ username, email }) => {
                <p className="font-semibold text-start text-sm">Имя</p>
                <input
                   type="text"
-                  placeholder={username}
+                  placeholder={user?.fullName}
                   className="grid border rounded-xl p-2 w-full mt-1"
                />
             </div>
@@ -31,7 +27,7 @@ export const Profile: React.FC<IProfile> = ({ username, email }) => {
                   inputMode="numeric"
                   value={number}
                   onChange={(e) => setNumber(e.target.value)}
-                  placeholder="номер телефона"
+                  placeholder={user?.phoneNumber}
                />
             </div>
             <div>
@@ -39,7 +35,7 @@ export const Profile: React.FC<IProfile> = ({ username, email }) => {
                <input
                   type="email"
                   className="grid border rounded-xl p-2 w-full mt-1"
-                  placeholder={email}
+                  placeholder={user?.email}
                />
                <p className="font-semibold text-start text-xs text-gray-500">
                   Свяжитесь с менеджером для изменения

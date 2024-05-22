@@ -1,5 +1,6 @@
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
+import { Pagination } from "@nextui-org/react";
 
 export const ProductComponent = () => {
     const query = useGetProducts();
@@ -12,23 +13,24 @@ export const ProductComponent = () => {
                         <th className="font-medium">
                             <div className="flex flex-wrap justify-between items-center my-[0.5em]">
                                 <div className="flex flex-wrap space-x-16">
-                                    <span className="font-medium">Фото</span>
                                     <span className="font-medium">Название</span>
                                 </div>
-                                <div className="flex flex-wrap space-x-16">
-                                    <span className="font-medium">Магазин</span>
-                                    <span className="font-medium">Шаг</span>
-                                    <span className="font-medium">Мин. цена</span>
-                                    <span className="font-medium">Прод.</span>
+                                <div className="flex flex-wrap space-x-[4em]">
+                                    <span className="font-medium">Цена</span>
+                                    <span className="font-medium">Тек. цен. место</span>
+                                    <span className="font-medium">Цен. ориентир</span>
+                                    <span className="font-medium">Раз. в цене</span>
                                     <span className="font-medium">Актив.</span>
-                                    <span className="font-medium">Управ.</span>
                                 </div>
                             </div>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <ProductList query={query}  />
+                    <ProductList query={query} />
+                    <div className="flex flex-wrap p-4 justify-end items-center">
+                        <Pagination color="danger" showControls total={5} initialPage={1} />
+                    </div>
                 </tbody>
             </table>
         </div>
