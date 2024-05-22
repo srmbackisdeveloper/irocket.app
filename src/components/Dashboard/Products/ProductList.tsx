@@ -22,6 +22,3 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
         </>
     )
 }
-
-// http://164.90.181.189/kaspi_products/
-// http://164.90.181.189/kaspi_products/:id/
