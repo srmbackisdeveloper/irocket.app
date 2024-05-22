@@ -62,7 +62,7 @@ const DashboardHeader = () => {
             transition={{ duration: 0.3 }}
             className="sticky top-0 z-50 bg-white"
          >
-            <div className="px-5 py-4">
+            <div className="px-5 py-4 z-200000">
                <Tabs
                   aria-label="Options"
                   color="danger"
