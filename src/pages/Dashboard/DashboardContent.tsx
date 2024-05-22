@@ -68,7 +68,7 @@ const DashboardContent = () => {
                      <p className="font-bold text-sm">{user?.companyName}</p>
                   </div>
                   <Divider />
-                  <div className="flex flex-wrap justify-between items-center">
+                  <div className="flex flex-wrap justify-between items-center opacity-50 cursor-not-allowed">
                      <p className="flex gap-2 text-sm items-center font-semibold">
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
@@ -86,10 +86,10 @@ const DashboardContent = () => {
                         </svg>
                         Баланс
                      </p>
-                     <p className="font-bold text-sm">10000.00 ₸</p>
+                     <p className="font-bold text-sm">{user?.availableFunds}</p>
                   </div>
                   <Divider />
-                  <div className="flex flex-wrap justify-between items-center">
+                  <div className="flex flex-wrap justify-between items-center opacity-50 cursor-not-allowed">
                      <p className="flex gap-2 text-sm items-center font-semibold">
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
@@ -107,10 +107,10 @@ const DashboardContent = () => {
                         </svg>
                         Месячная стоимость
                      </p>
-                     <p className="font-bold text-sm">0 ₸</p>
+                     <p className="font-bold text-sm">{user?.monthlyFee}</p>
                   </div>
                   <Divider />
-                  <div className="flex flex-wrap justify-between items-center">
+                  <div className="flex flex-wrap justify-between items-center opacity-50 cursor-not-allowed">
                      <p className="flex gap-2 text-sm items-center font-semibold">
                         <svg
                            xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +128,7 @@ const DashboardContent = () => {
                         </svg>
                         Сумма списания
                      </p>
-                     <p className="font-bold text-sm">0 ₸ / день</p>
+                     <p className="font-bold text-sm">{user?.debitAmount}</p>
                   </div>
                   <Divider />
                   <p className="text-sm text-gray">

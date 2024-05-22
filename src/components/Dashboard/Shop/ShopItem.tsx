@@ -46,13 +46,13 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                   <Information shop={shop}/>
                </div>
                <div className="col-span-1 md:border-r-1">
-                  <BotConfig />
+                  <BotConfig shop={shop}/>
                </div>
                <div className="col-span-1">
                   <TarifLimit />
                </div>
             </div>
-            <div className="p-3 w-full md:w-2/3">
+            <div className="p-3 w-full md:w-2/3 opacity-50 cursor-not-allowed">
                <div className="flex items-center gap-3 pb-3">
                   <h4 className="text-base font-medium">
                      Настройки маржинальности
@@ -62,6 +62,8 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                      size="sm"
                      checked={marginEnabled}
                      onChange={handleMarginToggle}
+                     isDisabled
+                     className="opacity-100"
                   />
                </div>
                <p className="text-xs font-medium">
