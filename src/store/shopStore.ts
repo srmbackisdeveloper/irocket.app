@@ -50,7 +50,7 @@ export const useShopStore = create<ShopState>()(
         setSelectedShop: (shop: TShop | null) => set({ selectedShop: shop }),
       }),
       {
-        name: 'shop-storage', // name of the item in the storage (optional)
+        name: 'shop-storage',
       }
     )
   )

@@ -2,7 +2,7 @@ export type TProducts = {
     id: number;
     title: string;
     price: number;
-    current_price_place: string;
+    current_price_place: number;
     target_price_place: string;
     price_difference: number;
     code: number;

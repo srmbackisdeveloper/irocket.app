@@ -1,6 +1,6 @@
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
-import { Pagination } from "@nextui-org/react";
+import { Pagination, Tooltip } from "@nextui-org/react";
 
 export const ProductComponent = () => {
   const query = useGetProducts();
@@ -15,7 +15,9 @@ export const ProductComponent = () => {
             <th className="font-semibold w-[10%] p-2">Тек. цен. место</th>
             <th className="font-semibold w-[10%] p-2">Цен. ориентир</th>
             <th className="font-semibold w-[10%] p-2">Раз. в цене</th>
-            <th className="font-semibold w-[10%] p-2">Актив.</th>
+            <Tooltip placement="top-end" offset={-10} className="bg-gray-600 text-white max-w-xs" showArrow={true} content="Если отключено, то бот не будет изменять цену данного товара">
+              <th className="font-semibold w-[10%] p-2">Актив.</th>
+            </Tooltip>
           </tr>
         </thead>
         <tbody>
