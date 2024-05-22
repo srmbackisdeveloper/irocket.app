@@ -28,7 +28,11 @@ export const ProductComponent = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <ProductList query={query}  />
+                    <tr>
+                        <td>
+                            <ProductList query={query}  />
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
