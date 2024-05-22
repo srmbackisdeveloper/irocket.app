@@ -1,12 +1,12 @@
 import Axios from "axios";
-import links from "./../links.json";
 
 export const axiosInstance = (url: string) => {
+  const BASE_URL = import.meta.env.VITE_API_PATH;
   const token = localStorage.getItem('token');
 
   const axios = Axios.create({
-    baseURL: `${links.api}/${url}`,
-    timeout: 30000,
+    baseURL: `${BASE_URL}/${url}`,
+    timeout: 500,
     headers: {
       "Content-Type": "application/json",
       ...(token && { "Authorization": `Token ${token}` })

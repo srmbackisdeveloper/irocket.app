@@ -32,7 +32,7 @@ export const BotConfig = () => {
                   <RocketIcon />
                   <span>Добивать до мин.цены</span>
                </div>
-               <Switch color="success" size="sm" />
+               <Switch color="success" size="sm" isDisabled/>
             </div>
             <div className="h-10 py-2 px-1 flex items-center justify-between border-b-1 border-gray-200">
                <div className="flex items-center gap-2">

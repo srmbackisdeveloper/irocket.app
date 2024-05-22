@@ -44,6 +44,7 @@ export const ProductSearch = () => {
                             value={selectedSize}
                             defaultSelectedKeys={[selectedSize]}
                             className="min-w-[4.5rem]"
+                            aria-label="Select Size"
                             >
                             {labeledData.map((data) => (
                                 <SelectItem key={data.value} value={data.value} onChange={() => handleSizeChange(data.value)}>
