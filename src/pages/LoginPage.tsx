@@ -87,8 +87,8 @@ export const LoginPage = () => {
           <div className="flex justify-center items-center gap-3 p-5">
             {isLoading ? (
               <>
-                <h3>Загрузка...</h3>
                 <Spinner />
+                <h3>Загрузка...</h3>
               </>
             ) : (
               <h3>{error}</h3>

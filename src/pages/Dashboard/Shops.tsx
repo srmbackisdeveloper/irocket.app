@@ -2,6 +2,7 @@ import { AddModal } from '../../components/Dashboard/Shop/AddModal'
 import { ShopList } from '../../components/Dashboard/Shop/ShopList';
 
 export const Shops = () => {
+   
 
    return (
       <div className="p-5">

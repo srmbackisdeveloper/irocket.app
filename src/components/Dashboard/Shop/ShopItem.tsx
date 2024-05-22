@@ -19,7 +19,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
        setMarginEnabled(!marginEnabled)
     }
     return (
-        <>
+        <div className="p-3 border rounded-lg">
             <div className="flex items-center justify-between pb-5 border-b-1 border-gray-200">
                <div className="flex items-center gap-4">
                   <div className="p-4 rounded-xl bg-gray-200">
@@ -40,7 +40,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                   <DeleteModal />
                </div>
             </div>
-            {/* <Divider /> */}
+            {!shop.enabled && <div className="p-2 pl-6 text-danger font-semibold text-xl">Ваш магазин не активирован</div>}
             <div className="md:p-2 md:pl-3 border-b border-gray-200 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                <div className="col-span-1 md:border-r-1">
                   <Information shop={shop}/>
@@ -79,6 +79,6 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                   </p>
                )}
             </div>
-        </>
+        </div>
     )
 }

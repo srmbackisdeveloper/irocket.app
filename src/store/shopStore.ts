@@ -5,12 +5,12 @@ import { shopAPI } from '../services/shop';
 
 interface ShopState {
   shops: TShop[];
-  selectedShop: TShop | null;
   isLoading: boolean;
   error: string | null;
   fetchShops: () => Promise<void>;
   fetchShop: (id: number) => Promise<void>;
-  setSelectedShop: (shop: TShop | null) => void;
+  updateShopField: (id: number, fieldName: keyof TShop, newValue: any) => Promise<void>;
+  createShop: (kaspiLogin: string, kaspiPassword: string) => Promise<void>;
 }
 
 export const useShopStore = create<ShopState>()(
@@ -18,7 +18,6 @@ export const useShopStore = create<ShopState>()(
     persist(
       (set) => ({
         shops: [],
-        selectedShop: null,
         isLoading: false,
         error: null,
         fetchShops: async () => {
@@ -38,7 +37,10 @@ export const useShopStore = create<ShopState>()(
           set({ isLoading: true, error: null });
           try {
             const shop = await shopAPI.getShop(id);
-            set({ selectedShop: shop, isLoading: false });
+            set((state) => ({
+              shops: state.shops.map((s) => (s.id === id ? shop : s)),
+              isLoading: false
+            }));
           } catch (error) {
             let errorMessage = 'An unknown error occurred';
             if (error instanceof Error) {
@@ -47,7 +49,41 @@ export const useShopStore = create<ShopState>()(
             set({ error: errorMessage, isLoading: false });
           }
         },
-        setSelectedShop: (shop: TShop | null) => set({ selectedShop: shop }),
+        updateShopField: async (id: number, fieldName: keyof TShop, newValue: any) => {
+          set({ isLoading: true, error: null });
+          try {
+            const updatedShop = await shopAPI.updateShopField(id, fieldName, newValue);
+            set((state) => ({
+              shops: state.shops.map((shop) =>
+                shop.id === id ? updatedShop : shop
+              ),
+              isLoading: false,
+            }));
+            console.log(updatedShop);
+          } catch (error) {
+            let errorMessage = 'An unknown error occurred';
+            if (error instanceof Error) {
+              errorMessage = error.message;
+            }
+            set({ error: errorMessage, isLoading: false });
+          }
+        },
+        createShop: async (kaspiLogin: string, kaspiPassword: string) => {
+          set({ isLoading: true, error: null });
+          try {
+            const newShop = await shopAPI.createShop(kaspiLogin, kaspiPassword);
+            set((state) => ({
+              shops: [...state.shops, newShop],
+              isLoading: false
+            }));
+          } catch (error) {
+            let errorMessage = 'An unknown error occurred';
+            if (error instanceof Error) {
+              errorMessage = error.message;
+            }
+            set({ error: errorMessage, isLoading: false });
+          }
+        },
       }),
       {
         name: 'shop-storage',

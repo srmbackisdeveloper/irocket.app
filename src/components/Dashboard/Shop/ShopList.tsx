@@ -11,21 +11,24 @@ export const ShopList: FC = () => {
   }, [fetchShops]);
 
   return (
-    <div className="p-3 border rounded-lg">
+    <div className={`${(isLoading || error) ? "p-3 border rounded-lg" : ""}`}>
       {isLoading && (
-        <div className="flex justify-center items-center w-screen h-[30vh]">
+        <div className="flex justify-center items-center w-screen h-[45vh]">
           <Spinner size="lg" color="danger" />
         </div>
       )}
       {error && (
         <div>Error: {error}</div>
       )}
-      {!isLoading && !error && Array.isArray(shops) && (
-        <>
+      {!isLoading && !error && Array.isArray(shops) && shops.length > 0 && (
+        <div className="flex flex-col gap-5">
           {shops.map((shop) => (
             <ShopItem key={shop.id} shop={shop} />
           ))}
-        </>
+        </div>
+      )}
+      {!isLoading && !error && Array.isArray(shops) && shops.length === 0 && (
+        <div>У вас пока нету магазинов</div>
       )}
     </div>
   );

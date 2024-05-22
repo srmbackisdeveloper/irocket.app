@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react';
 import {
    Modal,
    ModalContent,
@@ -7,12 +7,38 @@ import {
    ModalFooter,
    useDisclosure,
    Button,
-} from '@nextui-org/react'
+   Spinner,
+} from '@nextui-org/react';
+import { useShopStore } from '../../../store/shopStore';
 
 export const AddModal = () => {
-   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-   const [email, setEmail] = useState('')
-   const [password, setPassword] = useState('')
+   const { isOpen, onOpen, onClose } = useDisclosure();
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const { createShop, isLoading, error } = useShopStore();
+   const [statusMessage, setStatusMessage] = useState('');
+
+   const handleAddShop = async () => {
+      setStatusMessage('Загрузка...');
+      await createShop(email, password);
+      if (!error) {
+         setStatusMessage('Магазин успешно добавлен');
+         setEmail('');
+         setPassword('');
+         setTimeout(() => {
+            setStatusMessage('');
+            onClose(); // Close the modal
+         }, 2000);
+      } else {
+         setStatusMessage('Ошибка при добавлении магазина');
+      }
+   };
+
+   useEffect(() => {
+      if (!isOpen) {
+         setStatusMessage('');
+      }
+   }, [isOpen]);
 
    return (
       <div>
@@ -24,7 +50,7 @@ export const AddModal = () => {
          >
             Добавить
          </Button>
-         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+         <Modal isOpen={isOpen} onOpenChange={onClose}>
             <ModalContent>
                <>
                   <ModalHeader className="flex flex-col gap-1">
@@ -65,11 +91,18 @@ export const AddModal = () => {
                            KASPI
                         </p>
                      </div>
+                     {error && (
+                        <div className="text-red-500 text-sm mt-2">
+                           Ошибка: {error}
+                        </div>
+                     )}
                      <div className="grid justify-end">
                         <Button
                            color="danger"
                            variant="shadow"
                            className="min-w-40 font-semibold"
+                           onPress={handleAddShop}
+                           isLoading={isLoading}
                         >
                            Добавить
                         </Button>
@@ -79,6 +112,22 @@ export const AddModal = () => {
                </>
             </ModalContent>
          </Modal>
+         {isOpen && (
+            <Modal isOpen={isLoading || !!statusMessage}>
+               <ModalContent>
+                  <ModalBody className="flex items-center justify-center">
+                     {isLoading ? (
+                        <>
+                           <Spinner size="lg" color="danger" />
+                           <span className="ml-3">{statusMessage}</span>
+                        </>
+                     ) : (
+                        <span>{statusMessage}</span>
+                     )}
+                  </ModalBody>
+               </ModalContent>
+            </Modal>
+         )}
       </div>
-   )
-}
+   );
+};

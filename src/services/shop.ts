@@ -13,6 +13,21 @@ class ShopAPI {
         const response = await this.axios.get<TShop>(`/${id}`);
         return response.data;
     }
+
+    updateShopField = async (id: TShop["id"], fieldName: keyof TShop, newValue: any) => {
+        const response = await this.axios.put<TShop>(`/${id}/`, {
+            [fieldName]: newValue
+        });
+        return response.data;
+    }
+
+    createShop = async (kaspi_login: string, kaspi_password: string) => {
+        const response = await this.axios.post<TShop>("/", {
+            kaspi_login,
+            kaspi_password
+        });
+        return response.data;
+    }
 }
 
 export const shopAPI = new ShopAPI();

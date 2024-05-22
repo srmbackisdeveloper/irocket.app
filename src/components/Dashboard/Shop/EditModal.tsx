@@ -16,8 +16,8 @@ export const EditModal = () => {
    const [password, setPassword] = useState('')
 
    return (
-      <div>
-         <Button onPress={onOpen} isIconOnly className="bg-white">
+      <div className="cursor-not-allowed">
+         <Button onPress={onOpen} isIconOnly className="bg-white" isDisabled>
             <EditIcon />
          </Button>
          <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
