@@ -58,7 +58,7 @@ export const useShopStore = create<ShopState>()(
                 shop.id === id ? updatedShop : shop
               ),
             }));
-            console.log(updatedShop);
+            // console.log(updatedShop);
           } catch (error) {
             let errorMessage = 'An unknown error occurred';
             if (error instanceof Error) {
