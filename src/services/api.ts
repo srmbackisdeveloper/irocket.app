@@ -6,7 +6,7 @@ export const axiosInstance = (url: string) => {
 
   const axios = Axios.create({
     baseURL: `${BASE_URL}/${url}`,
-    timeout: 1500,
+    timeout: 5000,
     headers: {
       "Content-Type": "application/json",
       ...(token && { "Authorization": `Token ${token}` })

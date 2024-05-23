@@ -1,22 +1,12 @@
-import { TProductsResponse, TProducts } from '../core/products.type';
+import { TProductsResponse } from '../core/products.type';
 import { axiosInstance } from './api';
 
 class ProductsAPI {
     private axios = axiosInstance("kaspi_products");
 
-    getAllProducts = async () => {
-        let allProducts: TProducts[] = [];
-        let page = 1;
-        let hasNextPage = true;
-
-        while (hasNextPage) {
-            const response = await this.axios.get<TProductsResponse>(`/?page=${page}`);
-            allProducts = allProducts.concat(response.data.results);
-            hasNextPage = Boolean(response.data.next);
-            page++;
-        }
-
-        return allProducts;
+    getAllProducts = async (page: number, limit: number): Promise<TProductsResponse> => {
+        const response = await this.axios.get<TProductsResponse>(`/?page=${page}&limit=${limit}`);
+        return response.data;
     }
 }
 
