@@ -1,4 +1,4 @@
-import { TProductsResponse } from '../core/products.type';
+import { TProducts, TProductsResponse } from '../core/products.type';
 import { axiosInstance } from './api';
 
 class ProductsAPI {
@@ -6,6 +6,13 @@ class ProductsAPI {
 
     getAllProducts = async (page: number, limit: number): Promise<TProductsResponse> => {
         const response = await this.axios.get<TProductsResponse>(`/?page=${page}&limit=${limit}`);
+        return response.data;
+    }
+
+    updateProductField = async (id: TProducts["id"], fieldName: keyof TProducts, newValue: any) => {
+        const response = await this.axios.put<TProducts>(`/${id}/`, {
+            [fieldName]: newValue
+        });
         return response.data;
     }
 }

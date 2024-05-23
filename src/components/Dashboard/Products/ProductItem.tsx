@@ -1,5 +1,7 @@
 import { Divider, Input, Switch } from "@nextui-org/react";
 import { TProducts } from "../../../core/products.type";
+import { productsAPI } from "../../../services/products";
+import { useState } from "react";
 
 type ProductItemProps = {
   products: TProducts;
@@ -7,6 +9,67 @@ type ProductItemProps = {
 };
 
 export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) => {
+  const [targetPricePlace, setTargetPricePlace] = useState<number>(products.target_price_place);
+  const [priceDifference, setPriceDifference] = useState<number>(products.price_difference);
+  const [priceAutoChange, setPriceAutoChange] = useState(products.price_auto_change);
+
+  const handleTargetPricePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseFloat(e.target.value);
+    setTargetPricePlace(Number.isNaN(newValue) ? 0 : newValue);
+  };
+
+  const handlePriceDifferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseFloat(e.target.value);
+    setPriceDifference(Number.isNaN(newValue) ? 0 : newValue);
+  };
+
+  const handleBlurTargetPricePlace = async () => {
+    try {
+      await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
+    } catch (error) {
+      console.error('Failed to update target_price_place:', error);
+    }
+  };
+
+  const handleBlurPriceDifference = async () => {
+    try {
+      await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
+    } catch (error) {
+      console.error('Failed to update price_difference:', error);
+    }
+  };
+
+  const handleKeyDownTargetPricePlace = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      try {
+        await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
+      } catch (error) {
+        console.error('Failed to update target_price_place:', error);
+      }
+    }
+  };
+
+  const handleKeyDownPriceDifference = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      try {
+        await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
+      } catch (error) {
+        console.error('Failed to update price_difference:', error);
+      }
+    }
+  };
+
+  const handlePriceAutoChangeToggle = async () => {
+    const newValue = !priceAutoChange;
+    setPriceAutoChange(newValue);
+    try {
+      await productsAPI.updateProductField(products.id, 'price_auto_change', newValue);
+    } catch (error) {
+      console.error('Failed to update price_auto_change:', error);
+      setPriceAutoChange(products.price_auto_change); // Revert to old value on error
+    }
+  };
+
   return (
     <>
       <tr key={products.id}>
@@ -23,14 +86,20 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           <Input
             type="number"
             className="w-16 ml-8"
-            placeholder={products?.target_price_place.toString()}
+            value={targetPricePlace.toString()}
+            onChange={handleTargetPricePlaceChange}
+            onBlur={handleBlurTargetPricePlace}
+            onKeyDown={handleKeyDownTargetPricePlace}
           />
         </td>
         <td className="w-1/5 p-2 text-center">
           <Input
             type="number"
             className="w-full text-center"
-            placeholder={products?.price_difference.toString()}
+            value={priceDifference.toString()}
+            onChange={handlePriceDifferenceChange}
+            onBlur={handleBlurPriceDifference}
+            onKeyDown={handleKeyDownPriceDifference}
             endContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-default-400 text-small">₸</span>
@@ -39,7 +108,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           />
         </td>
         <td className="w-1/5 p-2 text-center">
-          <Switch color="success">{products.price_auto_change}</Switch>
+          <Switch color="success" isSelected={priceAutoChange} onChange={handlePriceAutoChangeToggle} />
         </td>
       </tr>
       <tr>
