@@ -59,7 +59,7 @@ export const useShopStore = create<ShopState>()(
               ),
               isLoading: false,
             }));
-            console.log(updatedShop);
+            // console.log(updatedShop);
           } catch (error) {
             let errorMessage = 'An unknown error occurred';
             if (error instanceof Error) {
