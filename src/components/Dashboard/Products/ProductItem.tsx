@@ -3,9 +3,10 @@ import { TProducts } from "../../../core/products.type";
 
 type ProductItemProps = {
   products: TProducts;
+  shopName: string;
 };
 
-export const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
+export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) => {
   return (
     <>
       <tr key={products.id}>
@@ -13,6 +14,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products }) => {
           <div className="grid gap-2">
             <p className="text-danger text-sm font-semibold">{products.title}</p>
             <p className="text-xs font-bold">Артикул: {products.code}</p>
+            <p className="text-xs font-bold">Магазин: <span className="text-danger">{shopName}</span></p>
           </div>
         </td>
         <td className="w-1/5 p-2 text-center font-semibold">{products.price} ₸</td>
