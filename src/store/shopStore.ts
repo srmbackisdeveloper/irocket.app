@@ -50,14 +50,13 @@ export const useShopStore = create<ShopState>()(
           }
         },
         updateShopField: async (id: number, fieldName: keyof TShop, newValue: any) => {
-          set({ isLoading: true, error: null });
+          set({ error: null });
           try {
             const updatedShop = await shopAPI.updateShopField(id, fieldName, newValue);
             set((state) => ({
               shops: state.shops.map((shop) =>
                 shop.id === id ? updatedShop : shop
               ),
-              isLoading: false,
             }));
             console.log(updatedShop);
           } catch (error) {
@@ -65,7 +64,7 @@ export const useShopStore = create<ShopState>()(
             if (error instanceof Error) {
               errorMessage = error.message;
             }
-            set({ error: errorMessage, isLoading: false });
+            set({ error: errorMessage});
           }
         },
         createShop: async (kaspiLogin: string, kaspiPassword: string) => {
