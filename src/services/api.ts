@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const axiosInstance = (url: string) => {
-  const BASE_URL = import.meta.env.VITE_API_PATH;
+  const BASE_URL = "https://irocket.sky-ddns.kz";
   console.log(BASE_URL);
   const token = localStorage.getItem('token');
 
