@@ -25,8 +25,8 @@ export default defineConfig(() => {
       }),
     ],
     define: {
-      __APP_ENV__: process.env.VITE_VERCEL_ENV,
-      BASE_URL: process.env.BASE_URL
+      __APP_ENV__: JSON.stringify(process.env.VITE_VERCEL_ENV),
+      BASE_URL: JSON.stringify(process.env.BASE_URL)
     },
   };
 });
