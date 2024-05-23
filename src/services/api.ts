@@ -2,6 +2,8 @@ import Axios from "axios";
 
 export const axiosInstance = (url: string) => {
   const BASE_URL = import.meta.env.VITE_API_PATH;
+  const text = import.meta.env.HELLO;
+  console.log(text)
   console.log(BASE_URL);
   const token = localStorage.getItem('token');
 
