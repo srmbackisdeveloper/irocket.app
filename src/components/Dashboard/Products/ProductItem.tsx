@@ -86,7 +86,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           <Input
             type="number"
             className="w-16 ml-8"
-            value={targetPricePlace.toString()}
+            value={targetPricePlace?.toString()}
             onChange={handleTargetPricePlaceChange}
             onBlur={handleBlurTargetPricePlace}
             onKeyDown={handleKeyDownTargetPricePlace}
@@ -96,7 +96,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           <Input
             type="number"
             className="w-full text-center"
-            value={priceDifference.toString()}
+            value={priceDifference?.toString()}
             onChange={handlePriceDifferenceChange}
             onBlur={handleBlurPriceDifference}
             onKeyDown={handleKeyDownPriceDifference}
