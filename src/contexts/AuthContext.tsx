@@ -6,7 +6,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   error: string | null;
-  setError: React.Dispatch<React.SetStateAction<string | null>>; // Add setError to the context type
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
   login: (email: string, password: string) => Promise<boolean>;
   register: (
     phoneNumber: string,
@@ -18,6 +18,7 @@ interface AuthContextType {
     lastName?: string,
   ) => Promise<boolean>;
   logout: () => void;
+  updateUserProfile: (updatedUser: Partial<User>) => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -28,17 +29,17 @@ const defaultAuthContext: AuthContextType = {
   user: null,
   token: null,
   error: null,
-  setError: () => {}, // Initialize setError as an empty function
+  setError: () => {},
   login: async () => false,
   register: async () => false,
   logout: () => {},
+  updateUserProfile: async () => {},
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const BASE_URL = "https://irocket.sky-ddns.kz"
-  console.log(BASE_URL);
+  const BASE_URL = "https://irocket.sky-ddns.kz";
   const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
@@ -133,8 +134,27 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('user');
   };
 
+  const updateUserProfile = async (updatedUser: Partial<User>): Promise<void> => {
+    if (!token || !user) return;
+
+    try {
+      const response = await axios.put(`${BASE_URL}/profile/`, updatedUser, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const updatedUserData = mapUserResponse(response.data);
+      setUser(updatedUserData);
+      localStorage.setItem('user', JSON.stringify(updatedUserData));
+      setError(null);
+    } catch (error) {
+      console.error('Profile update failed', error);
+      setError('Ошибка при обновлении профиля');
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, error, setError, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, error, setError, login, register, logout, updateUserProfile }}>
       {children}
     </AuthContext.Provider>
   );

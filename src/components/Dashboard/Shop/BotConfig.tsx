@@ -22,10 +22,12 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
     setIsAutoChangeEnabled(newAutoChangeEnabled);
     try {
       await updateShopField(shop.id, 'price_auto_change', newAutoChangeEnabled);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change field:', error);
       // Revert the state in case of an error
       setIsAutoChangeEnabled(!newAutoChangeEnabled);
+      alert("Восстановлено!");
     }
   };
 
@@ -40,8 +42,10 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
     setIsEditing(false);
     try {
       await updateShopField(shop.id, 'price_difference', value);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_difference field:', error);
+      alert("Ошибка!");
     }
   };
 
@@ -58,8 +62,10 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
       setIsEditing(false);
       try {
         updateShopField(shop.id, 'price_difference', value);
+        alert("Сохранено!");
       } catch (error) {
         console.error('Failed to update price_difference field:', error);
+        alert("Ошибка!");
       }
     }
   };

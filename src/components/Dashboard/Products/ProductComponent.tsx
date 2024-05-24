@@ -8,7 +8,7 @@ export const ProductComponent = () => {
   const limit = 10;
   const query = useGetProducts(page, limit);
 
-  const totalPages = Math.ceil((query.data?.count || 0) / limit);
+  const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 
   const handlePreviousPage = () => {
     setPage((prev) => Math.max(prev - 1, 1));
@@ -17,6 +17,12 @@ export const ProductComponent = () => {
   const handleNextPage = () => {
     setPage((prev) => (prev < totalPages ? prev + 1 : prev));
   };
+
+  const hasProducts = (query.data?.results ?? []).length > 0;
+
+  if (!hasProducts) {
+    return null;
+  }
 
   return (
     <div className="border rounded-lg p-3 overflow-x-auto">

@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react'
+import { Button, Link } from '@nextui-org/react'
 import { Card, CardBody, CardFooter } from '@nextui-org/react'
 
 export const Cards = () => {
@@ -17,8 +17,10 @@ export const Cards = () => {
                </CardBody>
                <CardFooter className="grid justify-center">
                   <Button
+                     as={Link}
                      variant="bordered"
                      color="danger"
+                     href="/register"
                      className="min-w-44 font-semibold hover:bg-danger hover:text-white"
                   >
                      Начать продавать
@@ -39,8 +41,10 @@ export const Cards = () => {
                </CardBody>
                <CardFooter className="grid justify-center">
                   <Button
+                     as={Link}
                      color="danger"
                      variant="shadow"
+                     href="/register"
                      className="min-w-44 font-semibold"
                   >
                      Быть первым!

@@ -1,5 +1,5 @@
 import MainImage from '../../assets/home/main.svg'
-import { Button } from '@nextui-org/react'
+import { Button, Link } from '@nextui-org/react'
 
 export const Main = () => {
    return (
@@ -16,8 +16,10 @@ export const Main = () => {
                      там
                   </h1>
                   <Button
+                     as={Link}
                      color="danger"
                      variant="shadow"
+                     href='/register'
                      className="min-w-44 font-semibold"
                   >
                      Попробовать

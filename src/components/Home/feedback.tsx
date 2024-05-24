@@ -1,4 +1,7 @@
 import { Card, CardFooter, Image } from '@nextui-org/react'
+import Feedback1 from './../../assets/home/feedback1.jpeg'
+import Feedback2 from './../../assets/home/feedback2.png'
+import Feedback3 from './../../assets/home/feedback3.png'
 
 export const Feedback = () => {
    return (
@@ -18,7 +21,7 @@ export const Feedback = () => {
                   alt="Feedback-1"
                   className="object-cover"
                   width="100%"
-                  src="https://irocket.kz/assets/upload/1711432342_image1.jpg"
+                  src={Feedback1}
                />
                <CardFooter className="justify-between bg-white before:bg-white border-white border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                   <div className="h-20 overflow-auto py-1">
@@ -34,7 +37,7 @@ export const Feedback = () => {
                   alt="Feedback-2"
                   className="object-cover"
                   width="100%"
-                  src="https://irocket.kz/assets/upload/1711432342_image2.png"
+                  src={Feedback2}
                />
                <CardFooter className="justify-between bg-white before:bg-white border-white border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                   <div className="h-20 overflow-auto py-1">
@@ -52,7 +55,7 @@ export const Feedback = () => {
                   alt="Feedback-3"
                   className="object-cover"
                   width="100%"
-                  src="https://irocket.kz/assets/upload/1711432342_image3.png"
+                  src={Feedback3}
                />
                <CardFooter className="justify-between bg-white before:bg-white border-white border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
                   <div className="h-20 overflow-auto py-1">

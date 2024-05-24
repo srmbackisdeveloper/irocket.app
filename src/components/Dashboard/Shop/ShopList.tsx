@@ -28,7 +28,7 @@ export const ShopList: FC = () => {
         </div>
       )}
       {!isLoading && !error && Array.isArray(shops) && shops.length === 0 && (
-        <div>У вас пока нету магазинов</div>
+        <div className="flex flex-wrap justify-center items-center">У вас пока нету магазинов</div>
       )}
     </div>
   );
