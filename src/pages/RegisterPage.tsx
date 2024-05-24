@@ -1,28 +1,27 @@
-import { Button, Modal, ModalContent, Spinner, useDisclosure } from '@nextui-org/react';
+import { Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 
 export const RegisterPage = () => {
    const [username, setUsername] = useState('');
-   const [email, setEmail] = useState('');
+   // const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
    const [number, setNumber] = useState('+7');
    const [isChecked, setIsChecked] = useState(false);
-   const [firstName, setFirstName] = useState('');
-   const [lastName, setLastName] = useState('');
-   const [company, setCompany] = useState('');
+   // const [firstName, setFirstName] = useState('');
+   // const [lastName, setLastName] = useState('');
+   // const [company, setCompany] = useState('');
    const [isLoading, setIsLoading] = useState(false);
    const [error, setError] = useState('');
-   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+   // const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
    const navigate = useNavigate();
 
    const { register } = useAuth();
 
-   const isButtonDisabled = !email || !number || !firstName || !lastName || !company || password !== confirmPassword || !isChecked;
-   const isModalButtonDisabled = !username || !password || !confirmPassword;
+   const isButtonDisabled = !number || password !== confirmPassword || !isChecked;
 
    const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
@@ -32,7 +31,7 @@ export const RegisterPage = () => {
       event.preventDefault();
       setIsLoading(true);
       setError('');
-      const success = await register(email, handlePhoneNumber(number), company, capitalizeFirstLetter(firstName), capitalizeFirstLetter(lastName), password, username);
+      const success = await register(handlePhoneNumber(number), password, username);
       setIsLoading(false);
       if (success) {
          // Redirect to a different page or perform additional actions upon successful login
@@ -43,15 +42,6 @@ export const RegisterPage = () => {
          console.error('Login failed');
          setError('Ошибка регистрации');
       }
-      console.log({
-         email,
-         password,
-         number,
-         firstName,
-         lastName,
-         company,
-         isChecked,
-      });
    };
    
    const formatPhoneNumber = (value: string) => {
@@ -98,7 +88,7 @@ export const RegisterPage = () => {
                Пришло время быть первым!
             </p>
          </div>
-         <div className="grid lg:flex lg:justify-center lg:gap-5">
+         {/* <div className="grid lg:flex lg:justify-center lg:gap-5">
             <div className="grid justify-center items-center">
                <p className="font-semibold text-start text-sm text-gray-500">
                   Имя
@@ -123,8 +113,8 @@ export const RegisterPage = () => {
                   placeholder="Фамилия"
                />
             </div>
-         </div>
-         <div className="grid justify-center items-center">
+         </div> */}
+         {/* <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
                Компания
             </p>
@@ -135,8 +125,8 @@ export const RegisterPage = () => {
                onChange={(e) => setCompany(e.target.value)}
                placeholder="Компания"
             />
-         </div>
-         <div className="grid justify-center items-center">
+         </div> */}
+         {/* <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
                Эл. почта
             </p>
@@ -147,6 +137,18 @@ export const RegisterPage = () => {
                onChange={(e) => setEmail(e.target.value)}
                placeholder="эл. почта"
             />
+         </div> */}
+         <div className="grid justify-center items-center">
+            <p className="font-semibold text-start text-sm text-gray-500">
+               Имя пользователя
+            </p>
+            <input
+               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+               type="p"
+               value={username}
+               onChange={(e) => setUsername(e.target.value)}
+               placeholder="Имя пользователя"
+               />
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
@@ -162,14 +164,38 @@ export const RegisterPage = () => {
             />
          </div>
          <div className="grid justify-center items-center">
+            <p className="font-semibold text-start text-sm text-gray-500">
+               Пароль
+            </p>
+            <input
+               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+               type="password"
+               value={password}
+               onChange={(e) => setPassword(e.target.value)}
+               placeholder="пароль"
+               />
+         </div>
+         <div className="grid justify-center items-center pb-2">
+            <p className={`font-semibold text-start text-sm ${password.match(confirmPassword) ? 'text-gray-500' : 'text-danger'}`}>
+               {password.match(confirmPassword) ? 'Подтверждение пароля' : 'Пароли не совпадают'}
+            </p>
+            <input
+               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+               type="password"
+               value={confirmPassword}
+               onChange={(e) => setConfirmPassword(e.target.value)}
+               placeholder="подтверждение пароля"
+               />
+         </div>
+         <div className="grid justify-center items-center">
             <Button
                color="danger"
                variant="shadow"
                className="min-w-72 font-semibold"
                isDisabled={isButtonDisabled}
-               onPress={onOpen}
+               onClick={handleRegister}
             >
-               Продолжить
+               Регистрация
             </Button>
          </div>
          <div className="flex gap-4 justify-center">
@@ -194,81 +220,30 @@ export const RegisterPage = () => {
                пользовательским соглашением
             </a>
          </div>
-         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+         <Modal
+            isOpen={isLoading || error !== ''}
+            onClose={() => {
+               setIsLoading(false);
+               setError('');
+            }}
+         >
             <ModalContent>
-               <div className='flex flex-col gap-3 p-7'>
-                  <div className="grid justify-center items-center">
-                     <p className="font-semibold text-start text-sm text-gray-500">
-                        Имя пользователя
-                     </p>
-                     <input
-                        className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-                        type="p"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Имя пользователя"
-                        />
-                  </div>
-                  <div className="grid justify-center items-center">
-                     <p className="font-semibold text-start text-sm text-gray-500">
-                        Пароль
-                     </p>
-                     <input
-                        className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="пароль"
-                        />
-                  </div>
-                  <div className="grid justify-center items-center pb-2">
-                     <p className={`font-semibold text-start text-sm text-gray-500`}>
-                        {password.match(confirmPassword) ? 'Подтверждение пароля' : 'Пароли не совпадают'}
-                     </p>
-                     <input
-                        className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="подтверждение пароля"
-                        />
-                  </div>
-                  <Button
-                     color="danger"
-                     variant="shadow"
-                     className="min-w-72 font-semibold"
-                     isDisabled={isModalButtonDisabled}
-                     onClick={handleRegister}
-                     >
-                     Регистрация
-                  </Button>
+               <div className="flex justify-center items-center gap-3 p-5">
+                  {isLoading ? (
+                     <>
+                        <h3>Загрузка...</h3>
+                        <Spinner />
+                     </>
+                  ) : (
+                     <h3>{error}</h3>
+                  )}
                </div>
-               <Modal
-                  isOpen={isLoading || error !== ''}
-                  onClose={() => {
-                     setIsLoading(false);
-                     setError('');
-                  }}
-               >
-                  <ModalContent>
-                     <div className="flex justify-center items-center gap-3 p-5">
-                        {isLoading ? (
-                           <>
-                              <h3>Загрузка...</h3>
-                              <Spinner />
-                           </>
-                        ) : (
-                           <h3>{error}</h3>
-                        )}
-                     </div>
-                  </ModalContent>
-               </Modal>
             </ModalContent>
          </Modal>
       </div>
    );
 };
 
-function capitalizeFirstLetter(string: string) {
-   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string: string) {
+//    return string.charAt(0).toUpperCase() + string.slice(1);
+// }

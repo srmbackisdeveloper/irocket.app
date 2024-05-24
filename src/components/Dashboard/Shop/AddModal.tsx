@@ -50,7 +50,10 @@ export const AddModal = () => {
          >
             Добавить
          </Button>
-         <Modal isOpen={isOpen} onOpenChange={onClose}>
+         <Modal 
+            isOpen={isOpen} onOpenChange={onClose}
+            placement='center'
+         >
             <ModalContent>
                <>
                   <ModalHeader className="flex flex-col gap-1">
@@ -113,7 +116,10 @@ export const AddModal = () => {
             </ModalContent>
          </Modal>
          {isOpen && (
-            <Modal isOpen={isLoading || !!statusMessage}>
+            <Modal
+               isOpen={isLoading || !!statusMessage}
+               placement='center'
+            >
                <ModalContent>
                   <ModalBody className="flex items-center justify-center">
                      {isLoading ? (

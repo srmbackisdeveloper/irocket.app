@@ -9,13 +9,13 @@ interface AuthContextType {
   setError: React.Dispatch<React.SetStateAction<string | null>>; // Add setError to the context type
   login: (email: string, password: string) => Promise<boolean>;
   register: (
-    email: string,
     phoneNumber: string,
-    companyName: string,
-    firstName: string,
-    lastName: string,
+    username: string,
     password: string,
-    username: string
+    email?: string,
+    companyName?: string,
+    firstName?: string,
+    lastName?: string,
   ) => Promise<boolean>;
   logout: () => void;
 }
@@ -89,23 +89,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const register = async (
-    email: string,
     phoneNumber: string,
-    companyName: string,
-    firstName: string,
-    lastName: string,
     password: string,
-    username: string
+    username: string,
+    // email?: string,
+    // companyName?: string,
+    // firstName?: string,
+    // lastName?: string,
   ): Promise<boolean> => {
     try {
       await axios.post(BASE_URL + '/registration/', {
-        email: email,
         phone_number: phoneNumber,
-        company_name: companyName,
-        first_name: firstName,
-        last_name: lastName,
         password: password,
         username: username,
+        // email: email,
+        // company_name: companyName,
+        // first_name: firstName,
+        // last_name: lastName,
       });
       setError(null);
       return true;
@@ -128,6 +128,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setToken(null);
     setUser(null);
     setError(null);
+    localStorage.removeItem('shop-storage');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   };

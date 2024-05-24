@@ -20,7 +20,11 @@ export const EditModal = () => {
          <Button onPress={onOpen} isIconOnly className="bg-white" isDisabled>
             <EditIcon />
          </Button>
-         <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+         <Modal 
+            isOpen={isOpen} 
+            onOpenChange={onOpenChange}
+            placement='center'
+         >
             <ModalContent>
                <>
                   <ModalHeader className="flex flex-col gap-1">

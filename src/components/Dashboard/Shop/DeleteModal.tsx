@@ -22,7 +22,11 @@ export const DeleteModal = () => {
          <Button onClick={onOpen} className="bg-transparent">
             <CrossIcon />
          </Button>
-         <Modal isOpen={isOpen} onClose={onClose}>
+         <Modal 
+            isOpen={isOpen} 
+            onClose={onClose}
+            placement='center'
+         >
             <ModalContent>
                <>
                   <ModalHeader>Вы хотите удалить магазин?</ModalHeader>

@@ -166,7 +166,7 @@ const DashboardContent = () => {
                <p className="text-sm font-semibold text-gray mt-2">
                   Будьте вкурсе событий iRocket <br />
                   Подписывайтесь на наш телеграм канал
-                  <a href="#" className="text-danger">
+                  <a href="https://t.me/irocketkz" className="text-danger">
                      {' '}
                      telegram
                   </a>

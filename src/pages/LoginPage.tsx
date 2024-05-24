@@ -82,6 +82,7 @@ export const LoginPage = () => {
           setIsLoading(false);
           setError(null); // Clear error when modal is closed
         }}
+        placement='center'
       >
         <ModalContent>
           <div className="flex justify-center items-center gap-3 p-5">
