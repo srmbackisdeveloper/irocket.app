@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Divider } from '@nextui-org/react'
+import { Button, Card, CardBody, Divider, Link } from '@nextui-org/react'
 import StepImage from './../../assets/home/step.svg'
 
 export const Step = () => {
@@ -32,8 +32,10 @@ export const Step = () => {
                </CardBody>
             </Card>
             <Button
+               as={Link}
                color="danger"
                variant="shadow"
+               href='/register'
                className="min-w-44 font-semibold mt-10"
             >
                Зарегистрироваться
