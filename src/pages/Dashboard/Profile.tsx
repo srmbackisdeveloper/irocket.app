@@ -1,6 +1,8 @@
 import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useDisclosure } from "@nextui-org/react";
+import AlertModal from "./../../components/Dashboard/AlertModal"; // Adjust the import path as needed
 
 export const Profile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -9,6 +11,14 @@ export const Profile = () => {
   const [number, setNumber] = useState<string>(user?.phoneNumber || "+7");
   const [email] = useState<string>(user?.email || "");
   const [password, setPassword] = useState<string>("");
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [modalMessage, setModalMessage] = useState<string>("");
+
+  const showModal = (message: string) => {
+    setModalMessage(message);
+    onOpen();
+  };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value.replace(/\D/g, '');
@@ -23,10 +33,10 @@ export const Profile = () => {
   const handleSave = async () => {
     try {
       await updateUserProfile({ fullName: name, phoneNumber: number });
-      alert("Profile updated successfully!");
+      showModal("Профиль успешно обновлен!");
     } catch (error) {
       console.error("Failed to update profile:", error);
-      alert("Failed to update profile. Please try again.");
+      showModal("Не удалось обновить профиль. Пожалуйста, попробуйте снова.");
     }
   };
 
@@ -92,6 +102,7 @@ export const Profile = () => {
           </Button>
         </div>
       </div>
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };
