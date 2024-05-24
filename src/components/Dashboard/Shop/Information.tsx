@@ -20,10 +20,13 @@ export const Information: FC<InformationProps> = ({ shop }) => {
     setIsParsingEnabled(newParsingEnabled);
     try {
       await updateShopField(shop.id, 'enable_parsing', newParsingEnabled);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update enable_parsing field:', error);
       // Revert the state in case of an error
       setIsParsingEnabled(!newParsingEnabled);
+      alert("Восстановлено!");
+
     }
   };
 

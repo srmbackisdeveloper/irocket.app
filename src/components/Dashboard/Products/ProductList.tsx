@@ -38,6 +38,11 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
       )}
       {status === "success" && (
         <>
+          {data?.results.length === 0 && (
+            <tr className="flex flex-wrap justify-center items-center">
+              <td colSpan={6}>У вас пока нету подуктов</td>
+            </tr>
+          )}
           {data?.results.map((products) => (
             <ProductItem key={products.id} products={products} shopName={getShopNameById(products.merchant)} />
           ))}

@@ -26,16 +26,20 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   const handleBlurTargetPricePlace = async () => {
     try {
       await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update target_price_place:', error);
+      alert("Ошибка!");
     }
   };
 
   const handleBlurPriceDifference = async () => {
     try {
       await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_difference:', error);
+      alert("Ошибка!");
     }
   };
 
@@ -43,8 +47,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     if (e.key === 'Enter') {
       try {
         await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
+        alert("Сохранено!");
       } catch (error) {
         console.error('Failed to update target_price_place:', error);
+        alert("Ошибка!");
       }
     }
   };
@@ -53,8 +59,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     if (e.key === 'Enter') {
       try {
         await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
+        alert("Сохранено!");
       } catch (error) {
         console.error('Failed to update price_difference:', error);
+        alert("Ошибка!");
       }
     }
   };
@@ -64,9 +72,11 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     setPriceAutoChange(newValue);
     try {
       await productsAPI.updateProductField(products.id, 'price_auto_change', newValue);
+      alert("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change:', error);
       setPriceAutoChange(products.price_auto_change); // Revert to old value on error
+      alert("Ошибка!");
     }
   };
 
