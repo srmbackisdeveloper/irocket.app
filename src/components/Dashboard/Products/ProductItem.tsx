@@ -2,6 +2,7 @@ import { Divider, Input, Switch } from "@nextui-org/react";
 import { TProducts } from "../../../core/products.type";
 import { productsAPI } from "../../../services/products";
 import { useState } from "react";
+import AlertModal from "./../AlertModal";  // Adjust the import path as needed
 
 type ProductItemProps = {
   products: TProducts;
@@ -12,6 +13,18 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   const [targetPricePlace, setTargetPricePlace] = useState<number>(products.target_price_place);
   const [priceDifference, setPriceDifference] = useState<number>(products.price_difference);
   const [priceAutoChange, setPriceAutoChange] = useState(products.price_auto_change);
+
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+
+  const showModal = (message: string) => {
+    setModalMessage(message);
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
 
   const handleTargetPricePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(e.target.value);
@@ -26,20 +39,20 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   const handleBlurTargetPricePlace = async () => {
     try {
       await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
-      alert("Сохранено!");
+      showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update target_price_place:', error);
-      alert("Ошибка!");
+      showModal("Ошибка!");
     }
   };
 
   const handleBlurPriceDifference = async () => {
     try {
       await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
-      alert("Сохранено!");
+      showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_difference:', error);
-      alert("Ошибка!");
+      showModal("Ошибка!");
     }
   };
 
@@ -47,10 +60,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     if (e.key === 'Enter') {
       try {
         await productsAPI.updateProductField(products.id, 'target_price_place', targetPricePlace);
-        alert("Сохранено!");
+        showModal("Сохранено!");
       } catch (error) {
         console.error('Failed to update target_price_place:', error);
-        alert("Ошибка!");
+        showModal("Ошибка!");
       }
     }
   };
@@ -59,10 +72,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     if (e.key === 'Enter') {
       try {
         await productsAPI.updateProductField(products.id, 'price_difference', priceDifference);
-        alert("Сохранено!");
+        showModal("Сохранено!");
       } catch (error) {
         console.error('Failed to update price_difference:', error);
-        alert("Ошибка!");
+        showModal("Ошибка!");
       }
     }
   };
@@ -72,11 +85,11 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     setPriceAutoChange(newValue);
     try {
       await productsAPI.updateProductField(products.id, 'price_auto_change', newValue);
-      alert("Сохранено!");
+      showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change:', error);
       setPriceAutoChange(products.price_auto_change); // Revert to old value on error
-      alert("Ошибка!");
+      showModal("Ошибка!");
     }
   };
 
@@ -126,6 +139,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           <Divider />
         </td>
       </tr>
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={handleCloseModal} />
     </>
   );
 };

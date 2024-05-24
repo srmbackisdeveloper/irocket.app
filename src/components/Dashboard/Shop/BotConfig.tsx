@@ -1,33 +1,43 @@
+import React, { useState } from 'react';
 import { Input, Switch } from '@nextui-org/react';
 import { RocketIcon } from '../../shared/icons/Rocket.icon';
 import { ArrowDownRightIcon } from '../../shared/icons/ArrowDownRight.icon';
 import { TruckIcon } from '../../shared/icons/Truck.icon';
 import { TShop } from '../../../core/shop.type';
-import { FC, useState } from 'react';
 import { AdjustIcon } from '../../shared/icons/Adjust.icon';
 import { useShopStore } from '../../../store/shopStore';
+import { useDisclosure } from "@nextui-org/react";
+import AlertModal from "./../AlertModal"; // Adjust the import path as needed
 
 type BotConfigProps = {
   shop: TShop;
 };
 
-export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
+export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
   const { updateShopField } = useShopStore();
   const [isAutoChangeEnabled, setIsAutoChangeEnabled] = useState(shop.price_auto_change);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState<number>(shop.price_difference ?? 0);
+
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [modalMessage, setModalMessage] = useState<string>("");
+
+  const showModal = (message: string) => {
+    setModalMessage(message);
+    onOpen();
+  };
 
   const handleToggleAutoChange = async () => {
     const newAutoChangeEnabled = !isAutoChangeEnabled;
     setIsAutoChangeEnabled(newAutoChangeEnabled);
     try {
       await updateShopField(shop.id, 'price_auto_change', newAutoChangeEnabled);
-      alert("Сохранено!");
+      showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change field:', error);
       // Revert the state in case of an error
       setIsAutoChangeEnabled(!newAutoChangeEnabled);
-      alert("Восстановлено!");
+      showModal("Восстановлено!");
     }
   };
 
@@ -42,10 +52,10 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
     setIsEditing(false);
     try {
       await updateShopField(shop.id, 'price_difference', value);
-      alert("Сохранено!");
+      showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_difference field:', error);
-      alert("Ошибка!");
+      showModal("Ошибка!");
     }
   };
 
@@ -62,10 +72,10 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
       setIsEditing(false);
       try {
         updateShopField(shop.id, 'price_difference', value);
-        alert("Сохранено!");
+        showModal("Сохранено!");
       } catch (error) {
         console.error('Failed to update price_difference field:', error);
-        alert("Ошибка!");
+        showModal("Ошибка!");
       }
     }
   };
@@ -124,6 +134,7 @@ export const BotConfig: FC<BotConfigProps> = ({ shop }) => {
           <Switch color="success" size="sm" isDisabled />
         </div>
       </div>
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };
