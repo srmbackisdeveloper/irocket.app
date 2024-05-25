@@ -3,6 +3,8 @@ export type TProducts = {
     title: string;
     price: number;
     current_price_place: number;
+    first_place_price: number;
+    second_place_price: number;
     target_price_place: number;
     price_difference: number;
     code: number;

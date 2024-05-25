@@ -2,7 +2,6 @@ import Axios from "axios";
 
 export const axiosInstance = (url: string) => {
   const BASE_URL = "https://irocket.sky-ddns.kz";
-  console.log(BASE_URL);
   const token = localStorage.getItem('token');
 
   const axios = Axios.create({

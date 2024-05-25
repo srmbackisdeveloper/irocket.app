@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating'
 import { useAuth } from '../../contexts/AuthContext'
 
 const DashboardContent = () => {
-   const [value, setValue] = useState<number | null>(2);
+   const [rating, setValue] = useState<number | null>(5);
    const { user } = useAuth();
 
    const handleChange = (
@@ -181,7 +181,7 @@ const DashboardContent = () => {
                <p className="text-sm font-semibold">Ваша оценка:</p>
                <Rating
                   name="simple-controlled"
-                  value={value}
+                  value={rating}
                   onChange={handleChange}
                />
                <Textarea

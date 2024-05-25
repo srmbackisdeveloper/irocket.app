@@ -52,7 +52,7 @@ export const AddModal = () => {
          </Button>
          <Modal 
             isOpen={isOpen} onOpenChange={onClose}
-            placement='center'
+            placement='top-center'
          >
             <ModalContent>
                <>

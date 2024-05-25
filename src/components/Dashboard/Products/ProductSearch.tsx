@@ -1,26 +1,32 @@
 import {
-   Button,
-   Divider,
-   VisuallyHidden,
+    Button,
+    Divider,
+    VisuallyHidden,
 } from '@nextui-org/react';
 import { Search } from '../../shared/icons/Search.icon';
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { TShop } from '../../../core/shop.type';
-
-// const dataSizes = [10, 20, 30];
-
-// const labeledData = dataSizes.map((size) => ({
-//    label: size.toString(),
-//    value: size,
-// }));
+import { useNavigate, useLocation } from 'react-router-dom';
 
 type ProductSearchProps = {
     shops: TShop[];
+    onProductsRefresh: () => void;
 }
 
-export const ProductSearch: FC<ProductSearchProps> = ({ shops }) => {
-    // const [selectedSize, setSelectedSize] = useState<number>(labeledData[0].value);
+export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialPage = parseInt(queryParams.get('page') || '1', 10);
+
+    const [page, setPage] = useState(initialPage);
     const [checkedShops, setCheckedShops] = useState<Set<number>>(new Set());
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const newPage = parseInt(params.get('page') || '1', 10);
+        setPage(newPage);
+    }, [location.search]);
 
     const handleCheckboxChange = (shopId: number) => {
         setCheckedShops((prevCheckedShops) => {
@@ -34,9 +40,12 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops }) => {
         });
     };
 
-    // const handleSizeChange = (value: number) => {
-    //     setSelectedSize(value);
-    // };
+    const handleRefresh = () => {
+        const params = new URLSearchParams();
+        params.set('page', page.toString());
+        navigate({ search: params.toString() });
+        onProductsRefresh(); // Call the parent function to refresh the products
+    };
 
     return (
         <div className="border rounded-lg">
@@ -47,26 +56,12 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops }) => {
                             <Search />
                             <input type="text" placeholder="Артикул / Название" className="" />
                         </div>
-                        {/* <Select
-                            variant="bordered"
-                            radius="sm"
-                            value={selectedSize}
-                            defaultSelectedKeys={[selectedSize]}
-                            className="min-w-[4.5rem]"
-                            aria-label="Select Size"
-                            onChange={(e) => handleSizeChange(parseInt(e.currentTarget.value))}
-                        >
-                            {labeledData.map((data) => (
-                                <SelectItem key={data.value} value={data.value}>
-                                    {data.label}
-                                </SelectItem>
-                            ))}
-                        </Select> */}
                     </div>
                     <Button
                         color="danger"
                         variant="bordered"
                         className="text-black px-7 my-3 font-semibold hover:bg-danger hover:text-white float-right"
+                        onClick={handleRefresh}
                     >
                         Обновить
                     </Button>

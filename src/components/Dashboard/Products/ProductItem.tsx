@@ -10,9 +10,10 @@ type ProductItemProps = {
 };
 
 export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) => {
-  const [targetPricePlace, setTargetPricePlace] = useState<number>(products.target_price_place);
-  const [priceDifference, setPriceDifference] = useState<number>(products.price_difference);
+  const [targetPricePlace, setTargetPricePlace] = useState<number>(Math.max(products.target_price_place, 0));
+  const [priceDifference, setPriceDifference] = useState<number>(Math.max(products.price_difference, 0));
   const [priceAutoChange, setPriceAutoChange] = useState(products.price_auto_change);
+  console.log(products)
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
@@ -27,12 +28,12 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   };
 
   const handleTargetPricePlaceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
+    const newValue = Math.max(0, parseFloat(e.target.value));
     setTargetPricePlace(Number.isNaN(newValue) ? 0 : newValue);
   };
 
   const handlePriceDifferenceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
+    const newValue = Math.max(0, parseFloat(e.target.value));
     setPriceDifference(Number.isNaN(newValue) ? 0 : newValue);
   };
 
@@ -104,7 +105,9 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
           </div>
         </td>
         <td className="w-1/5 p-2 text-center font-semibold">{products.price} ₸</td>
-        <td className="w-1/5 p-2 text-center">{products.current_price_place}</td>
+        <td className="w-1/5 p-2 text-center text-danger font-semibold">{products.current_price_place}</td>
+        <td className="w-1/5 p-2 text-center">{products.first_place_price}</td>
+        <td className="w-1/5 p-2 text-center">{products.second_place_price}</td>
         <td className="w-1/5 p-2 text-center">
           <Input
             type="number"
@@ -113,6 +116,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             onChange={handleTargetPricePlaceChange}
             onBlur={handleBlurTargetPricePlace}
             onKeyDown={handleKeyDownTargetPricePlace}
+            min="0"
           />
         </td>
         <td className="w-1/5 p-2 text-center">
@@ -123,6 +127,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             onChange={handlePriceDifferenceChange}
             onBlur={handleBlurPriceDifference}
             onKeyDown={handleKeyDownPriceDifference}
+            min="0"
             endContent={
               <div className="pointer-events-none flex items-center">
                 <span className="text-default-400 text-small">₸</span>
@@ -135,7 +140,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
         </td>
       </tr>
       <tr>
-        <td colSpan={6}>
+        <td colSpan={8}>
           <Divider />
         </td>
       </tr>

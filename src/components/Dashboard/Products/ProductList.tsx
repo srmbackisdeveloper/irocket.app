@@ -26,7 +26,7 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
     <>
       {status === "pending" && (
         <tr>
-          <td colSpan={6} className="flex justify-center items-center w-screen h-[25vh]">
+          <td colSpan={6} className="flex justify-center items-center w-screen h-[40vh]">
             <Spinner size="lg" color="danger" />
           </td>
         </tr>
@@ -39,8 +39,8 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
       {status === "success" && (
         <>
           {data?.results.length === 0 && (
-            <tr className="flex flex-wrap justify-center items-center">
-              <td colSpan={6}>У вас пока нету подуктов</td>
+            <tr className="flex justify-center items-center">
+              <td colSpan={6}>У вас пока нету подуктов. Попробуйте обновить страницу</td>
             </tr>
           )}
           {data?.results.map((products) => (
