@@ -18,11 +18,13 @@ export const RegisterPage = () => {
    const [isLoading, setIsLoading] = useState(false);
    const [error, setError] = useState('');
    const [isVisible, setIsVisible] = useState(false);
+   const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
    // const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
    const navigate = useNavigate();
 
    const toggleVisibility = () => setIsVisible(!isVisible);
+   const toggleVisibilityConfirm = () => setIsVisibleConfirm(!isVisibleConfirm);
 
    const { register } = useAuth();
 
@@ -200,17 +202,17 @@ export const RegisterPage = () => {
             <div className="relative">
                <input
                   className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-                  type={isVisible ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  type={isVisibleConfirm ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Подтверждение пароля"
                />
                <button
                   type="button"
-                  onClick={toggleVisibility}
+                  onClick={toggleVisibilityConfirm}
                   className="absolute right-3 top-3 focus:outline-none"
                >
-                  {isVisible ? (
+                  {isVisibleConfirm ? (
                      <EyeSlashFilledIcon className="text-2xl text-default-400" />
                   ) : (
                      <EyeFilledIcon className="text-2xl text-default-400" />
