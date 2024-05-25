@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
@@ -11,6 +11,8 @@ export const ProductComponent = () => {
   const { shops } = useShopStore();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Initialize page state from URL
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page') || '1', 10);
 
@@ -21,28 +23,28 @@ export const ProductComponent = () => {
 
   const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 
-  const isFirstRender = useRef(true);
-
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
-  // Set page state from URL on component mount
-  useEffect(() => {
-    if (isFirstRender.current) {
-      setPage(initialPage);
-      isFirstRender.current = false;
-    }
-  }, [initialPage]);
-
   // Update URL when page state changes
   useEffect(() => {
-    if (!isFirstRender.current) {
-      const params = new URLSearchParams(location.search);
+    const params = new URLSearchParams(location.search);
+    const currentUrlPage = parseInt(params.get('page') || '1', 10);
+    if (currentUrlPage !== page) {
       params.set('page', page.toString());
       navigate({ search: params.toString() }, { replace: true });
     }
   }, [page, navigate, location.search]);
+
+  // Sync page state with URL when location changes
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const newPage = parseInt(params.get('page') || '1', 10);
+    if (newPage !== page) {
+      setPage(newPage);
+    }
+  }, [location.search]);
 
   const refreshProducts = async () => {
     setIsOverlayVisible(true); // Show overlay
@@ -89,7 +91,7 @@ export const ProductComponent = () => {
           size="lg"
           total={totalPages}
           page={page} // Set the current page for the pagination component
-          onChange={(page: number) => handlePageChange(page)}
+          onChange={handlePageChange}
         />
       </div>
     </>

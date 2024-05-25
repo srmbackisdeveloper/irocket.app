@@ -6,7 +6,7 @@ class ProductsAPI {
 
     getAllProducts = async (page: number, limit: number): Promise<TProductsResponse> => {
         const response = await this.axios.get<TProductsResponse>(`/?page=${page}&limit=${limit}`);
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
     }
 

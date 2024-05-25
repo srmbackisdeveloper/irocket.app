@@ -13,7 +13,6 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   const [targetPricePlace, setTargetPricePlace] = useState<number>(Math.max(products.target_price_place, 0));
   const [priceDifference, setPriceDifference] = useState<number>(Math.max(products.price_difference, 0));
   const [priceAutoChange, setPriceAutoChange] = useState(products.price_auto_change);
-  console.log(products)
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
