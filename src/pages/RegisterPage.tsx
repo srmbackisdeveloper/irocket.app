@@ -2,6 +2,8 @@ import { Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
+import { EyeSlashFilledIcon } from './icons/EyeSlashFilledIcon';
+import { EyeFilledIcon } from './icons/EyeFilledIcon';
 
 export const RegisterPage = () => {
    const [username, setUsername] = useState('');
@@ -15,9 +17,12 @@ export const RegisterPage = () => {
    // const [company, setCompany] = useState('');
    const [isLoading, setIsLoading] = useState(false);
    const [error, setError] = useState('');
+   const [isVisible, setIsVisible] = useState(false);
    // const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
    const navigate = useNavigate();
+
+   const toggleVisibility = () => setIsVisible(!isVisible);
 
    const { register } = useAuth();
 
@@ -43,43 +48,43 @@ export const RegisterPage = () => {
          setError('Ошибка регистрации');
       }
    };
-   
+
    const formatPhoneNumber = (value: string) => {
       // Remove all non-digit characters
       const digits = value.replace(/\D/g, '');
-      
+
       const part2 = digits.slice(1, 4); // First 3 digits
       const part3 = digits.slice(4, 7); // Next 3 digits
       const part4 = digits.slice(7, 9); // Next 2 digits
       const part5 = digits.slice(9, 11); // Last 2 digits
-  
+
       // Combine the parts into the desired format
       let formattedNumber = '+7';
       if (part2) formattedNumber += `(${part2})`;
       if (part3) formattedNumber += `${part3}`;
       if (part4) formattedNumber += `-${part4}`;
       if (part5) formattedNumber += `-${part5}`;
-  
-      return formattedNumber;
-    };
 
-    const handlePhoneNumber = (number: string): string => {
+      return formattedNumber;
+   };
+
+   const handlePhoneNumber = (number: string): string => {
       // Remove whitespaces, underscores, parentheses, and dashes
       let cleanedNumber = number.replace(/[\s_\(\)-]/g, '');
-    
+
       // Replace +7 with 8 if present
       if (cleanedNumber.startsWith('+7')) {
-        cleanedNumber = '8' + cleanedNumber.slice(2);
+         cleanedNumber = '8' + cleanedNumber.slice(2);
       }
-    
+
       return cleanedNumber;
-    };
-  
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   };
+
+   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = event.target.value;
       const formattedValue = formatPhoneNumber(inputValue);
       setNumber(formattedValue);
-    };
+   };
    return (
       <div className="grid justify-center items-center gap-4 mt-10">
          <div className="grid justify-center items-center">
@@ -148,7 +153,7 @@ export const RegisterPage = () => {
                value={username}
                onChange={(e) => setUsername(e.target.value)}
                placeholder="Имя пользователя"
-               />
+            />
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
@@ -167,25 +172,51 @@ export const RegisterPage = () => {
             <p className="font-semibold text-start text-sm text-gray-500">
                Пароль
             </p>
-            <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-               type="password"
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-               placeholder="пароль"
+            <div className="relative">
+               <input
+                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+                  type={isVisible ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="пароль"
                />
+               <button
+                  type="button"
+                  onClick={toggleVisibility}
+                  className="absolute right-3 top-3 focus:outline-none"
+               >
+                  {isVisible ? (
+                     <EyeSlashFilledIcon className="text-2xl text-default-400" />
+                  ) : (
+                     <EyeFilledIcon className="text-2xl text-default-400" />
+                  )}
+               </button>
+            </div>
          </div>
          <div className="grid justify-center items-center pb-2">
             <p className={`font-semibold text-start text-sm ${password.match(confirmPassword) ? 'text-gray-500' : 'text-danger'}`}>
                {password.match(confirmPassword) ? 'Подтверждение пароля' : 'Пароли не совпадают'}
             </p>
-            <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-               type="password"
-               value={confirmPassword}
-               onChange={(e) => setConfirmPassword(e.target.value)}
-               placeholder="подтверждение пароля"
+            <div className="relative">
+               <input
+                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+                  type={isVisible ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Подтверждение пароля"
                />
+               <button
+                  type="button"
+                  onClick={toggleVisibility}
+                  className="absolute right-3 top-3 focus:outline-none"
+               >
+                  {isVisible ? (
+                     <EyeSlashFilledIcon className="text-2xl text-default-400" />
+                  ) : (
+                     <EyeFilledIcon className="text-2xl text-default-400" />
+                  )}
+               </button>
+            </div>
          </div>
          <div className="grid justify-center items-center">
             <Button
