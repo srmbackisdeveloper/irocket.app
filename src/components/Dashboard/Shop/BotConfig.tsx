@@ -7,7 +7,7 @@ import { TShop } from '../../../core/shop.type';
 import { AdjustIcon } from '../../shared/icons/Adjust.icon';
 import { useShopStore } from '../../../store/shopStore';
 import { useDisclosure } from "@nextui-org/react";
-import AlertModal from "./../AlertModal"; // Adjust the import path as needed
+import AlertModal from "./../AlertModal";
 
 type BotConfigProps = {
   shop: TShop;
@@ -19,12 +19,15 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState<number>(shop.price_difference ?? 0);
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalMessage, setModalMessage] = useState<string>("");
 
   const showModal = (message: string) => {
     setModalMessage(message);
     onOpen();
+    setTimeout(() => {
+      onClose();
+    }, 1000);
   };
 
   const handleToggleAutoChange = async () => {
@@ -35,7 +38,6 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
       showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change field:', error);
-      // Revert the state in case of an error
       setIsAutoChangeEnabled(!newAutoChangeEnabled);
       showModal("Восстановлено!");
     }
@@ -134,7 +136,7 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
           <Switch color="success" size="sm" isDisabled />
         </div>
       </div>
-      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onOpenChange} />
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onClose} />
     </div>
   );
 };
