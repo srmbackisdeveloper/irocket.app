@@ -20,7 +20,7 @@ export const Profile = () => {
     onOpen();
     setTimeout(() => {
       onClose();
-    })
+    }, 1000);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {

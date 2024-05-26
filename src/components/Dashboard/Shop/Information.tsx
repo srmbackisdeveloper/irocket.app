@@ -25,7 +25,7 @@ export const Information: React.FC<InformationProps> = ({ shop }) => {
     onOpen();
     setTimeout(() => {
       onClose();
-    }, 2000); 
+    }, 1000); 
   };
 
   const handleToggle = async () => {
