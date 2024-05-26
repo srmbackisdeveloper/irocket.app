@@ -2,7 +2,7 @@ import { Divider, Input, Switch } from "@nextui-org/react";
 import { TProducts } from "../../../core/products.type";
 import { productsAPI } from "../../../services/products";
 import { useState } from "react";
-import AlertModal from "./../AlertModal";  // Adjust the import path as needed
+import AlertModal from "./../AlertModal";
 
 type ProductItemProps = {
   products: TProducts;
@@ -20,6 +20,9 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   const showModal = (message: string) => {
     setModalMessage(message);
     setIsOpen(true);
+    setTimeout(() => {
+      setIsOpen(false);
+    } , 1000);
   };
 
   const handleCloseModal = () => {
@@ -88,7 +91,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
       showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update price_auto_change:', error);
-      setPriceAutoChange(products.price_auto_change); // Revert to old value on error
+      setPriceAutoChange(products.price_auto_change);
       showModal("Ошибка!");
     }
   };

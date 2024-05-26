@@ -2,7 +2,7 @@ import { Button } from "@nextui-org/react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useDisclosure } from "@nextui-org/react";
-import AlertModal from "./../../components/Dashboard/AlertModal"; // Adjust the import path as needed
+import AlertModal from "./../../components/Dashboard/AlertModal";
 
 export const Profile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -12,12 +12,15 @@ export const Profile = () => {
   const [email] = useState<string>(user?.email || "");
   const [password, setPassword] = useState<string>("");
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalMessage, setModalMessage] = useState<string>("");
 
   const showModal = (message: string) => {
     setModalMessage(message);
     onOpen();
+    setTimeout(() => {
+      onClose();
+    }, 1000);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +65,7 @@ export const Profile = () => {
             inputMode="numeric"
             value={number}
             onChange={handleNumberChange}
-            maxLength={12} // Adjusted maxLength to account for the "+"
+            maxLength={12}
             placeholder={"+7(___)___-__-__"}
           />
         </div>
@@ -102,7 +105,7 @@ export const Profile = () => {
           </Button>
         </div>
       </div>
-      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onOpenChange} />
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onClose} />
     </div>
   );
 };

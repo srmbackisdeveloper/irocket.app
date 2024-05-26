@@ -7,7 +7,7 @@ import { TagIcon } from '../../shared/icons/Tag.icon';
 import { TShop } from '../../../core/shop.type';
 import { useShopStore } from '../../../store/shopStore';
 import { useDisclosure } from "@nextui-org/react";
-import AlertModal from "./../AlertModal"; // Adjust the import path as needed
+import AlertModal from "./../AlertModal";  
 
 type InformationProps = {
   shop: TShop;
@@ -17,12 +17,15 @@ export const Information: React.FC<InformationProps> = ({ shop }) => {
   const { updateShopField } = useShopStore();
   const [isParsingEnabled, setIsParsingEnabled] = useState(shop.enable_parsing);
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [modalMessage, setModalMessage] = useState<string>("");
 
   const showModal = (message: string) => {
     setModalMessage(message);
     onOpen();
+    setTimeout(() => {
+      onClose();
+    }, 1000); 
   };
 
   const handleToggle = async () => {
@@ -33,9 +36,8 @@ export const Information: React.FC<InformationProps> = ({ shop }) => {
       showModal("Сохранено!");
     } catch (error) {
       console.error('Failed to update enable_parsing field:', error);
-      // Revert the state in case of an error
       setIsParsingEnabled(!newParsingEnabled);
-      showModal("Восстановлено!");
+      showModal("Ошибка!");
     }
   };
 
@@ -80,7 +82,7 @@ export const Information: React.FC<InformationProps> = ({ shop }) => {
           <div className="text-right font-bold text-gray-600">0.00 %</div>
         </div>
       </div>
-      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onOpenChange} />
+      <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={onClose} />
     </div>
   );
 };
