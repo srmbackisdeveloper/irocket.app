@@ -35,7 +35,7 @@ export const LoginPage = () => {
   const toggleVisibility = () => setIsVisible(!isVisible); 
 
   return (
-    <div className="grid justify-center items-center gap-5 mt-[5em]">
+    <div className="flex flex-col justify-center items-center gap-4 h-screen pb-40">
       <div>
         <h2 className="text-3xl font-semibold text-center">Добро пожаловать</h2>
         <p className="font-semibold text-center text-sm text-gray-500 mt-1">
@@ -101,6 +101,7 @@ export const LoginPage = () => {
           setError(null); // Clear error when modal is closed
         }}
         placement='center'
+        isDismissable={false}
       >
         <ModalContent>
           <div className="flex justify-center items-center gap-3 p-5">

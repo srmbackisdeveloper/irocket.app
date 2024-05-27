@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Tabs, Tab, Divider } from '@nextui-org/react'
 import { Link, useLocation } from 'react-router-dom'
-import { Logo } from './Logo'
-import { ProfileDropdown } from '../Dashboard/ProfileDropdown'
-import { Briefcase } from './icons/Briefcase.icon'
-import { Shop } from './icons/Shop.icon'
-import { Box } from './icons/Box.icon'
-import { Graph } from './icons/Graph.icon'
-import { Profile } from './icons/Profile.icon'
+import { Logo } from '../shared/Logo'
+import { ProfileDropdown } from './ProfileDropdown'
+import { Briefcase } from '../shared/icons/Briefcase.icon'
+import { Shop } from '../shared/icons/Shop.icon'
+import { Box } from '../shared/icons/Box.icon'
+import { Graph } from '../shared/icons/Graph.icon'
+import { Profile } from '../shared/icons/Profile.icon'
 import { useAuth } from '../../contexts/AuthContext'
 
 const DashboardHeader = () => {
@@ -60,7 +60,7 @@ const DashboardHeader = () => {
                hidden: { opacity: 0, y: -50 },
             }}
             transition={{ duration: 0.3 }}
-            className="sticky top-0 z-50 bg-white"
+            className="sticky top-0 z-50 bg-white dark:bg-[#1f1f1f]"
          >
             <div className="px-5 py-4 z-200000">
                <Tabs

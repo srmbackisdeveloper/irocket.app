@@ -9,7 +9,7 @@ body {
       'Helvetica Neue', sans-serif;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
-   outline: none!important;
+   outline: none !important;
 }
 
 code {
@@ -19,4 +19,32 @@ code {
 
 input:focus {
    outline: none;
+}
+
+body {
+   @apply bg-white text-black;
+}
+
+.dark body {
+   @apply bg-[#1f1f1f] text-white;
+}
+
+input {
+   @apply bg-white text-black p-2 border rounded-md;
+}
+
+input:focus {
+  @apply outline-none ring-2 ring-primary;
+}
+
+.dark input {
+   @apply bg-[#2c2c2c] text-white border-none;
+}
+ 
+.dark input:hover {
+  @apply bg-[#4a4a4a];
+}
+
+.dark div {
+   @apply border-gray-500
 }

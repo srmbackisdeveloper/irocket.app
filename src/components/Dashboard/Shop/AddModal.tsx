@@ -15,22 +15,23 @@ export const AddModal = () => {
    const { isOpen, onOpen, onClose } = useDisclosure();
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const { createShop, isLoading, error } = useShopStore();
+   const { createShop, isCreating, createError } = useShopStore();
    const [statusMessage, setStatusMessage] = useState('');
 
    const handleAddShop = async () => {
       setStatusMessage('Загрузка...');
-      await createShop(email, password);
-      if (!error) {
-         setStatusMessage('Магазин успешно добавлен');
-         setEmail('');
-         setPassword('');
-         setTimeout(() => {
-            setStatusMessage('');
-            onClose(); // Close the modal
-         }, 2000);
+      const result = await createShop(email, password);
+      
+      if (result.success) {
+        setStatusMessage('Магазин успешно добавлен');
+        setEmail('');
+        setPassword('');
+        setTimeout(() => {
+          setStatusMessage('');
+          onClose(); // Close the modal
+        }, 2000);
       } else {
-         setStatusMessage('Ошибка при добавлении магазина');
+        setStatusMessage(`Ошибка при добавлении магазина: ${result.error}`);
       }
    };
 
@@ -39,6 +40,15 @@ export const AddModal = () => {
          setStatusMessage('');
       }
    }, [isOpen]);
+
+   useEffect(() => {
+      if (!isCreating && statusMessage) {
+         setTimeout(() => {
+            setStatusMessage('');
+            onClose(); // Close the modal
+         }, 2000);
+      }
+   }, [isCreating, statusMessage, onClose]);
 
    return (
       <div>
@@ -94,9 +104,9 @@ export const AddModal = () => {
                            KASPI
                         </p>
                      </div>
-                     {error && (
+                     {createError && (
                         <div className="text-red-500 text-sm mt-2">
-                           Ошибка: {error}
+                           Ошибка: {createError}
                         </div>
                      )}
                      <div className="grid justify-end">
@@ -105,7 +115,7 @@ export const AddModal = () => {
                            variant="shadow"
                            className="min-w-40 font-semibold"
                            onPress={handleAddShop}
-                           isLoading={isLoading}
+                           isLoading={isCreating}
                         >
                            Добавить
                         </Button>
@@ -115,25 +125,25 @@ export const AddModal = () => {
                </>
             </ModalContent>
          </Modal>
-         {isOpen && (
+         {isCreating || !!statusMessage ? (
             <Modal
-               isOpen={isLoading || !!statusMessage}
+               isOpen={true}
                placement='center'
             >
                <ModalContent>
-                  <ModalBody className="flex items-center justify-center">
-                     {isLoading ? (
-                        <>
+                  <ModalBody>
+                     {isCreating ? (
+                        <div className='flex gap-4 items-center justify-center'>
                            <Spinner size="lg" color="danger" />
                            <span className="ml-3">{statusMessage}</span>
-                        </>
+                        </div>
                      ) : (
                         <span>{statusMessage}</span>
                      )}
                   </ModalBody>
                </ModalContent>
             </Modal>
-         )}
+         ) : null}
       </div>
    );
 };

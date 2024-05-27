@@ -1,5 +1,5 @@
-import DashboardHeader from '../../components/shared/DashboardHeader'
-import { DashboardFooter } from '../../components/shared/DashboardFooter'
+import DashboardHeader from '../../components/Dashboard/DashboardHeader'
+import { DashboardFooter } from '../../components/Dashboard/DashboardFooter'
 import { Outlet } from 'react-router-dom'
 
 const Dashboard = () => {

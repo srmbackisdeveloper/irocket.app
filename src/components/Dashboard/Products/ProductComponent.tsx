@@ -4,7 +4,7 @@ import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
 import { Tooltip, Pagination } from "@nextui-org/react";
 import { ProductSearch } from "./ProductSearch";
-import { Overlay } from "../../shared/Overlay";
+import { Overlay } from "./Overlay";
 import { useShopStore } from "../../../store/shopStore";
 
 export const ProductComponent = () => {

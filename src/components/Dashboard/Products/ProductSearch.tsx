@@ -54,13 +54,13 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
                     <div className="flex items-center gap-3">
                         <div className="flex border-gray-200 border-2 rounded-lg p-[6px] gap-2 max-w-[16em] max-h-fit items-center focus:border-black duration-200 focus-within:border-black">
                             <Search />
-                            <input type="text" placeholder="Артикул / Название" className="" />
+                            <input type="text" placeholder="Артикул / Название" className="border-none  " />
                         </div>
                     </div>
                     <Button
                         color="danger"
-                        variant="bordered"
-                        className="text-black px-7 my-3 font-semibold hover:bg-danger hover:text-white float-right"
+                        variant="ghost"
+                        className="text-black px-7 my-3 font-semibold float-right"
                         onClick={handleRefresh}
                     >
                         Обновить

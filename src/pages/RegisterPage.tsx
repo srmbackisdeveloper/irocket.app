@@ -88,7 +88,7 @@ export const RegisterPage = () => {
       setNumber(formattedValue);
    };
    return (
-      <div className="grid justify-center items-center gap-4 mt-10">
+      <div className="flex flex-col justify-center items-center gap-4 h-screen pb-20">
          <div className="grid justify-center items-center">
             <h2 className="text-3xl font-semibold text-center">Регистрация</h2>
             <p className="font-semibold text-center text-sm text-gray-500 mt-1">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Switch } from '@nextui-org/react';
+import { Input, Switch, Tooltip } from '@nextui-org/react';
 import { RocketIcon } from '../../shared/icons/Rocket.icon';
 import { ArrowDownRightIcon } from '../../shared/icons/ArrowDownRight.icon';
 import { TruckIcon } from '../../shared/icons/Truck.icon';
@@ -87,23 +87,31 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
       <h4 className="text-base font-medium">Настройки бота</h4>
       <p className="text-xs text-danger font-medium">Наведите на иконку, чтобы увидеть подсказку</p>
       <div className="mt-4 w-full text-xs text-gray-500 font-semibold">
-        <div className="h-10 py-2 pl-1 flex items-center justify-between border-b border-gray-200">
-          <div className="flex items-center gap-2">
-            <AdjustIcon />
-            <span>Автоизменение цены</span>
+        <Tooltip content="">
+          <div className="h-10 py-2 pl-1 flex items-center justify-between border-b border-gray-200">
+            <div className="flex items-center gap-2">
+              <AdjustIcon />
+              <span>Автоизменение цены</span>
+            </div>
+            <Switch
+              color="success"
+              size="sm"
+              isSelected={isAutoChangeEnabled}
+              onChange={handleToggleAutoChange}
+              />
           </div>
-          <Switch
-            color="success"
-            size="sm"
-            isSelected={isAutoChangeEnabled}
-            onChange={handleToggleAutoChange}
-          />
-        </div>
+        </Tooltip>
         <div className="h-10 py-2 pl-1 flex items-center justify-between border-b border-gray-200 cursor-not-allowed">
-          <div className="flex items-center gap-2 opacity-50">
-            <RocketIcon />
-            <span>Добивать до мин.цены</span>
-          </div>
+          <Tooltip
+            placement="top-start"
+            className="bg-gray-600 text-white"
+            showArrow={true}
+            content="Эта функция находится в стадии разработки.">
+            <div className="flex items-center gap-2 opacity-50">
+              <RocketIcon />
+              <span>Добивать до мин.цены</span>
+            </div>
+          </Tooltip>
           <Switch color="success" size="sm" isDisabled />
         </div>
         <div className="h-10 py-2 px-1 flex items-center justify-between border-b border-gray-200">
@@ -129,10 +137,16 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
           </div>
         </div>
         <div className="h-10 py-2 pl-1 flex items-center justify-between cursor-not-allowed">
-          <div className="flex items-center gap-2 opacity-50">
-            <TruckIcon />
-            <span>Не демпинговать межгород</span>
-          </div>
+          <Tooltip
+            placement="top-start"
+            className="bg-gray-600 text-white"
+            showArrow={true}
+            content="Эта функция находится в стадии разработки.">
+            <div className="flex items-center gap-2 opacity-50">
+              <TruckIcon />
+              <span>Не демпинговать межгород</span>
+            </div>
+          </Tooltip>
           <Switch color="success" size="sm" isDisabled />
         </div>
       </div>

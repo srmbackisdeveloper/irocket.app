@@ -1,4 +1,4 @@
-import { Switch } from "@nextui-org/react";
+import { Switch, Tooltip } from "@nextui-org/react";
 import { FC, useState } from "react";
 import { CartIcon } from "../../shared/icons/Cart.icon";
 import { BotConfig } from "./BotConfig";
@@ -52,6 +52,11 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                   <TarifLimit />
                </div>
             </div>
+            <Tooltip
+               placement="bottom-start"
+               className="bg-gray-600 text-white"
+               showArrow={true}
+               content="Эта функция находится в стадии разработки.">
             <div className="p-3 w-full md:w-2/3 opacity-50 cursor-not-allowed">
                <div className="flex items-center gap-3 pb-3">
                   <h4 className="text-base font-medium">
@@ -64,7 +69,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                      onChange={handleMarginToggle}
                      isDisabled
                      className="opacity-100"
-                  />
+                     />
                </div>
                <p className="text-xs font-medium">
                   Укажите настройки маржинальности и Вам будет достаточно
@@ -79,6 +84,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                   </p>
                )}
             </div>
+            </Tooltip>
         </div>
     )
 }
