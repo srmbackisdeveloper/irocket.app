@@ -38,6 +38,7 @@ export const ProductComponent: React.FC = () => {
   const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
+    event.preventDefault();
     setPage(newPage);
   };
 
@@ -45,8 +46,10 @@ export const ProductComponent: React.FC = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const currentUrlPage = parseInt(params.get('page') || '1', 10);
-    params.set('page', currentUrlPage.toString());
-    navigate({ search: params.toString() }, { replace: true });
+    if (currentUrlPage !== page) {
+      params.set('page', page.toString());
+      navigate({ search: params.toString() }, { replace: true });
+    }
   }, [page, navigate, location.search]);
 
   // Sync page state with URL when location changes
