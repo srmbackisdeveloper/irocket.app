@@ -22,7 +22,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
         <div className="p-3 border rounded-lg">
             <div className="flex items-center justify-between pb-5 border-b-1 border-gray-200">
                <div className="flex items-center gap-4">
-                  <div className="p-4 rounded-xl bg-gray-200">
+                  <div className="p-4 rounded-xl bg-gray-200 dark:bg-zinc-700">
                      <CartIcon />
                   </div>
                   <div>

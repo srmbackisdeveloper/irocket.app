@@ -8,7 +8,7 @@ type AlertModalProps = {
 
 const AlertModal: React.FC<AlertModalProps> = ({ message, isOpen, onOpenChange }) => (
     <Modal
-    size="sm"
+        size="sm"
         placement="center"
         className="grid justify-center items-center bg-green-500 text-white font-semibold p-2 text-lg"
         isOpen={isOpen}

@@ -60,8 +60,8 @@ export const ProductComponent = () => {
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
         <table className="w-full min-w-max table-fixed">
-          <thead className="border-b">
-            <tr className="text-base">
+          <thead className="border-b dark:border-gray-500">
+            <tr className="text-base dark:text-slate-300">
               <th className="font-semibold w-[35%] p-2 text-left">Название</th>
               <th className="font-semibold w-[10%] p-2">Цена</th>
               <th className="font-semibold w-[10%] p-2">Тек. место</th>

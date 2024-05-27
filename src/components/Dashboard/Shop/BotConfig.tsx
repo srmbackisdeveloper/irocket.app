@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Switch, Tooltip } from '@nextui-org/react';
+import { Switch, Tooltip } from '@nextui-org/react';
 import { RocketIcon } from '../../shared/icons/Rocket.icon';
 import { ArrowDownRightIcon } from '../../shared/icons/ArrowDownRight.icon';
 import { TruckIcon } from '../../shared/icons/Truck.icon';
@@ -86,8 +86,13 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
     <div className="p-1 md:p-3 w-full">
       <h4 className="text-base font-medium">Настройки бота</h4>
       <p className="text-xs text-danger font-medium">Наведите на иконку, чтобы увидеть подсказку</p>
-      <div className="mt-4 w-full text-xs text-gray-500 font-semibold">
-        <Tooltip content="">
+      <div className="mt-4 w-full text-xs text-gray-500 font-semibold dark:text-slate-200">
+        <Tooltip 
+          content="Бот будет самостоятельно повышать и понижать цену товара."
+          placement="top-start"
+          className="bg-gray-600 text-white"
+          showArrow={true}
+        >
           <div className="h-10 py-2 pl-1 flex items-center justify-between border-b border-gray-200">
             <div className="flex items-center gap-2">
               <AdjustIcon />
@@ -119,22 +124,29 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
             <ArrowDownRightIcon />
             <span>Шаг опускания</span>
           </div>
-          <div className="text-right font-bold text-gray-600">
-            {isEditing ? (
-              <Input
+          <Tooltip 
+            size='sm'
+            className="bg-gray-600 text-white"
+            showArrow={true}
+            placement='top-end'
+            content="Нажмите чтобы изменить, после изменении нажмите в сторону."
+          >
+            <div className="text-right font-bold text-gray-600 dark:text-slate-400">
+              {isEditing ? (
+                <input
                 autoFocus
                 type="number"
                 value={value.toString()}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
-                size="sm"
                 className="w-24 outline-none"
-              />
-            ) : (
-              <span onClick={handleClick}>{value} ₸</span>
-            )}
-          </div>
+                />
+              ) : (
+                <span onClick={handleClick}>{value} ₸</span>
+              )}
+            </div>
+          </Tooltip>
         </div>
         <div className="h-10 py-2 pl-1 flex items-center justify-between cursor-not-allowed">
           <Tooltip

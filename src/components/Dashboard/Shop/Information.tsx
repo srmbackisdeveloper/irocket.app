@@ -45,7 +45,7 @@ export const Information: React.FC<InformationProps> = ({ shop }) => {
     <div className="p-1 pt-3 md:p-3 w-full">
       <h4 className="text-base font-medium">Информация</h4>
       <p className="text-xs text-danger font-medium">Наведите на иконку, чтобы увидеть подсказку</p>
-      <div className="mt-4 w-full text-xs text-gray-500 font-semibold">
+      <div className="mt-4 w-full text-xs text-gray-500 font-semibold dark:text-slate-200">
         <div className="h-10 py-2 pl-1 flex items-center justify-between border-b border-gray-200">
           <Tooltip 
             placement="top-start"

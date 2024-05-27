@@ -20,26 +20,25 @@ const DashboardContent = () => {
    return (
       <>
          <div className="grid p-5 gap-2">
-            <div className="grid p-3 border rounded-lg bg-green-100">
-               <p className="text-tiny text-start font-semibold text-green-800">
-                  iRocket предлагает открытие брендов / категорий за 3 дня:
-                  список большой, узнайте категории и бренды у менеджера.
-                  Гарантия по договору.
-               </p>
+            <div className="grid p-3 border rounded-lg bg-green-100 dark:bg-[#1f1f1f]">
+              <p className="text-tiny text-start font-semibold text-green-800 dark:text-green-300">
+                iRocket предлагает открытие брендов / категорий за 3 дня:
+                список большой, узнайте категории и бренды у менеджера.
+                Гарантия по договору.
+              </p>
             </div>
-            <div className="grid p-3 border rounded-lg bg-red-100">
-               <p className="text-tiny text-start font-semibold text-red-700">
-                  Подписывайтесь на наш телеграм канал чтобы знать о всех
-                  обновлениях iRocket и новостях KASPI @iRocket.systems
-               </p>
+            <div className="grid p-3 border rounded-lg bg-red-100 dark:bg-[#1f1f1f]">
+              <p className="text-tiny text-start font-semibold text-red-700 dark:text-red-400">
+                Подписывайтесь на наш телеграм канал чтобы знать о всех
+                обновлениях iRocket и новостях KASPI @iRocket.systems
+              </p>
             </div>
-            <div className="grid p-3 border rounded-lg">
-               <p className="text-tiny text-start font-semibold text-gray-500">
-                  В случае неполадки обратитесь по номеру +7 777 479 44 22
-               </p>
+            <div className="grid p-3 border rounded-lg bg-white dark:bg-[#1f1f1f]">
+              <p className="text-tiny text-start font-semibold text-gray-500 dark:text-gray-300">
+                В случае неполадки обратитесь по номеру +7 777 479 44 22
+              </p>
             </div>
          </div>
-
          <div className="grid p-5 gap-5 lg:grid-cols-2">
             <div className="grid p-3 border rounded-lg">
                <h2 className="text-lg font-semibold text-start">

@@ -18,8 +18,8 @@ export const WorkersModal = () => {
          <Button
             onPress={onOpen}
             color="danger"
-            variant="bordered"
-            className="text-black px-7 font-semibold hover:bg-danger hover:text-white"
+            variant="ghost"
+            className="px-7 font-semibold hover:bg-danger hover:text-white"
          >
             Добавить
          </Button>

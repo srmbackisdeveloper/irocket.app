@@ -1,6 +1,7 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react';
 import axios from 'axios';
 import { User } from '../core/user.type';
+import { useTheme } from 'next-themes';
 
 interface AuthContextType {
   user: User | null;
@@ -48,6 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.getItem('token')
   );
   const [error, setError] = useState<string | null>(null);
+  const { setTheme } = useTheme();
 
   const mapUserResponse = (user: any): User => {
     return {
@@ -115,8 +117,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (axios.isAxiosError(error) && error.response) {
         if (error.response.data.error === 'Invalid credentials') {
           setError('Неправильные учетные данные');
-        } else {
-          setError('Ошибка при входе');
+        } if(error.response.data.error === 'Пользователь с таким именем уже существует.'){
+          setError(error.response.data.error);
         }
       } else {
         setError('Ошибка при входе');
@@ -132,6 +134,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem('shop-storage');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setTheme('light');
   };
 
   const updateUserProfile = async (updatedUser: Partial<User>): Promise<void> => {

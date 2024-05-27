@@ -102,15 +102,15 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
         <td className="w-1/5 p-2">
           <div className="grid gap-2">
             <p className="text-danger text-sm font-semibold">{products.title}</p>
-            <p className="text-xs font-bold">Артикул: {products.code}</p>
-            <p className="text-xs font-bold">Магазин: <span className="text-danger">{shopName}</span></p>
+            <p className="text-xs font-bold dark:text-slate-300">Артикул: {products.code}</p>
+            <p className="text-xs font-bold dark:text-slate-300">Магазин: <span className="text-danger">{shopName}</span></p>
           </div>
         </td>
-        <td className="w-1/5 p-2 text-center font-semibold">{products.price} ₸</td>
+        <td className="w-1/5 p-2 text-center font-semibold dark:text-slate-300">{products.price} ₸</td>
         <td className="w-1/5 p-2 text-center text-danger font-semibold">{products.current_price_place}</td>
-        <td className="w-1/5 p-2 text-center">{products.first_place_price}</td>
-        <td className="w-1/5 p-2 text-center">{products.second_place_price}</td>
-        <td className="w-1/5 p-2 text-center">
+        <td className="w-1/5 p-2 text-center dark:text-slate-300">{products.first_place_price}</td>
+        <td className="w-1/5 p-2 text-center dark:text-slate-300">{products.second_place_price}</td>
+        <td className="w-1/5 p-2 text-center dark:text-slate-300">
           <Input
             type="number"
             className="w-16 ml-8"

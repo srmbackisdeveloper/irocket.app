@@ -46,7 +46,7 @@ export const LoginPage = () => {
         <div>
           <p className="font-semibold text-start text-sm text-gray-500">Имя пользователя</p>
           <input
-            className="grid border rounded-xl p-2 min-w-72 mt-1"
+            className="grid border rounded-xl p-2 min-w-72 mt-1 custom-input"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -57,7 +57,7 @@ export const LoginPage = () => {
           <p className="font-semibold text-start text-sm text-gray-500">Пароль</p>
           <div className="relative">
             <input
-              className="grid border rounded-xl p-2 min-w-72 mt-1"
+              className="grid border rounded-xl p-2 min-w-72 mt-1 custom-input"
               type={isVisible ? "text" : "password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -66,7 +66,7 @@ export const LoginPage = () => {
             <button
               type="button"
               onClick={toggleVisibility}
-              className="absolute right-3 top-3 focus:outline-none"
+              className="absolute right-3 top-2 focus:outline-none"
             >
               {isVisible ? (
                 <EyeSlashFilledIcon className="text-2xl text-default-400" />
@@ -102,6 +102,7 @@ export const LoginPage = () => {
         }}
         placement='center'
         isDismissable={false}
+        hideCloseButton
       >
         <ModalContent>
           <div className="flex justify-center items-center gap-3 p-5">

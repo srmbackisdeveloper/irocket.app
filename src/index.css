@@ -9,7 +9,6 @@ body {
       'Helvetica Neue', sans-serif;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
-   outline: none !important;
 }
 
 code {
@@ -17,9 +16,6 @@ code {
       monospace;
 }
 
-input:focus {
-   outline: none;
-}
 
 body {
    @apply bg-white text-black;
@@ -30,21 +26,21 @@ body {
 }
 
 input {
-   @apply bg-white text-black p-2 border rounded-md;
+   @apply outline-none bg-white text-black p-2 rounded-md;
 }
 
 input:focus {
-  @apply outline-none ring-2 ring-primary;
+  @apply outline-none;
 }
 
-.dark input {
-   @apply bg-[#2c2c2c] text-white border-none;
+.dark .custom-input {
+   @apply bg-[#27272A] text-white border-none;
 }
- 
-.dark input:hover {
-  @apply bg-[#4a4a4a];
+
+.dark .custom-input:hover {
+  @apply bg-[#3F3F46];
 }
 
 .dark div {
-   @apply border-gray-500
+   @apply border-[#ffffff26];
 }

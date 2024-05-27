@@ -10,6 +10,7 @@ import { Box } from '../shared/icons/Box.icon'
 import { Graph } from '../shared/icons/Graph.icon'
 import { Profile } from '../shared/icons/Profile.icon'
 import { useAuth } from '../../contexts/AuthContext'
+import ThemeSwitcher from './ThemeSwitcher'
 
 const DashboardHeader = () => {
    const [isScrolled, setIsScrolled] = useState(false);
@@ -48,7 +49,10 @@ const DashboardHeader = () => {
          >
             <div className="flex justify-between items-center">
                <Logo />
-               <ProfileDropdown username={user?.fullName}/>
+               <div className='flex items-center'>
+                  <ThemeSwitcher />
+                  <ProfileDropdown username={user?.fullName}/>
+               </div>
             </div>
             <Divider />
          </motion.div>
