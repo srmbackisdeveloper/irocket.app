@@ -97,7 +97,7 @@ export const ProductComponent: React.FC = () => {
             <ProductList query={query} />
           </tbody>
         </table>
-        <Stack spacing={2} className="grid justify-center items-center mt-[3em] px-[4em]">
+        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
           <ThemeProvider theme={theme}>
             <Pagination
               shape="rounded"
