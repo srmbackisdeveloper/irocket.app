@@ -2,10 +2,25 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
-import { Tooltip, Pagination } from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/react";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import { ProductSearch } from "./ProductSearch";
 import { Overlay } from "../../shared/Overlay";
 import { useShopStore } from "../../../store/shopStore";
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: '#f31260',
+    },
+  },
+  typography: {
+    fontFamily: 'Arial',
+  },
+});
+
 
 export const ProductComponent = () => {
   const { shops } = useShopStore();
@@ -23,18 +38,17 @@ export const ProductComponent = () => {
 
   const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage);
   };
+  
 
   // Update URL when page state changes
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const currentUrlPage = parseInt(params.get('page') || '1', 10);
-    if (currentUrlPage !== page) {
-      params.set('page', page.toString());
-      navigate({ search: params.toString() }, { replace: true });
-    }
+    params.set('page', currentUrlPage.toString());
+    navigate({ search: params.toString() }, { replace: true });
   }, [page, navigate, location.search]);
 
   // Sync page state with URL when location changes
@@ -84,15 +98,21 @@ export const ProductComponent = () => {
             <ProductList query={query} />
           </tbody>
         </table>
-        <Pagination
-          className="grid justify-center items-center mt-[2em] px-[4em]"
-          showControls
-          color="danger"
-          size="lg"
-          total={totalPages}
-          page={page} // Set the current page for the pagination component
-          onChange={handlePageChange}
-        />
+        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
+          <ThemeProvider theme={theme}>
+            <Pagination
+              
+              variant="outlined" 
+              shape="rounded"
+              count={totalPages}
+              color="secondary"
+              size="large"
+              page={page}
+              onChange={handlePageChange}
+            />
+          </ThemeProvider>
+        </Stack>
+
       </div>
     </>
   );
