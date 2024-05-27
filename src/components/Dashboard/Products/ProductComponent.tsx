@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
@@ -16,13 +16,12 @@ const theme = createTheme({
       main: '#f31260',
     },
   },
-  typography: {
-    fontFamily: 'Arial',
-  },
 });
 
 
-export const ProductComponent = () => {
+const customStyles = ` .MuiPaginationItem-page.Mui-selected:hover { background-color: rgba(243, 18, 96, 0.9); } `;
+
+export const ProductComponent: React.FC = () => {
   const { shops } = useShopStore();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,8 +30,8 @@ export const ProductComponent = () => {
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page') || '1', 10);
 
-  const [page, setPage] = useState(initialPage);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // Overlay state
+  const [page, setPage] = useState<number>(initialPage);
+  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false); // Overlay state
   const limit = 10; // Constant limit
   const query = useGetProducts(page, limit);
 
@@ -41,7 +40,6 @@ export const ProductComponent = () => {
   const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
     setPage(newPage);
   };
-  
 
   // Update URL when page state changes
   useEffect(() => {
@@ -73,6 +71,7 @@ export const ProductComponent = () => {
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
+      <style>{customStyles}</style>
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b">
             <tr className="text-base">
@@ -98,11 +97,9 @@ export const ProductComponent = () => {
             <ProductList query={query} />
           </tbody>
         </table>
-        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
+        <Stack spacing={2} className="grid justify-center items-center mt-[3em] px-[4em]">
           <ThemeProvider theme={theme}>
             <Pagination
-              
-              variant="outlined" 
               shape="rounded"
               count={totalPages}
               color="secondary"
@@ -112,7 +109,6 @@ export const ProductComponent = () => {
             />
           </ThemeProvider>
         </Stack>
-
       </div>
     </>
   );
