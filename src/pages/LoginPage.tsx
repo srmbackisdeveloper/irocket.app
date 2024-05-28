@@ -102,7 +102,7 @@ export const LoginPage = () => {
         }}
         placement='center'
         isDismissable={false}
-        hideCloseButton
+        hideCloseButton={isLoading}
       >
         <ModalContent>
           <div className="flex justify-center items-center gap-3 p-5">
