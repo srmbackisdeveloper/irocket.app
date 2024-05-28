@@ -141,6 +141,7 @@ export const BotConfig: React.FC<BotConfigProps> = ({ shop }) => {
                 onBlur={handleBlur}
                 onKeyDown={handleKeyDown}
                 className="w-24 outline-none"
+                min={0}
                 />
               ) : (
                 <span onClick={handleClick}>{value} ₸</span>

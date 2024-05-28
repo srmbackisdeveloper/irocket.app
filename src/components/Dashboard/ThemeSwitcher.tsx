@@ -4,7 +4,12 @@ import { SunIcon } from "../shared/icons/Sun.icon";
 import { MoonIcon } from "../shared/icons/Moon.icon";
 import { useTheme } from "next-themes";
 
-const ThemeSwitcher: React.FC = () => {
+type ThemeSwitcherProps = {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({className, children}) => {
   const { theme, setTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -23,6 +28,7 @@ const ThemeSwitcher: React.FC = () => {
 
   return (
     <Switch
+      className={className}
       checked={isDark}
       onChange={handleToggle}
       size="md"
@@ -35,6 +41,7 @@ const ThemeSwitcher: React.FC = () => {
         )
       }
     >
+      {children}
     </Switch>
   );
 };

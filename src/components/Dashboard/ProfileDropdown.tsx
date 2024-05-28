@@ -4,16 +4,17 @@ import {
    DropdownMenu,
    DropdownSection,
    DropdownTrigger,
-} from '@nextui-org/react'
-import { ProfileAvatar } from '../shared/ProfileAvatar'
-import { Profile } from '../shared/icons/Profile.icon'
-import { ArrowOut } from '../shared/icons/ArrowOut.icon'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../contexts/AuthContext'
-import { Key } from 'react'
+} from '@nextui-org/react';
+import { ProfileAvatar } from '../shared/ProfileAvatar';
+import { Profile } from '../shared/icons/Profile.icon';
+import { ArrowOut } from '../shared/icons/ArrowOut.icon';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
+import { Key } from 'react';
+import ThemeSwitcher from './ThemeSwitcher';
 
 interface ProfileDropdownProps {
-   username?: string
+   username?: string;
 }
 
 export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
@@ -27,6 +28,8 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
          navigate('/dashboard/profile');
       } else if (key === 'exit') {
          logout();
+      } else if (key === 'theme-switcher') {
+
       }
    };
 
@@ -62,6 +65,16 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                   </div>
                </DropdownItem>
             </DropdownSection>
+            <DropdownSection className="block md:hidden">
+               <DropdownItem 
+                  key="theme-switcher"
+                  textValue='Тема'
+               >
+                  <div className="flex items-center gap-2">
+                     <ThemeSwitcher>Тема</ThemeSwitcher>
+                  </div>
+               </DropdownItem>
+            </DropdownSection>
             <DropdownSection>
                <DropdownItem 
                   key="exit" 
@@ -75,5 +88,5 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
             </DropdownSection>
          </DropdownMenu>
       </Dropdown>
-   )
-}
+   );
+};

@@ -8,23 +8,63 @@ import Stack from '@mui/material/Stack';
 import { ProductSearch } from "./ProductSearch";
 import { Overlay } from "./Overlay";
 import { useShopStore } from "../../../store/shopStore";
-
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme } from 'next-themes';
+
 const theme = createTheme({
   palette: {
+    mode: 'light',
     secondary: {
       main: '#f31260',
     },
   },
+  components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(243, 18, 96,)',
+            '&:hover': {
+              backgroundColor: 'rgba(243, 18, 96, 0.9)',
+            },
+          },
+        },
+      },
+    },
+  },
 });
 
-
-const customStyles = ` .MuiPaginationItem-page.Mui-selected:hover { background-color: rgba(243, 18, 96, 0.9); } `;
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    secondary: {
+      main: '#f31260',
+    },
+  },
+  components: {
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          color: 'rgba(255, 255, 255, 0.7)', // Default text color
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(243, 18, 96,)',
+            color: '#fff', // Selected text color
+            '&:hover': {
+              backgroundColor: 'rgba(243, 18, 96, 0.9)',
+            },
+          },
+        },
+      },
+    },
+  },
+});
 
 export const ProductComponent: React.FC = () => {
   const { shops } = useShopStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme: currentTheme } = useTheme();
+  const isDarkMode = currentTheme === 'dark';
 
   // Initialize page state from URL
   const queryParams = new URLSearchParams(location.search);
@@ -74,7 +114,6 @@ export const ProductComponent: React.FC = () => {
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
-      <style>{customStyles}</style>
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
@@ -101,7 +140,7 @@ export const ProductComponent: React.FC = () => {
           </tbody>
         </table>
         <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
             <Pagination
               shape="rounded"
               count={totalPages}

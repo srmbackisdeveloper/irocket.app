@@ -118,7 +118,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             onChange={handleTargetPricePlaceChange}
             onBlur={handleBlurTargetPricePlace}
             onKeyDown={handleKeyDownTargetPricePlace}
-            min="0"
+            min="1"
           />
         </td>
         <td className="w-1/5 p-2 text-center">
