@@ -42,11 +42,11 @@ export const RegisterPage = () => {
       setIsLoading(false);
       if (success) {
          // Redirect to a different page or perform additional actions upon successful login
-         console.log('Login successful');
+         console.log('Register successful');
          navigate('/login');
       } else {
          // Show an error message or perform actions upon failed login
-         console.error('Login failed');
+         console.error('Register failed');
          setError('Ошибка регистрации');
       }
    };
@@ -88,7 +88,7 @@ export const RegisterPage = () => {
       setNumber(formattedValue);
    };
    return (
-      <div className="grid justify-center items-center gap-4 mt-10">
+      <div className="flex flex-col justify-center items-center gap-4 h-screen pb-20">
          <div className="grid justify-center items-center">
             <h2 className="text-3xl font-semibold text-center">Регистрация</h2>
             <p className="font-semibold text-center text-sm text-gray-500 mt-1">
@@ -150,7 +150,7 @@ export const RegisterPage = () => {
                Имя пользователя
             </p>
             <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
                type="p"
                value={username}
                onChange={(e) => setUsername(e.target.value)}
@@ -162,7 +162,7 @@ export const RegisterPage = () => {
                Номер телефона
             </p>
             <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
                type="text"
                inputMode="numeric"
                value={number}
@@ -176,7 +176,7 @@ export const RegisterPage = () => {
             </p>
             <div className="relative">
                <input
-                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
                   type={isVisible ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -201,7 +201,7 @@ export const RegisterPage = () => {
             </p>
             <div className="relative">
                <input
-                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
+                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
                   type={isVisibleConfirm ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -259,6 +259,7 @@ export const RegisterPage = () => {
                setIsLoading(false);
                setError('');
             }}
+            hideCloseButton
          >
             <ModalContent>
                <div className="flex justify-center items-center gap-3 p-5">

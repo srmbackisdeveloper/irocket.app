@@ -17,7 +17,7 @@ export const EditModal = () => {
 
    return (
       <div className="cursor-not-allowed">
-         <Button onPress={onOpen} isIconOnly className="bg-white" isDisabled>
+         <Button onPress={onOpen} isIconOnly className="bg-transparent" isDisabled>
             <EditIcon />
          </Button>
          <Modal 

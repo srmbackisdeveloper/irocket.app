@@ -6,7 +6,7 @@ import { Tooltip } from "@nextui-org/react";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { ProductSearch } from "./ProductSearch";
-import { Overlay } from "../../shared/Overlay";
+import { Overlay } from "./Overlay";
 import { useShopStore } from "../../../store/shopStore";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -76,8 +76,8 @@ export const ProductComponent: React.FC = () => {
       <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
       <style>{customStyles}</style>
         <table className="w-full min-w-max table-fixed">
-          <thead className="border-b">
-            <tr className="text-base">
+          <thead className="border-b dark:border-gray-500">
+            <tr className="text-base dark:text-slate-300">
               <th className="font-semibold w-[35%] p-2 text-left">Название</th>
               <th className="font-semibold w-[10%] p-2">Цена</th>
               <th className="font-semibold w-[10%] p-2">Тек. место</th>

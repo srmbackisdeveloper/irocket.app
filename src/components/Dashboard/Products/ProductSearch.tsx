@@ -1,6 +1,7 @@
 import {
     Button,
     Divider,
+    Input,
     VisuallyHidden,
 } from '@nextui-org/react';
 import { Search } from '../../shared/icons/Search.icon';
@@ -49,26 +50,27 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
 
     return (
         <div className="border rounded-lg">
-            <div className="p-3">
-                <div className="flex items-center justify-between pb-5">
+            <div className="p-1 px-3">
+                <div className="flex items-center justify-between pb-3">
                     <div className="flex items-center gap-3">
-                        <div className="flex border-gray-200 border-2 rounded-lg p-[6px] gap-2 max-w-[16em] max-h-fit items-center focus:border-black duration-200 focus-within:border-black">
-                            <Search />
-                            <input type="text" placeholder="Артикул / Название" className="" />
-                        </div>
+                        <Input 
+                            startContent={<Search />}
+                            placeholder='Артикул / Название'
+                            size='lg'
+                        />
                     </div>
                     <Button
                         color="danger"
-                        variant="bordered"
-                        className="text-black px-7 my-3 font-semibold hover:bg-danger hover:text-white float-right"
+                        variant="ghost"
+                        className="px-7 my-3 font-semibold float-right"
                         onClick={handleRefresh}
                     >
                         Обновить
                     </Button>
                 </div>
                 <Divider />
-                <div className="flex items-center gap-3 pt-5 pb-2">
-                    <p className="text-xs text-gray-600 font-medium">Магазины:</p>
+                <div className="flex items-center gap-3 pt-3 pb-2">
+                    <p className="text-xs text-gray-600 font-medium dark:text-slate-200">Магазины:</p>
                     {shops.map((shop) => (
                         <label key={shop.id} className="inline-block">
                             <VisuallyHidden>
@@ -78,7 +80,7 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
                                     onChange={() => handleCheckboxChange(shop.id)}
                                 />
                             </VisuallyHidden>
-                            <div className={`inline-flex items-center px-3 py-1 rounded-full cursor-pointer duration-300 ease-in ${checkedShops.has(shop.id) ? 'bg-danger text-white border border-transparent' : 'border border-gray-300 text-gray-700'}`}>
+                            <div className={`inline-flex items-center px-3 py-1 rounded-full cursor-pointer duration-300 ease-in dark:text-slate-100 ${checkedShops.has(shop.id) ? 'bg-danger text-white border border-transparent' : 'border border-gray-300 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-black dark:hover:text-white'}`}>
                                 <span className="text-sm font-semibold">{shop.name}</span>
                             </div>
                         </label>

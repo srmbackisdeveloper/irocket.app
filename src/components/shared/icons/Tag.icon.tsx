@@ -6,7 +6,7 @@ export const TagIcon = () => {
          viewBox="0 0 24 24"
          strokeWidth={1.5}
          stroke="black"
-         className="w-4 h-4"
+         className="w-5 h-5 stroke-black dark:stroke-white"
       >
          <path
             strokeLinecap="round"

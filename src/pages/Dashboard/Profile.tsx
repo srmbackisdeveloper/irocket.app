@@ -53,13 +53,13 @@ export const Profile = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder={user?.fullName || ""}
-            className="grid border rounded-xl p-2 w-full mt-1"
+            className="grid border rounded-xl p-2 w-full mt-1 custom-input"
           />
         </div>
         <div>
           <p className="font-semibold text-start text-sm">Телефон</p>
           <input
-            className="grid border rounded-xl p-2 w-full mt-1"
+            className="grid border rounded-xl p-2 w-full mt-1 custom-input"
             type="text"
             pattern="\d*"
             inputMode="numeric"
@@ -75,7 +75,7 @@ export const Profile = () => {
             type="email"
             value={email}
             disabled
-            className="grid border rounded-xl p-2 w-full mt-1"
+            className="grid border rounded-xl p-2 w-full mt-1 custom-input"
             placeholder={user?.email || ""}
           />
           <p className="font-semibold text-start text-xs text-gray-500">
@@ -85,7 +85,7 @@ export const Profile = () => {
         <div>
           <p className="font-semibold text-start text-sm">Пароль</p>
           <input
-            className="grid border rounded-xl p-2 w-full mt-1"
+            className="grid border rounded-xl p-2 w-full mt-1 custom-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
