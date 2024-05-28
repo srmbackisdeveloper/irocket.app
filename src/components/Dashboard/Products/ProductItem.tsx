@@ -99,9 +99,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
   return (
     <>
       <tr key={products.id}>
-        <td className="w-1/5 p-2">
+        <td className="flex gap-3 p-2">
+          <img src={products.product_image_link} className="object-contain w-12"/>
           <div className="grid gap-2">
-            <p className="text-danger text-sm font-semibold">{products.title}</p>
+            <a className="text-danger text-sm font-semibold cursor-pointer hover:text-blue-700 duration-300" href={products.product_card_link}>{products.title}</a>
             <p className="text-xs font-bold dark:text-slate-300">Артикул: {products.code}</p>
             <p className="text-xs font-bold dark:text-slate-300">Магазин: <span className="text-danger">{shopName}</span></p>
           </div>

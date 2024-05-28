@@ -11,6 +11,7 @@ import { ArrowOut } from '../shared/icons/ArrowOut.icon';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Key } from 'react';
+import { useTheme } from 'next-themes';
 import ThemeSwitcher from './ThemeSwitcher';
 
 interface ProfileDropdownProps {
@@ -22,6 +23,13 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
 }) => {
    const { logout } = useAuth();
    const navigate = useNavigate();
+   const { theme, setTheme } = useTheme();
+
+   const isDark = theme === "dark";
+
+   const handleToggle = () => {
+     setTheme(isDark ? "light" : "dark");
+   };
 
    const handleAction = (key: Key) => {
       if (key === 'my-profile') {
@@ -29,7 +37,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
       } else if (key === 'exit') {
          logout();
       } else if (key === 'theme-switcher') {
-
+         handleToggle();
       }
    };
 

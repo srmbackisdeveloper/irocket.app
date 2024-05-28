@@ -51,7 +51,7 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
     return (
         <div className="border rounded-lg">
             <div className="p-1 px-3">
-                <div className="flex items-center justify-between pb-3">
+                <div className="md:flex items-center justify-between pb-3 pt-2 md:pt-0">
                     <div className="flex items-center gap-3">
                         <Input 
                             startContent={<Search />}

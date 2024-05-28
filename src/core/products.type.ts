@@ -9,6 +9,8 @@ export type TProducts = {
     price_difference: number;
     code: number;
     price_auto_change: boolean;
+    product_card_link: string;
+    product_image_link: string;
     merchant: number;
 }
 

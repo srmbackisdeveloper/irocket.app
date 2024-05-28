@@ -101,7 +101,6 @@ export const LoginPage = () => {
           setError(null); // Clear error when modal is closed
         }}
         placement='center'
-        isDismissable={false}
         hideCloseButton={isLoading}
       >
         <ModalContent>
