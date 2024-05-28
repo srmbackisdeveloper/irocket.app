@@ -1,13 +1,27 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
-import { Tooltip, Pagination } from "@nextui-org/react";
+import { Tooltip } from "@nextui-org/react";
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import { ProductSearch } from "./ProductSearch";
 import { Overlay } from "./Overlay";
 import { useShopStore } from "../../../store/shopStore";
 
-export const ProductComponent = () => {
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+const theme = createTheme({
+  palette: {
+    secondary: {
+      main: '#f31260',
+    },
+  },
+});
+
+
+const customStyles = ` .MuiPaginationItem-page.Mui-selected:hover { background-color: rgba(243, 18, 96, 0.9); } `;
+
+export const ProductComponent: React.FC = () => {
   const { shops } = useShopStore();
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,14 +30,15 @@ export const ProductComponent = () => {
   const queryParams = new URLSearchParams(location.search);
   const initialPage = parseInt(queryParams.get('page') || '1', 10);
 
-  const [page, setPage] = useState(initialPage);
-  const [isOverlayVisible, setIsOverlayVisible] = useState(false); // Overlay state
+  const [page, setPage] = useState<number>(initialPage);
+  const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false); // Overlay state
   const limit = 10; // Constant limit
   const query = useGetProducts(page, limit);
 
   const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 
-  const handlePageChange = (newPage: number) => {
+  const handlePageChange = (event: React.ChangeEvent<unknown>, newPage: number) => {
+    event.preventDefault();
     setPage(newPage);
   };
 
@@ -59,6 +74,7 @@ export const ProductComponent = () => {
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
+      <style>{customStyles}</style>
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
@@ -84,15 +100,18 @@ export const ProductComponent = () => {
             <ProductList query={query} />
           </tbody>
         </table>
-        <Pagination
-          className="grid justify-center items-center mt-[2em] px-[4em]"
-          showControls
-          color="danger"
-          size="lg"
-          total={totalPages}
-          page={page} // Set the current page for the pagination component
-          onChange={handlePageChange}
-        />
+        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
+          <ThemeProvider theme={theme}>
+            <Pagination
+              shape="rounded"
+              count={totalPages}
+              color="secondary"
+              size="large"
+              page={page}
+              onChange={handlePageChange}
+            />
+          </ThemeProvider>
+        </Stack>
       </div>
     </>
   );
