@@ -20,6 +20,7 @@ export const WorkersModal = () => {
             color="danger"
             variant="ghost"
             className="px-7 font-semibold hover:bg-danger hover:text-white"
+            isDisabled
          >
             Добавить
          </Button>
@@ -35,7 +36,7 @@ export const WorkersModal = () => {
                            Почта сотрудника
                         </p>
                         <input
-                           className="grid border rounded-xl p-2 w-full mt-1"
+                           className="grid border rounded-xl p-2 w-full mt-1 custom-input"
                            type="email"
                            value={email}
                            onChange={(e) => setEmail(e.target.value)}

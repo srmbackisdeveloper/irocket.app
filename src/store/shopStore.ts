@@ -81,20 +81,30 @@ export const useShopStore = create<ShopState>()(
             const newShop = await shopAPI.createShop(kaspiLogin, kaspiPassword);
             set((state) => ({
               shops: [...state.shops, newShop],
-              isCreating: false
+              isCreating: false,
             }));
             return { success: true };
           } catch (error) {
             let errorMessage = 'An unknown error occurred';
-            if (error instanceof Error) {
-              errorMessage = error.message || 'An unknown error occurred'; // Check if the message is an empty string
+        
+            if (error && typeof error === 'object' && 'response' in error) {
+              const axiosError = error as { response: { data: { detail: string } } };
+              if (axiosError.response && axiosError.response.data && axiosError.response.data.detail) {
+                const detailMessage = axiosError.response.data.detail;
+                if (detailMessage.includes('duplicate key value violates unique constraint')) {
+                  errorMessage = 'Такой магазин уже существует';
+                }
+              }
+            } else if (error instanceof Error) {
+              errorMessage = error.message || 'An unknown error occurred';
             } else if (typeof error === 'string' && error.trim() === '') {
-              errorMessage = 'An unknown error occurred'; // Handle the empty string case
+              errorMessage = 'An unknown error occurred';
             }
+        
             set({ createError: errorMessage, isCreating: false });
             return { success: false, error: errorMessage };
           }
-        },
+        },                
       }),
       {
         name: 'shop-storage',

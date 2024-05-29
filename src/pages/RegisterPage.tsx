@@ -36,7 +36,7 @@ export const RegisterPage = () => {
    const handleRegister = async (event: React.FormEvent) => {
       event.preventDefault();
       setIsLoading(true);
-      const success = await register(handlePhoneNumber(number), password, username);
+      const success = await register(handlePhoneNumber(number).trim(), password.trim(), username.trim());
       setIsLoading(false);
       if (success) {
          // Redirect to a different page or perform additional actions upon successful login

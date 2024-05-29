@@ -20,23 +20,25 @@ export const AddModal = () => {
 
    const handleAddShop = async () => {
       setStatusMessage('Загрузка...');
-      const result = await createShop(email, password);
+      const result = await createShop(email.trim(), password.trim());
       
       if (result.success) {
-        setStatusMessage('Магазин успешно добавлен');
-        setEmail('');
-        setPassword('');
-        setTimeout(() => {
-          setStatusMessage('');
-          onClose(); // Close the modal
-        }, 2000);
+         setStatusMessage('Магазин успешно добавлен');
+         setEmail('');
+         setPassword('');
+         setTimeout(() => {
+            setStatusMessage('');
+            onClose(); // Close the modal
+         }, 2000);
       } else {
-        setStatusMessage(`Ошибка при добавлении магазина: ${result.error}`);
+         setStatusMessage(`Ошибка при добавлении магазина: ${result.error}`);
+         setEmail('');
+         setPassword('');
       }
    };
 
    useEffect(() => {
-      if (!isOpen) {
+      if (isOpen) {
          setStatusMessage('');
       }
    }, [isOpen]);
@@ -50,6 +52,12 @@ export const AddModal = () => {
       }
    }, [isCreating, statusMessage, onClose]);
 
+   // Handle modal close to clear statusMessage
+   const handleClose = () => {
+      setStatusMessage('');
+      onClose();
+   };
+
    return (
       <div>
          <Button
@@ -61,7 +69,8 @@ export const AddModal = () => {
             Добавить
          </Button>
          <Modal 
-            isOpen={isOpen} onOpenChange={onClose}
+            isOpen={isOpen} 
+            onOpenChange={handleClose} // Use handleClose to clear statusMessage on close
             placement='top-center'
          >
             <ModalContent>

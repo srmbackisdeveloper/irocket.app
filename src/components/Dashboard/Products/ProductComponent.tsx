@@ -118,12 +118,12 @@ export const ProductComponent: React.FC = () => {
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
               <th className="font-semibold w-[35%] p-2 text-left">Название</th>
-              <th className="font-semibold w-[10%] p-2">Цена</th>
-              <th className="font-semibold w-[10%] p-2">Тек. место</th>
-              <th className="font-semibold w-[10%] p-2">1-ое место</th>
-              <th className="font-semibold w-[10%] p-2">2-ое место</th>
-              <th className="font-semibold w-[10%] p-2">Цен. ориентир</th>
-              <th className="font-semibold w-[10%] p-2">Раз. в цене</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">2-ое место</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Раз. в цене</th>
               <Tooltip
                 placement="top-end"
                 offset={-10}
@@ -131,7 +131,7 @@ export const ProductComponent: React.FC = () => {
                 showArrow={true}
                 content="Если отключено, то бот не будет изменять цену данного товара"
               >
-                <th className="font-semibold w-[10%] p-2">Актив.</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Актив.</th>
               </Tooltip>
             </tr>
           </thead>

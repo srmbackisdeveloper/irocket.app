@@ -39,7 +39,7 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
       {status === "success" && (
         <>
           {data?.results.length === 0 && (
-            <tr className="flex justify-center items-center">
+            <tr className="flex justify-center items-center h-[30vh] w-screen">
               <td colSpan={6}>У вас пока нету подуктов. Попробуйте обновить страницу</td>
             </tr>
           )}

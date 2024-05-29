@@ -3,6 +3,7 @@ import { TProducts } from "../../../core/products.type";
 import { productsAPI } from "../../../services/products";
 import { useState } from "react";
 import AlertModal from "./../AlertModal";
+import { ProductDetail } from "./ProductDetail"; // Import the ProductDetail component
 
 type ProductItemProps = {
   products: TProducts;
@@ -16,6 +17,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>("");
+  const [isProductDetailOpen, setIsProductDetailOpen] = useState<boolean>(false); // State for ProductDetail modal
 
   const showModal = (message: string) => {
     setModalMessage(message);
@@ -96,6 +98,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
     }
   };
 
+  const handleProductDetailOpen = () => {
+    setIsProductDetailOpen(true);
+  };
+
+  const handleProductDetailClose = () => {
+    setIsProductDetailOpen(false);
+  };
+
   return (
     <>
       <tr key={products.id}>
@@ -105,13 +115,14 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             <a className="text-danger text-sm font-semibold cursor-pointer hover:text-blue-700 duration-300" href={products.product_card_link}>{products.title}</a>
             <p className="text-xs font-bold dark:text-slate-300">Артикул: {products.code}</p>
             <p className="text-xs font-bold dark:text-slate-300">Магазин: <span className="text-danger">{shopName}</span></p>
+            <button className="text-blue-700 text-xs" onClick={handleProductDetailOpen}>Настройки товара</button>
           </div>
         </td>
-        <td className="w-1/5 p-2 text-center font-semibold dark:text-slate-300">{products.price} ₸</td>
-        <td className="w-1/5 p-2 text-center text-danger font-semibold">{products.current_price_place}</td>
-        <td className="w-1/5 p-2 text-center dark:text-slate-300">{products.first_place_price}</td>
-        <td className="w-1/5 p-2 text-center dark:text-slate-300">{products.second_place_price}</td>
-        <td className="w-1/5 p-2 text-center dark:text-slate-300">
+        <td className="w-1/5 p-2 text-center font-semibold dark:text-slate-300 hidden md:table-cell">{products.price} ₸</td>
+        <td className="w-1/5 p-2 text-center text-danger font-semibold hidden md:table-cell">{products.current_price_place}</td>
+        <td className="w-1/5 p-2 text-center dark:text-slate-300 hidden md:table-cell">{products.first_place_price}</td>
+        <td className="w-1/5 p-2 text-center dark:text-slate-300 hidden md:table-cell">{products.second_place_price}</td>
+        <td className="w-1/5 p-2 text-center dark:text-slate-300 hidden md:table-cell">
           <Input
             type="number"
             className="w-16 ml-8"
@@ -122,7 +133,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             min="1"
           />
         </td>
-        <td className="w-1/5 p-2 text-center">
+        <td className="w-1/5 p-2 text-center hidden md:table-cell">
           <Input
             type="number"
             className="w-full text-center"
@@ -138,7 +149,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
             }
           />
         </td>
-        <td className="w-1/5 p-2 text-center">
+        <td className="w-1/5 p-2 text-center hidden md:table-cell">
           <Switch color="success" isSelected={priceAutoChange} onChange={handlePriceAutoChangeToggle} />
         </td>
       </tr>
@@ -148,6 +159,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
         </td>
       </tr>
       <AlertModal message={modalMessage} isOpen={isOpen} onOpenChange={handleCloseModal} />
+      <ProductDetail isOpen={isProductDetailOpen} onClose={handleProductDetailClose} products={products} shopName={""} />
     </>
   );
 };

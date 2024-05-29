@@ -17,7 +17,7 @@ export const LoginPage = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-    const success = await login(username, password);
+    const success = await login(username.trim(), password.trim());
     setIsLoading(false);
     if (success) {
       navigate('/dashboard');
