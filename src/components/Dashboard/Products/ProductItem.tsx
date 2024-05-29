@@ -111,11 +111,13 @@ export const ProductItem: React.FC<ProductItemProps> = ({ products, shopName }) 
       <tr key={products.id}>
         <td className="flex gap-3 p-2">
           <img src={products.product_image_link} className="object-contain w-12"/>
-          <div className="grid gap-2">
+          <div className="grid gap-2 items-start">
             <a className="text-danger text-sm font-semibold cursor-pointer hover:text-blue-700 duration-300" href={products.product_card_link}>{products.title}</a>
             <p className="text-xs font-bold dark:text-slate-300">Артикул: {products.code}</p>
-            <p className="text-xs font-bold dark:text-slate-300">Магазин: <span className="text-danger">{shopName}</span></p>
-            <button className="text-blue-700 text-xs" onClick={handleProductDetailOpen}>Настройки товара</button>
+            <div className="flex items-center gap-3">
+              <p className="text-xs font-bold dark:text-slate-300">Магазин: <span className="text-danger">{shopName}</span></p>
+              <button className="text-blue-700 text-xs hover:text-danger" onClick={handleProductDetailOpen}>Настройки товара</button>
+            </div>
           </div>
         </td>
         <td className="w-1/5 p-2 text-center font-semibold dark:text-slate-300 hidden md:table-cell">{products.price} ₸</td>

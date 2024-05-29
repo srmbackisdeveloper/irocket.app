@@ -117,7 +117,7 @@ export const ProductComponent: React.FC = () => {
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
-              <th className="font-semibold w-[35%] p-2 text-left">Название</th>
+              <th className="font-semibold md:w-[35%] w-full p-2 text-left">Название</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
