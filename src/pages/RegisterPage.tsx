@@ -16,7 +16,6 @@ export const RegisterPage = () => {
    // const [lastName, setLastName] = useState('');
    // const [company, setCompany] = useState('');
    const [isLoading, setIsLoading] = useState(false);
-   const [error, setError] = useState('');
    const [isVisible, setIsVisible] = useState(false);
    const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
    // const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -26,7 +25,7 @@ export const RegisterPage = () => {
    const toggleVisibility = () => setIsVisible(!isVisible);
    const toggleVisibilityConfirm = () => setIsVisibleConfirm(!isVisibleConfirm);
 
-   const { register } = useAuth();
+   const { register, error, setError } = useAuth();
 
    const isButtonDisabled = !number || password !== confirmPassword || !isChecked;
 
@@ -37,7 +36,6 @@ export const RegisterPage = () => {
    const handleRegister = async (event: React.FormEvent) => {
       event.preventDefault();
       setIsLoading(true);
-      setError('');
       const success = await register(handlePhoneNumber(number), password, username);
       setIsLoading(false);
       if (success) {
@@ -47,7 +45,6 @@ export const RegisterPage = () => {
       } else {
          // Show an error message or perform actions upon failed login
          console.error('Register failed');
-         setError('Ошибка регистрации');
       }
    };
 
@@ -260,13 +257,14 @@ export const RegisterPage = () => {
                setError('');
             }}
             hideCloseButton={isLoading}
+            placement='center'
          >
             <ModalContent>
                <div className="flex justify-center items-center gap-3 p-5">
                   {isLoading ? (
                      <>
+                        <Spinner color='danger'/>
                         <h3>Загрузка...</h3>
-                        <Spinner />
                      </>
                   ) : (
                      <h3>{error}</h3>

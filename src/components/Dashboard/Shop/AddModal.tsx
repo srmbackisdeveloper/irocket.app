@@ -75,7 +75,7 @@ export const AddModal = () => {
                            Эл. почта
                         </p>
                         <input
-                           className="grid border rounded-xl p-2 w-full mt-1"
+                           className="grid border rounded-xl p-2 w-full mt-1 custom-input"
                            type="email"
                            value={email}
                            onChange={(e) => setEmail(e.target.value)}
@@ -87,7 +87,7 @@ export const AddModal = () => {
                            Пароль
                         </p>
                         <input
-                           className="grid border rounded-xl p-2 w-full mt-1"
+                           className="grid border rounded-xl p-2 w-full mt-1 custom-input"
                            type="password"
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +116,7 @@ export const AddModal = () => {
                            className="min-w-40 font-semibold"
                            onPress={handleAddShop}
                            isLoading={isCreating}
+                           isDisabled={!email && !password}
                         >
                            Добавить
                         </Button>

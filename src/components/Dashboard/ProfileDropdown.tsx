@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import {
    Dropdown,
    DropdownItem,
@@ -12,7 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { Key } from 'react';
 import { useTheme } from 'next-themes';
-import ThemeSwitcher from './ThemeSwitcher';
+import { MoonIcon } from '../shared/icons/Moon.icon';
+import { SunIcon } from '../shared/icons/Sun.icon';
 
 interface ProfileDropdownProps {
    username?: string;
@@ -24,11 +26,21 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
    const { logout } = useAuth();
    const navigate = useNavigate();
    const { theme, setTheme } = useTheme();
+   const [isMounted, setIsMounted] = useState(false);
+   const [isDark, setIsDark] = useState(theme === "dark");
 
-   const isDark = theme === "dark";
+   useEffect(() => {
+      setIsMounted(true);
+   }, []);
+
+   useEffect(() => {
+      if (isMounted) {
+         setIsDark(theme === "dark");
+      }
+   }, [theme, isMounted]);
 
    const handleToggle = () => {
-     setTheme(isDark ? "light" : "dark");
+      setTheme(isDark ? "light" : "dark");
    };
 
    const handleAction = (key: Key) => {
@@ -77,9 +89,15 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({
                <DropdownItem 
                   key="theme-switcher"
                   textValue='Тема'
+                  onClick={handleToggle}
                >
                   <div className="flex items-center gap-2">
-                     <ThemeSwitcher>Тема</ThemeSwitcher>
+                     {isDark ? (
+                        <MoonIcon className="text-2xl" />
+                     ) : (
+                        <SunIcon className="text-2xl" />
+                     )}
+                     <p>Тема</p>
                   </div>
                </DropdownItem>
             </DropdownSection>

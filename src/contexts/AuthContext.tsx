@@ -115,11 +115,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Register failed', error);
       if (axios.isAxiosError(error) && error.response) {
-        if (error.response.data.error === 'Invalid credentials') {
-          setError('Неправильные учетные данные');
-        } if(error.response.data.error === 'Пользователь с таким именем уже существует.'){
-          setError(error.response.data.error);
-        }
+        setError(error.response.data.username);
       } else {
         setError('Ошибка при входе');
       }

@@ -107,7 +107,7 @@ export const LoginPage = () => {
           <div className="flex justify-center items-center gap-3 p-5">
             {isLoading ? (
               <>
-                <Spinner />
+                <Spinner color='danger'/>
                 <h3>Загрузка...</h3>
               </>
             ) : (

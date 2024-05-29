@@ -49,8 +49,8 @@ const DashboardHeader = () => {
          >
             <div className="flex justify-between items-center">
                <Logo />
-               <div className='flex items-center'>
-                  <ThemeSwitcher className='hidden md:block'/>
+               <div className='flex items-center gap-4'>
+                  <ThemeSwitcher />
                   <ProfileDropdown username={user?.fullName}/>
                </div>
             </div>
