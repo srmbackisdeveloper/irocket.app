@@ -71,9 +71,10 @@ export const ProductComponent: React.FC = () => {
   const initialPage = parseInt(queryParams.get('page') || '1', 10);
 
   const [page, setPage] = useState<number>(initialPage);
+  const searchQuery = queryParams.get('query') || undefined;
   const [isOverlayVisible, setIsOverlayVisible] = useState<boolean>(false); // Overlay state
   const limit = 10; // Constant limit
-  const query = useGetProducts(page, limit);
+  const query = useGetProducts(page, limit, searchQuery);
 
   const totalPages = Math.ceil((query.data?.count ?? 0) / limit);
 

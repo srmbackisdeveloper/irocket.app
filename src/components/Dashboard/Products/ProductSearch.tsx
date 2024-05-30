@@ -15,6 +15,7 @@ type ProductSearchProps = {
 }
 
 export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh }) => {
+    const [query, setQuery] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -27,6 +28,8 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
         const params = new URLSearchParams(location.search);
         const newPage = parseInt(params.get('page') || '1', 10);
         setPage(newPage);
+        const queryParam = params.get('query') || '';
+        setQuery(queryParam);
     }, [location.search]);
 
     const handleCheckboxChange = (shopId: number) => {
@@ -44,8 +47,27 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
     const handleRefresh = () => {
         const params = new URLSearchParams();
         params.set('page', page.toString());
+        if (query) {
+            params.set('query', query);
+        }
         navigate({ search: params.toString() });
         onProductsRefresh(); // Call the parent function to refresh the products
+    };
+
+    const handleSearch = () => {
+        if (!query) {
+            const params = new URLSearchParams(location.search);
+            params.delete('query');
+            navigate({ search: params.toString() });
+        } else {
+            handleRefresh();
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
     };
 
     return (
@@ -56,8 +78,20 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
                         <Input 
                             startContent={<Search />}
                             placeholder='Артикул / Название'
-                            size='lg'
+                            size='md'
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            onKeyDown={handleKeyDown}
                         />
+                        <Button 
+                            isIconOnly 
+                            type='submit'
+                            variant='shadow'
+                            isDisabled={!query}
+                            onClick={handleSearch}
+                        >
+                            <Search />
+                        </Button>
                     </div>
                     <Button
                         color="danger"

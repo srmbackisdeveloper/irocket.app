@@ -4,8 +4,13 @@ import { axiosInstance } from './api';
 class ProductsAPI {
     private axios = axiosInstance("kaspi_products");
 
-    getAllProducts = async (page: number, limit: number): Promise<TProductsResponse> => {
-        const response = await this.axios.get<TProductsResponse>(`/?ordering=id&page=${page}&limit=${limit}`);
+    getAllProducts = async (page: number, limit: number, query?: string): Promise<TProductsResponse> => {
+        let url = `/?ordering=id&page=${page}&limit=${limit}`;
+        if (query) {
+            url += `&search=${query}`;
+        }
+        console.log(query)
+        const response = await this.axios.get<TProductsResponse>(url);
         return response.data;
     }
 
@@ -18,4 +23,3 @@ class ProductsAPI {
 }
 
 export const productsAPI = new ProductsAPI();
-
