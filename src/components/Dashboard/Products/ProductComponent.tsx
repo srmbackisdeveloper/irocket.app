@@ -101,6 +101,15 @@ export const ProductComponent: React.FC = () => {
     }
   }, [location.search]);
 
+  // Ensure component updates when query refetches
+  useEffect(() => {
+    if (query.isFetching) {
+      setIsOverlayVisible(true);
+    } else {
+      setIsOverlayVisible(false);
+    }
+  }, [query.isFetching]);
+
   const refreshProducts = async () => {
     setIsOverlayVisible(true); // Show overlay
     await query.refetch();
@@ -117,11 +126,12 @@ export const ProductComponent: React.FC = () => {
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
-              <th className="font-semibold md:w-[35%] w-full p-2 text-left">Название</th>
+              <th className="font-semibold md:w-[20%] w-full p-2 text-left">Название</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">2-ое место</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
+              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
               <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Раз. в цене</th>
               <Tooltip
@@ -139,7 +149,7 @@ export const ProductComponent: React.FC = () => {
             <ProductList query={query} />
           </tbody>
         </table>
-        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] px-[4em]">
+        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] md:px-[4em]">
           <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
             <Pagination
               shape="rounded"

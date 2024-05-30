@@ -44,7 +44,7 @@ export const ProductList: React.FC<ProductListProps> = ({ query }) => {
             </tr>
           )}
           {data?.results.map((products) => (
-            <ProductItem key={products.id} products={products} shopName={getShopNameById(products.merchant)} />
+            <ProductItem key={products.id} product={products} shopName={getShopNameById(products.merchant)} />
           ))}
         </>
       )}

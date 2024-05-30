@@ -5,7 +5,7 @@ class ProductsAPI {
     private axios = axiosInstance("kaspi_products");
 
     getAllProducts = async (page: number, limit: number): Promise<TProductsResponse> => {
-        const response = await this.axios.get<TProductsResponse>(`/?page=${page}&limit=${limit}`);
+        const response = await this.axios.get<TProductsResponse>(`/?ordering=id&page=${page}&limit=${limit}`);
         return response.data;
     }
 

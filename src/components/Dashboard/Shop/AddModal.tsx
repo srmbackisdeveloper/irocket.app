@@ -10,6 +10,8 @@ import {
    Spinner,
 } from '@nextui-org/react';
 import { useShopStore } from '../../../store/shopStore';
+import { EyeFilledIcon } from '../../../pages/icons/EyeFilledIcon';
+import { EyeSlashFilledIcon } from '../../../pages/icons/EyeSlashFilledIcon';
 
 export const AddModal = () => {
    const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,6 +19,7 @@ export const AddModal = () => {
    const [password, setPassword] = useState('');
    const { createShop, isCreating, createError } = useShopStore();
    const [statusMessage, setStatusMessage] = useState('');
+   const [isVisible, setIsVisible] = useState(false);
 
    const handleAddShop = async () => {
       setStatusMessage('Загрузка...');
@@ -58,6 +61,8 @@ export const AddModal = () => {
       onClose();
    };
 
+   const toggleVisibility = () => setIsVisible(!isVisible); 
+
    return (
       <div>
          <Button
@@ -92,16 +97,27 @@ export const AddModal = () => {
                         />
                      </div>
                      <div>
-                        <p className="font-semibold text-start text-sm text-gray-500">
-                           Пароль
-                        </p>
-                        <input
-                           className="grid border rounded-xl p-2 w-full mt-1 custom-input"
-                           type="password"
+                       <p className="font-semibold text-start text-sm text-gray-500">Пароль</p>
+                       <div className="relative">
+                         <input
+                           className="grid border rounded-xl p-2 min-w-full mt-1 custom-input"
+                           type={isVisible ? "text" : "password"}
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}
-                           placeholder="password"
-                        />
+                           placeholder="пароль"
+                         />
+                         <button
+                           type="button"
+                           onClick={toggleVisibility}
+                           className="absolute right-3 top-2 focus:outline-none"
+                         >
+                           {isVisible ? (
+                             <EyeSlashFilledIcon className="text-2xl text-default-400" />
+                           ) : (
+                             <EyeFilledIcon className="text-2xl text-default-400" />
+                           )}
+                         </button>
+                       </div>
                      </div>
                      <div>
                         <p className="font-semibold text-start text-sm text-gray-500">

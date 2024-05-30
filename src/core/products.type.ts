@@ -6,6 +6,8 @@ export type TProducts = {
     first_place_price: number;
     second_place_price: number;
     target_price_place: number;
+    min_price: number;
+    max_price: number;
     price_difference: number;
     code: number;
     price_auto_change: boolean;
