@@ -70,6 +70,13 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
         }
     };
 
+    const handleClear = () => {
+        setQuery('');
+        const params = new URLSearchParams(location.search);
+        params.delete('query');
+        navigate({ search: params.toString() }, { replace: true });
+    };
+
     return (
         <div className="border rounded-lg">
             <div className="p-1 px-3">
@@ -82,6 +89,8 @@ export const ProductSearch: FC<ProductSearchProps> = ({ shops, onProductsRefresh
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             onKeyDown={handleKeyDown}
+                            isClearable
+                            onClear={handleClear}
                         />
                         <Button 
                             isIconOnly 

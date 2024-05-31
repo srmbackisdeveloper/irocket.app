@@ -4,21 +4,20 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 import { EyeSlashFilledIcon } from './icons/EyeSlashFilledIcon';
 import { EyeFilledIcon } from './icons/EyeFilledIcon';
+import validCodes from '../../public/validCodes.json'; // Update the path to your JSON file
 
 export const RegisterPage = () => {
    const [username, setUsername] = useState('');
-   // const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
-   const [number, setNumber] = useState('+7');
+   const [number, setNumber] = useState('+7(___)___-__-__');
    const [isChecked, setIsChecked] = useState(false);
-   // const [firstName, setFirstName] = useState('');
-   // const [lastName, setLastName] = useState('');
-   // const [company, setCompany] = useState('');
    const [isLoading, setIsLoading] = useState(false);
    const [isVisible, setIsVisible] = useState(false);
    const [isVisibleConfirm, setIsVisibleConfirm] = useState(false);
-   // const {isOpen, onOpen, onOpenChange} = useDisclosure();
+   const [usernameError, setUsernameError] = useState('');
+   const [passwordError, setPasswordError] = useState('');
+   const [phoneError, setPhoneError] = useState('');
 
    const navigate = useNavigate();
 
@@ -27,7 +26,36 @@ export const RegisterPage = () => {
 
    const { register, error, setError } = useAuth();
 
-   const isButtonDisabled = !number || password !== confirmPassword || !isChecked;
+   const validateUsername = (username: string) => {
+      const usernameRegex = /^[a-zA-Z0-9]{8,16}$/;
+      const numbersInUsername = username.replace(/[^0-9]/g, '').length;
+      if (!usernameRegex.test(username)) {
+         return 'Имя пользователя должно содержать от 8 до 16 символов и быть на латинице, без специальных символов.';
+      }
+      if (numbersInUsername > 7) {
+         return 'Имя пользователя не должно содержать более 7 цифр.';
+      }
+      return '';
+   };
+
+   const validatePassword = (password: string) => {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/;
+      if (!passwordRegex.test(password)) {
+         return 'Пароль должен содержать от 8 до 16 символов, по крайней мере одну заглавную букву, одну строчную букву и одну цифру, без специальных символов.';
+      }
+      return '';
+   };
+
+   const validatePhoneNumber = (number: string) => {
+      const digits = number.replace(/\D/g, '');
+      const areaCode = digits.slice(1, 4);
+      if (!validCodes.codes.includes(areaCode)) {
+         return 'Введите корректный номер!';
+      }
+      return '';
+   };
+
+   const isButtonDisabled = !username || !number || password !== confirmPassword || !isChecked || usernameError || passwordError || phoneError;
 
    const handleCheckboxChange = () => {
       setIsChecked(!isChecked);
@@ -39,25 +67,20 @@ export const RegisterPage = () => {
       const success = await register(handlePhoneNumber(number).trim(), password.trim(), username.trim());
       setIsLoading(false);
       if (success) {
-         // Redirect to a different page or perform additional actions upon successful login
          console.log('Register successful');
          navigate('/login');
       } else {
-         // Show an error message or perform actions upon failed login
          console.error('Register failed');
       }
    };
 
    const formatPhoneNumber = (value: string) => {
-      // Remove all non-digit characters
       const digits = value.replace(/\D/g, '');
+      const part2 = digits.slice(1, 4);
+      const part3 = digits.slice(4, 7);
+      const part4 = digits.slice(7, 9);
+      const part5 = digits.slice(9, 11);
 
-      const part2 = digits.slice(1, 4); // First 3 digits
-      const part3 = digits.slice(4, 7); // Next 3 digits
-      const part4 = digits.slice(7, 9); // Next 2 digits
-      const part5 = digits.slice(9, 11); // Last 2 digits
-
-      // Combine the parts into the desired format
       let formattedNumber = '+7';
       if (part2) formattedNumber += `(${part2})`;
       if (part3) formattedNumber += `${part3}`;
@@ -68,22 +91,54 @@ export const RegisterPage = () => {
    };
 
    const handlePhoneNumber = (number: string): string => {
-      // Remove whitespaces, underscores, parentheses, and dashes
       let cleanedNumber = number.replace(/[\s_\(\)-]/g, '');
-
-      // Replace +7 with 8 if present
       if (cleanedNumber.startsWith('+7')) {
          cleanedNumber = '8' + cleanedNumber.slice(2);
       }
-
       return cleanedNumber;
    };
 
    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const inputValue = event.target.value;
-      const formattedValue = formatPhoneNumber(inputValue);
+      const digits = inputValue.replace(/\D/g, '');
+      let formattedValue = '+7';
+
+      if (digits.length > 1) {
+         formattedValue += `(${digits.slice(1, 4)})`;
+      } else {
+         formattedValue += '(___)';
+      }
+      if (digits.length >= 5) {
+         formattedValue += digits.slice(4, 7);
+      }
+      if (digits.length >= 8) {
+         formattedValue += `-${digits.slice(7, 9)}`;
+      }
+      if (digits.length >= 10) {
+         formattedValue += `-${digits.slice(9, 11)}`;
+      }
+
       setNumber(formattedValue);
+      setPhoneError(validatePhoneNumber(formattedValue));
    };
+
+   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = event.target.value;
+      setUsername(inputValue);
+      setUsernameError(validateUsername(inputValue));
+   };
+
+   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = event.target.value;
+      setPassword(inputValue);
+      setPasswordError(validatePassword(inputValue));
+   };
+
+   const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const inputValue = event.target.value;
+      setConfirmPassword(inputValue);
+   };
+
    return (
       <div className="flex flex-col justify-center items-center gap-4 h-screen pb-20">
          <div className="grid justify-center items-center">
@@ -92,80 +147,32 @@ export const RegisterPage = () => {
                Пришло время быть первым!
             </p>
          </div>
-         {/* <div className="grid lg:flex lg:justify-center lg:gap-5">
-            <div className="grid justify-center items-center">
-               <p className="font-semibold text-start text-sm text-gray-500">
-                  Имя
-               </p>
-               <input
-                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[10rem]"
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="Имя"
-               />
-            </div>
-            <div className="grid justify-center items-center">
-               <p className="font-semibold text-start text-sm text-gray-500">
-                  Фамилия
-               </p>
-               <input
-                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[10rem]"
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  placeholder="Фамилия"
-               />
-            </div>
-         </div> */}
-         {/* <div className="grid justify-center items-center">
-            <p className="font-semibold text-start text-sm text-gray-500">
-               Компания
-            </p>
-            <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-               type="text"
-               value={company}
-               onChange={(e) => setCompany(e.target.value)}
-               placeholder="Компания"
-            />
-         </div> */}
-         {/* <div className="grid justify-center items-center">
-            <p className="font-semibold text-start text-sm text-gray-500">
-               Эл. почта
-            </p>
-            <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem]"
-               type="email"
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-               placeholder="эл. почта"
-            />
-         </div> */}
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
                Имя пользователя
             </p>
             <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
-               type="p"
+               className={`grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input ${usernameError ? 'border-danger' : ''}`}
+               type="text"
                value={username}
-               onChange={(e) => setUsername(e.target.value)}
+               onChange={handleUsernameChange}
                placeholder="Имя пользователя"
             />
+            {usernameError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{usernameError}</p>}
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
                Номер телефона
             </p>
             <input
-               className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
+               className={`grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input ${phoneError ? 'border-danger' : ''}`}
                type="text"
                inputMode="numeric"
                value={number}
                onChange={handleInputChange}
                placeholder="+7(___)___-__-__"
             />
+            {phoneError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{phoneError}</p>}
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
@@ -173,10 +180,10 @@ export const RegisterPage = () => {
             </p>
             <div className="relative">
                <input
-                  className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
+                  className={`grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input ${passwordError ? 'border-danger' : ''}`}
                   type={isVisible ? "text" : "password"}
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handlePasswordChange}
                   placeholder="пароль"
                />
                <button
@@ -190,18 +197,19 @@ export const RegisterPage = () => {
                      <EyeFilledIcon className="text-2xl text-default-400" />
                   )}
                </button>
+               {passwordError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{passwordError}</p>}
             </div>
          </div>
          <div className="grid justify-center items-center pb-2">
-            <p className={`font-semibold text-start text-sm ${password.match(confirmPassword) ? 'text-gray-500' : 'text-danger'}`}>
-               {password.match(confirmPassword) ? 'Подтверждение пароля' : 'Пароли не совпадают'}
+            <p className={`font-semibold text-start text-sm ${password === confirmPassword ? 'text-gray-500' : 'text-danger'}`}>
+               {(password === confirmPassword) ? 'Подтверждение пароля' : 'Пароли не совпадают'}
             </p>
             <div className="relative">
                <input
                   className="grid border rounded-xl p-2 min-w-72 mt-1 lg:min-w-[26rem] custom-input"
                   type={isVisibleConfirm ? "text" : "password"}
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={handleConfirmPasswordChange}
                   placeholder="Подтверждение пароля"
                />
                <button
@@ -222,7 +230,7 @@ export const RegisterPage = () => {
                color="danger"
                variant="shadow"
                className="min-w-72 font-semibold"
-               isDisabled={isButtonDisabled}
+               isDisabled={!!isButtonDisabled}  // Ensure the value is boolean
                onClick={handleRegister}
             >
                Регистрация
@@ -246,36 +254,32 @@ export const RegisterPage = () => {
             <a
                className="font-semibold text-sm text-blue-700"
                href="https://irocket.kz/policy"
+               >
+                  пользовательским соглашением
+               </a>
+            </div>
+            <Modal
+               isOpen={isLoading || !!error}
+               onClose={() => {
+                  setIsLoading(false);
+                  setError('');
+               }}
+               hideCloseButton={isLoading}
+               placement='center'
             >
-               пользовательским соглашением
-            </a>
+               <ModalContent>
+                  <div className="flex justify-center items-center gap-3 p-5">
+                     {isLoading ? (
+                        <>
+                           <Spinner color='danger'/>
+                           <h3>Загрузка...</h3>
+                        </>
+                     ) : (
+                        <h3>{error}</h3>
+                     )}
+                  </div>
+               </ModalContent>
+            </Modal>
          </div>
-         <Modal
-            isOpen={isLoading || error !== ''}
-            onClose={() => {
-               setIsLoading(false);
-               setError('');
-            }}
-            hideCloseButton={isLoading}
-            placement='center'
-         >
-            <ModalContent>
-               <div className="flex justify-center items-center gap-3 p-5">
-                  {isLoading ? (
-                     <>
-                        <Spinner color='danger'/>
-                        <h3>Загрузка...</h3>
-                     </>
-                  ) : (
-                     <h3>{error}</h3>
-                  )}
-               </div>
-            </ModalContent>
-         </Modal>
-      </div>
-   );
-};
-
-// function capitalizeFirstLetter(string: string) {
-//    return string.charAt(0).toUpperCase() + string.slice(1);
-// }
+      );
+   };

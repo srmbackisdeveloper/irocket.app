@@ -86,12 +86,20 @@ export const ProductComponent: React.FC = () => {
   // Update URL when page state changes
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const currentUrlPage = parseInt(params.get('page') || '1', 10);
+    const currentUrlPage = parseInt(params.get('page') || '1', 
+    10);
     if (currentUrlPage !== page) {
       params.set('page', page.toString());
       navigate({ search: params.toString() }, { replace: true });
     }
   }, [page, navigate, location.search]);
+
+  // Reset page to 1 when search query changes
+  useEffect(() => {
+    if (searchQuery) {
+      setPage(1);
+    }
+  }, [searchQuery]);
 
   // Sync page state with URL when location changes
   useEffect(() => {
@@ -123,7 +131,7 @@ export const ProductComponent: React.FC = () => {
     <>
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
-      <div className={`border rounded-lg p-3 overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
+      <div className={`border rounded-lg p-3 md:overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
         <table className="w-full min-w-max table-fixed">
           <thead className="border-b dark:border-gray-500">
             <tr className="text-base dark:text-slate-300">
