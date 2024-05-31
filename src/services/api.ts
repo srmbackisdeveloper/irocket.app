@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const axiosInstance = (url: string) => {
-  const BASE_URL = "https://irocket.sky-ddns.kz";
+  const BASE_URL = import.meta.env.VITE_API_PATH;
 
   // Create an Axios instance
   const axios = Axios.create({
