@@ -74,22 +74,6 @@ export const RegisterPage = () => {
       }
    };
 
-   const formatPhoneNumber = (value: string) => {
-      const digits = value.replace(/\D/g, '');
-      const part2 = digits.slice(1, 4);
-      const part3 = digits.slice(4, 7);
-      const part4 = digits.slice(7, 9);
-      const part5 = digits.slice(9, 11);
-
-      let formattedNumber = '+7';
-      if (part2) formattedNumber += `(${part2})`;
-      if (part3) formattedNumber += `${part3}`;
-      if (part4) formattedNumber += `-${part4}`;
-      if (part5) formattedNumber += `-${part5}`;
-
-      return formattedNumber;
-   };
-
    const handlePhoneNumber = (number: string): string => {
       let cleanedNumber = number.replace(/[\s_\(\)-]/g, '');
       if (cleanedNumber.startsWith('+7')) {
