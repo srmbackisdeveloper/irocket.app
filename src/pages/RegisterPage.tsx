@@ -1,5 +1,5 @@
 import { Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 import { EyeSlashFilledIcon } from './icons/EyeSlashFilledIcon';
@@ -20,6 +20,18 @@ export const RegisterPage = () => {
    const [phoneError, setPhoneError] = useState('');
 
    const navigate = useNavigate();
+
+   useEffect(() => {
+      const handlePopState = () => {
+        navigate('/');
+      };
+  
+      window.addEventListener('popstate', handlePopState);
+  
+      return () => {
+        window.removeEventListener('popstate', handlePopState);
+      };
+    }, [navigate]);
 
    const toggleVisibility = () => setIsVisible(!isVisible);
    const toggleVisibilityConfirm = () => setIsVisibleConfirm(!isVisibleConfirm);

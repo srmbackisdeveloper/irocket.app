@@ -1,5 +1,5 @@
 import { Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 import { EyeFilledIcon } from './icons/EyeFilledIcon.js';
@@ -13,6 +13,18 @@ export const LoginPage = () => {
   const { login, error, setError } = useAuth(); 
   const navigate = useNavigate();
   document.title = 'Вход в систему | iRocket';
+
+  useEffect(() => {
+    const handlePopState = () => {
+      navigate('/');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
