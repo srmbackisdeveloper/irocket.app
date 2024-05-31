@@ -40,7 +40,7 @@ const defaultAuthContext: AuthContextType = {
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const BASE_URL = "https://irocket.sky-ddns.kz";
+  const BASE_URL = import.meta.env.VITE_API_PATH;
   const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
