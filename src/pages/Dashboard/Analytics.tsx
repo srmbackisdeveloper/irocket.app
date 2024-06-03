@@ -9,12 +9,12 @@ export const Analytics = () => {
                 startContent={<Search />}
                 className='w-fit'
                 placeholder='Артикул / Название'
-                size='lg'
+                size='md'
             />
          </div>
          <div className="grid border rounded-lg p-5">
             <p className="grid justify-center items-center text-danger">
-               товары не найдены !
+               Совсем скоро объявим о запуске!
             </p>
          </div>
       </div>

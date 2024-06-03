@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router';
 import { EyeSlashFilledIcon } from './icons/EyeSlashFilledIcon';
 import { EyeFilledIcon } from './icons/EyeFilledIcon';
-import validCodes from '../../public/validCodes.json'; // Update the path to your JSON file
+import validCodes from '../assets/validCodes.json';
 
 export const RegisterPage = () => {
    const [username, setUsername] = useState('');
@@ -53,7 +53,7 @@ export const RegisterPage = () => {
    const validatePassword = (password: string) => {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/;
       if (!passwordRegex.test(password)) {
-         return 'Пароль должен содержать от 8 до 16 символов, по крайней мере одну заглавную букву, одну строчную букву и одну цифру, без специальных символов.';
+         return 'Пароль должен содержать от 8 до 16 символов, одну заглавную букву, одну строчную букву и одну цифру, без специальных символов.';
       }
       return '';
    };
@@ -136,7 +136,7 @@ export const RegisterPage = () => {
    };
 
    return (
-      <div className="flex flex-col justify-center items-center gap-4 h-screen pb-20">
+      <div className="flex flex-col justify-center items-center gap-4 h-screen pb-20 mx-4">
          <div className="grid justify-center items-center">
             <h2 className="text-3xl font-semibold text-center">Регистрация</h2>
             <p className="font-semibold text-center text-sm text-gray-500 mt-1">
@@ -154,7 +154,7 @@ export const RegisterPage = () => {
                onChange={handleUsernameChange}
                placeholder="Имя пользователя"
             />
-            {usernameError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{usernameError}</p>}
+            {usernameError && <p className="text-danger text-xs mt-1 md:max-w-[26rem]">{usernameError}</p>}
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
@@ -168,7 +168,7 @@ export const RegisterPage = () => {
                onChange={handleInputChange}
                placeholder="+7(___)___-__-__"
             />
-            {phoneError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{phoneError}</p>}
+            {phoneError && <p className="text-danger text-xs mt-1 md:max-w-[26rem]">{phoneError}</p>}
          </div>
          <div className="grid justify-center items-center">
             <p className="font-semibold text-start text-sm text-gray-500">
@@ -193,7 +193,7 @@ export const RegisterPage = () => {
                      <EyeFilledIcon className="text-2xl text-default-400" />
                   )}
                </button>
-               {passwordError && <p className="text-danger text-sm mt-1 max-w-[26rem]">{passwordError}</p>}
+               {passwordError && <p className="text-danger text-xs mt-1 md:max-w-[26rem]">{passwordError}</p>}
             </div>
          </div>
          <div className="grid justify-center items-center pb-2">
@@ -249,7 +249,7 @@ export const RegisterPage = () => {
             <p className="font-semibold text-sm text-gray-500">Я согласен с</p>
             <a
                className="font-semibold text-sm text-blue-700"
-               href="https://irocket.kz/policy"
+               href="https://sharex.kz/policy"
                >
                   пользовательским соглашением
                </a>
