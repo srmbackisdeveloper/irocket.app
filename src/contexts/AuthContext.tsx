@@ -158,14 +158,14 @@ const addComment = async (comment: TComment): Promise<boolean> => {
   }
 
   try {
-    // console.log('Attempting to add comment', comment);
+    console.log('Attempting to add comment', comment);  // Added for debugging
     const response = await axios.post(`${BASE_URL}/create_comment/`, comment, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Token ${token}`,
       },
     });
     console.log('Comment added successfully', response.data);
-    setComments([...comments, comment]);
+    setComments([...comments, response.data]);  // Ensure you're adding the response comment
     setError(null);
     return true;
   } catch (error) {

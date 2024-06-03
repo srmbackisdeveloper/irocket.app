@@ -1,14 +1,15 @@
-import { Avatar, Divider, Textarea } from '@nextui-org/react';
+import { Avatar, Divider, Textarea, Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
 import AvatarImage from './../../assets/home/avatar.png';
 import { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { useAuth } from '../../contexts/AuthContext';
-import { Button } from '@nextui-org/react';
 
 const DashboardContent = () => {
   const [rating, setValue] = useState<number | null>(5);
   const [comment, setComment] = useState<string>('');
-  const { user, addComment } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const { user, addComment, error, setError } = useAuth();
 
   const handleChange = (
     _event: React.ChangeEvent<{}>,
@@ -22,10 +23,21 @@ const DashboardContent = () => {
   const handleSubmitComment = async (event: React.FormEvent) => {
     event.preventDefault();
     if (rating !== null && comment.trim() !== '') {
-      await addComment({ rating, text: comment });
-      setComment('');
-      setValue(5);
+      setIsLoading(true);
+      const success = await addComment({ rating, text: comment });
+      setIsLoading(false);
+      if (success) {
+        setComment('');
+        setValue(5);
+      } else {
+        setModalVisible(true);
+      }
     }
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setError(null);
   };
 
   return (
@@ -217,6 +229,26 @@ const DashboardContent = () => {
           </Button>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalVisible || isLoading}
+        onClose={closeModal}
+        hideCloseButton={isLoading}
+        placement='center'
+      >
+        <ModalContent>
+          <div className="flex justify-center items-center gap-3 p-5">
+            {isLoading ? (
+              <>
+                <Spinner color='danger' />
+                <h3>Загрузка...</h3>
+              </>
+            ) : (
+              <h3>{error}</h3>
+            )}
+          </div>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
