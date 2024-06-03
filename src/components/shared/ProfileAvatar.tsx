@@ -1,5 +1,5 @@
 import { Avatar } from '@nextui-org/react'
-import AvatarImage from './../../assets/home/avatar.png'
+import AvatarImage from '../../assets/dashboard/img/avatar.png'
 
 export const ProfileAvatar = () => {
    return (

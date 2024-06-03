@@ -9,7 +9,6 @@ class ProductsAPI {
         if (query) {
             url += `&search=${query}`;
         }
-        console.log(query)
         const response = await this.axios.get<TProductsResponse>(url);
         return response.data;
     }

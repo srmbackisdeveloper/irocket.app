@@ -1,7 +1,5 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import { RootPage } from '../pages/Root/RootPage';
+import { createBrowserRouter, Navigate, RouteObject } from 'react-router-dom';
 import { Error } from '../pages/Root/Error';
-import { HomePage } from '../pages/HomePage';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
@@ -16,40 +14,19 @@ import AuthRedirect from './AuthRedirect';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
-    element: (
-      <AuthRedirect>
-        <RootPage />
-      </AuthRedirect>
-    ),
-    errorElement: <Error />,
-    children: [
-      {
-        path: '/',
-        element: (
-          <AuthRedirect>
-            <HomePage />
-          </AuthRedirect>
-        ),
-      },
-    ],
-  },
-  {
     path: '/login',
-    element: (
+    element: 
       <AuthRedirect>
         <LoginPage />
-      </AuthRedirect>
-    ),
+      </AuthRedirect>,
     errorElement: <Error />,
   },
   {
     path: '/register',
-    element: (
+    element:
       <AuthRedirect>
         <RegisterPage />
-      </AuthRedirect>
-    ),
+      </AuthRedirect>,
     errorElement: <Error />,
   },
   {
@@ -95,5 +72,10 @@ export const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: '*',
+    element: <Navigate to="/login" replace />,
+    errorElement: <Error />,
   },
 ] as RouteObject[]);
