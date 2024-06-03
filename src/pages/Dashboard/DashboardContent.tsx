@@ -9,6 +9,7 @@ const DashboardContent = () => {
   const [comment, setComment] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const { user, addComment, error, setError } = useAuth();
 
   const handleChange = (
@@ -25,12 +26,20 @@ const DashboardContent = () => {
     if (rating !== null && comment.trim() !== '') {
       setIsLoading(true);
       const success = await addComment({ rating, text: comment });
-      setIsLoading(false);
+      
+      setModalVisible(true);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 2000);
+
       if (success) {
         setComment('');
         setValue(5);
+        setSuccessMessage('Комментарий успешно отправлен!');
+        setError(null);
       } else {
-        setModalVisible(true);
+        setSuccessMessage(null);
       }
     }
   };
@@ -38,6 +47,7 @@ const DashboardContent = () => {
   const closeModal = () => {
     setModalVisible(false);
     setError(null);
+    setSuccessMessage(null);
   };
 
   return (
@@ -243,6 +253,13 @@ const DashboardContent = () => {
                 <Spinner color='danger' />
                 <h3>Загрузка...</h3>
               </>
+            ) : successMessage ? (
+              <div className="flex items-center gap-2">
+                <h3>{successMessage}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-check2 text-success-600" viewBox="0 0 16 16">
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                </svg>
+              </div>
             ) : (
               <h3>{error}</h3>
             )}
