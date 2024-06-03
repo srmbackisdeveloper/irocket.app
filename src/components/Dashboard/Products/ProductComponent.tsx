@@ -86,8 +86,7 @@ export const ProductComponent: React.FC = () => {
   // Update URL when page state changes
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    const currentUrlPage = parseInt(params.get('page') || '1', 
-    10);
+    const currentUrlPage = parseInt(params.get('page') || '1', 10);
     if (currentUrlPage !== page) {
       params.set('page', page.toString());
       navigate({ search: params.toString() }, { replace: true });
@@ -110,15 +109,6 @@ export const ProductComponent: React.FC = () => {
     }
   }, [location.search]);
 
-  // Ensure component updates when query refetches
-  useEffect(() => {
-    if (query.isFetching) {
-      setIsOverlayVisible(true);
-    } else {
-      setIsOverlayVisible(false);
-    }
-  }, [query.isFetching]);
-
   const refreshProducts = async () => {
     setIsOverlayVisible(true); // Show overlay
     await query.refetch();
@@ -126,6 +116,18 @@ export const ProductComponent: React.FC = () => {
       setIsOverlayVisible(false); // Hide overlay after refreshing
     }, 2000); // Adjust the duration as needed
   };
+
+  useEffect(() => {
+    console.log("Query data:", query.data);
+  }, [query.data]);
+
+  if (query.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.error) {
+    return <div>Error: {query.error.message}</div>;
+  }
 
   return (
     <>
