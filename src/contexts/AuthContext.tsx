@@ -22,7 +22,7 @@ interface AuthContextType {
   logout: () => void;
   updateUserProfile: (updatedUser: Partial<User>) => Promise<void>;
   comments: TComment[];
-  addComment: (comment: TComment) => Promise<void>;
+  addComment: (comment: TComment) => Promise<boolean>;
 }
 
 interface AuthProviderProps {
@@ -39,7 +39,7 @@ const defaultAuthContext: AuthContextType = {
   logout: () => {},
   updateUserProfile: async () => {},
   comments: [],
-  addComment: async () => {},
+  addComment: async () => false,
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
