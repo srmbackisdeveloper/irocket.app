@@ -7,6 +7,7 @@ export const Analytics = () => {
          <div className="grid border rounded-lg p-3">
             <Input 
                 startContent={<Search />}
+                isDisabled
                 className='w-fit'
                 placeholder='Артикул / Название'
                 size='md'
