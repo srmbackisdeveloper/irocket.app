@@ -1,5 +1,5 @@
 import { Avatar, Divider, Textarea, Button, Modal, ModalContent, Spinner } from '@nextui-org/react';
-import AvatarImage from './../../assets/home/avatar.png';
+import AvatarImage from '../../assets/dashboard/img/avatar.png';
 import { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { useAuth } from '../../contexts/AuthContext';
