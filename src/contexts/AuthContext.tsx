@@ -1,6 +1,7 @@
 import React, { createContext, useState, ReactNode, useContext } from 'react';
 import axios from 'axios';
 import { User } from '../core/user.type';
+import { TComment } from '../core/comment.type';
 import { useTheme } from 'next-themes';
 
 interface AuthContextType {
@@ -20,6 +21,8 @@ interface AuthContextType {
   ) => Promise<boolean>;
   logout: () => void;
   updateUserProfile: (updatedUser: Partial<User>) => Promise<void>;
+  comments: TComment[];
+  addComment: (comment: TComment) => Promise<boolean>;
 }
 
 interface AuthProviderProps {
@@ -35,6 +38,8 @@ const defaultAuthContext: AuthContextType = {
   register: async () => false,
   logout: () => {},
   updateUserProfile: async () => {},
+  comments: [],
+  addComment: async () => false,
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContext);
@@ -50,6 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
   const [error, setError] = useState<string | null>(null);
   const { setTheme } = useTheme();
+  const [comments, setComments] = useState<TComment[]>([]);
 
   const mapUserResponse = (user: any): User => {
     return {
@@ -95,20 +101,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     phoneNumber: string,
     password: string,
     username: string,
-    // email?: string,
-    // companyName?: string,
-    // firstName?: string,
-    // lastName?: string,
   ): Promise<boolean> => {
     try {
       await axios.post(BASE_URL + '/registration/', {
         phone_number: phoneNumber,
         password: password,
         username: username,
-        // email: email,
-        // company_name: companyName,
-        // first_name: firstName,
-        // last_name: lastName,
       });
       setError(null);
       return true;
@@ -117,7 +115,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (axios.isAxiosError(error) && error.response) {
         setError(error.response.data.username);
       } else {
-        setError('Ошибка при входе');
+        setError('Ошибка при регистрации');
       }
       return false;
     }
@@ -152,8 +150,34 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+// comments
+const addComment = async (comment: TComment): Promise<boolean> => {
+  if (!token) {
+    console.error('Token is not available');
+    return false;
+  }
+
+  try {
+    // console.log('Attempting to add comment', comment);  // Added for debugging
+    const response = await axios.post(`${BASE_URL}/create_comment/`, comment, {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    });
+    // console.log('Comment added successfully', response.data);
+    setComments([...comments, response.data]);  // Ensure you're adding the response comment
+    setError(null);
+    return true;
+  } catch (error) {
+    console.error('Adding comment failed', error);
+    setError('Ошибка при добавлении комментария');
+    return false;
+  }
+};
+
+
   return (
-    <AuthContext.Provider value={{ user, token, error, setError, login, register, logout, updateUserProfile }}>
+    <AuthContext.Provider value={{ user, token, error, setError, login, register, logout, updateUserProfile, comments, addComment }}>
       {children}
     </AuthContext.Provider>
   );
