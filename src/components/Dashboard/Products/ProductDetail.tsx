@@ -227,7 +227,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({ isOpen, onClose, p
               />
               <Input
                 type="number"
-                label="Разница в цене:"
+                label="Шаг:"
                 labelPlacement="outside"
                 className="w-full"
                 value={priceDifference?.toString()}

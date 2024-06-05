@@ -145,7 +145,7 @@ export const ProductComponent: React.FC = () => {
                 <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
                 <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
                 <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Раз. в цене</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Шаг</th>
                 <Tooltip
                   placement="top-end"
                   offset={-10}
