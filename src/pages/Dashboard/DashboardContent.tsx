@@ -66,7 +66,7 @@ const DashboardContent = () => {
             </div>
             <div className="grid p-3 border rounded-lg bg-white dark:bg-[#1f1f1f]">
               <p className="text-tiny text-start font-semibold text-gray-500 dark:text-gray-300">
-                В случае неполадки обратитесь по номеру +7 777 479 44 22
+                В случае неполадки обратитесь по номеру +7 747 717 44 22
               </p>
             </div>
          </div>
@@ -187,7 +187,7 @@ const DashboardContent = () => {
                         Мой номер:{' '}
                         <a href="tel:+77774794422" className="text-danger">
                            {' '}
-                           +7 777 4794422
+                           +7 747 717 44 22
                         </a>
                      </p>
                   </div>
