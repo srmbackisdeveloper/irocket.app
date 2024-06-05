@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ProductList } from "./ProductList";
 import { useGetProducts } from "../../../hooks/useGetProducts";
-import { Tooltip } from "@nextui-org/react";
+import { Spinner, Tooltip } from "@nextui-org/react";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { ProductSearch } from "./ProductSearch";
@@ -122,7 +122,13 @@ export const ProductComponent: React.FC = () => {
   }, [query.data]);
 
   if (query.isLoading) {
-    return <div>Loading...</div>;
+    return <div>
+              <tr>
+                <td colSpan={6} className="flex justify-center items-center w-screen h-[40vh]">
+                  <Spinner size="lg" color="danger" />
+                </td>
+              </tr>
+          </div>;
   }
 
   if (query.error) {
@@ -133,7 +139,7 @@ export const ProductComponent: React.FC = () => {
     <>
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
-      <div className={`border rounded-lg p-3 md:overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
+      <div className={`border rounded-lg p-3 min-w-320px overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
         <div className="table-container" style={{ maxHeight: '500px', overflowY: 'auto' }}>
           <table className="w-full min-w-max table-fixed">
             <thead className="border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-[rgb(31,31,31)] z-20">

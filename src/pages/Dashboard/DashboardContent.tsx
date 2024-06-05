@@ -55,13 +55,8 @@ const DashboardContent = () => {
          <div className="grid p-5 gap-2">
             <div className="grid p-3 border rounded-lg bg-green-100 dark:bg-[#1f1f1f]">
               <p className="text-tiny text-start font-semibold text-green-800 dark:text-green-300">
-               iRocket предлагает оформить товарный знак и закрыть свой бренд. Гарантия по договору.
-              </p>
-            </div>
-            <div className="grid p-3 border rounded-lg bg-red-100 dark:bg-[#1f1f1f]">
-              <p className="text-tiny text-start font-semibold text-red-700 dark:text-red-400">
                 Подписывайтесь на наш телеграм канал чтобы знать о всех
-                обновлениях iRocket и новостях KASPI <a href=''>@iRocket.systems</a>
+                обновлениях iRocket и новостях KASPI <a href='https://t.me/irocketkz'>@iRocket.systems</a> 
               </p>
             </div>
             <div className="grid p-3 border rounded-lg bg-white dark:bg-[#1f1f1f]">
