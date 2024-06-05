@@ -117,69 +117,63 @@ export const ProductComponent: React.FC = () => {
     }, 2000); // Adjust the duration as needed
   };
 
-  useEffect(() => {
-    console.log("Query data:", query.data);
-  }, [query.data]);
-
-  if (query.isLoading) {
-    return <div>
-              <tr>
-                <td colSpan={6} className="flex justify-center items-center w-screen h-[40vh]">
-                  <Spinner size="lg" color="danger" />
-                </td>
-              </tr>
-          </div>;
-  }
-
   if (query.error) {
     return <div>Error: {query.error.message}</div>;
   }
 
   return (
     <>
-      <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
+      <Overlay isVisible={isOverlayVisible} />
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 min-w-320px overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
-        <div className="table-container" style={{ maxHeight: '500px', overflowY: 'auto' }}>
-          <table className="w-full min-w-max table-fixed">
-            <thead className="border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-[rgb(31,31,31)] z-20">
-              <tr className="text-base dark:text-slate-300">
-                <th className="font-semibold md:w-[20%] w-full p-2 text-left">Название</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Шаг</th>
-                <Tooltip
-                  placement="top-end"
-                  offset={-10}
-                  className="bg-gray-600 text-white max-w-xs"
-                  showArrow={true}
-                  content="Если отключено, то бот не будет изменять цену данного товара"
-                >
-                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Актив.</th>
-                </Tooltip>
-              </tr>
-            </thead>
-            <tbody>
-              <ProductList query={query} />
-            </tbody>
-          </table>
-        </div>
-        <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] md:px-[4em]">
-          <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
-            <Pagination
-              shape="rounded"
-              count={totalPages}
-              color="secondary"
-              size="large"
-              page={page}
-              onChange={handlePageChange}
-            />
-          </ThemeProvider>
-        </Stack>
+          {(query.isLoading || query.isFetching) ? (
+              <div className="flex justify-center items-center w-screen h-[40vh]">
+                  <Spinner size="lg" color="danger" />
+              </div>
+          ) : (
+              <>
+                  <div className="table-container" style={{ maxHeight: '500px', overflowY: 'auto' }}>
+                      <table className="w-full min-w-max table-fixed">
+                          <thead className="border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-[rgb(31,31,31)] z-20">
+                              <tr className="text-base dark:text-slate-300">
+                                  <th className="font-semibold md:w-[20%] w-full p-2 text-left">Название</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
+                                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Шаг</th>
+                                  <Tooltip
+                                      placement="top-end"
+                                      offset={-10}
+                                      className="bg-gray-600 text-white max-w-xs"
+                                      showArrow={true}
+                                      content="Если отключено, то бот не будет изменять цену данного товара"
+                                  >
+                                      <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Актив.</th>
+                                  </Tooltip>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <ProductList query={query} />
+                          </tbody>
+                      </table>
+                  </div>
+                  <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] md:px-[4em]">
+                      <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
+                          <Pagination
+                              shape="rounded"
+                              count={totalPages}
+                              color="secondary"
+                              size="large"
+                              page={page}
+                              onChange={handlePageChange}
+                          />
+                      </ThemeProvider>
+                  </Stack>
+              </>
+          )}
       </div>
     </>
   );
