@@ -134,32 +134,34 @@ export const ProductComponent: React.FC = () => {
       <Overlay isVisible={isOverlayVisible} /> {/* Use Overlay component */}
       <ProductSearch shops={shops} onProductsRefresh={refreshProducts} />
       <div className={`border rounded-lg p-3 md:overflow-x-auto ${isOverlayVisible ? 'pointer-events-none' : ''}`}>
-        <table className="w-full min-w-max table-fixed">
-          <thead className="border-b dark:border-gray-500">
-            <tr className="text-base dark:text-slate-300">
-              <th className="font-semibold md:w-[20%] w-full p-2 text-left">Название</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
-              <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Раз. в цене</th>
-              <Tooltip
-                placement="top-end"
-                offset={-10}
-                className="bg-gray-600 text-white max-w-xs"
-                showArrow={true}
-                content="Если отключено, то бот не будет изменять цену данного товара"
-              >
-                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Актив.</th>
-              </Tooltip>
-            </tr>
-          </thead>
-          <tbody>
-            <ProductList query={query} />
-          </tbody>
-        </table>
+        <div className="table-container" style={{ maxHeight: '500px', overflowY: 'auto' }}>
+          <table className="w-full min-w-max table-fixed">
+            <thead className="border-b dark:border-gray-500 sticky top-0 bg-white dark:bg-[rgb(31,31,31)] z-20">
+              <tr className="text-base dark:text-slate-300">
+                <th className="font-semibold md:w-[20%] w-full p-2 text-left">Название</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цена</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Тек. место</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">1-ое место</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Мин. цена</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Макс. цена</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Цен. ориентир</th>
+                <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Раз. в цене</th>
+                <Tooltip
+                  placement="top-end"
+                  offset={-10}
+                  className="bg-gray-600 text-white max-w-xs"
+                  showArrow={true}
+                  content="Если отключено, то бот не будет изменять цену данного товара"
+                >
+                  <th className="font-semibold w-[10%] p-2 hidden md:table-cell">Актив.</th>
+                </Tooltip>
+              </tr>
+            </thead>
+            <tbody>
+              <ProductList query={query} />
+            </tbody>
+          </table>
+        </div>
         <Stack spacing={2} className="grid justify-center items-center mt-[2em] mb-[1em] md:px-[4em]">
           <ThemeProvider theme={isDarkMode ? darkTheme : theme}>
             <Pagination
