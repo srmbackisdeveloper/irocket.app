@@ -114,7 +114,7 @@ export const ProductComponent: React.FC = () => {
     await query.refetch();
     setTimeout(() => {
       setIsOverlayVisible(false); // Hide overlay after refreshing
-    }, 2000); // Adjust the duration as needed
+    }, 1000); // Adjust the duration as needed
   };
 
   if (query.error) {

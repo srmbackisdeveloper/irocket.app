@@ -56,12 +56,12 @@ const DashboardContent = () => {
             <div className="grid p-3 border rounded-lg bg-green-100 dark:bg-[#1f1f1f]">
               <p className="text-tiny text-start font-semibold text-green-800 dark:text-green-300">
                 Подписывайтесь на наш телеграм канал чтобы знать о всех
-                обновлениях iRocket и новостях KASPI <a href='https://t.me/irocketkz'>@iRocket.systems</a> 
+                обновлениях iRocket и новостях KASPI <a target="_blank" href='https://t.me/irocketkz' className="hover:text-danger">@iRocket.systems</a> 
               </p>
             </div>
             <div className="grid p-3 border rounded-lg bg-white dark:bg-[#1f1f1f]">
               <p className="text-tiny text-start font-semibold text-gray-500 dark:text-gray-300">
-                В случае неполадки обратитесь по номеру +7 747 717 44 22
+                В случае неполадки обратитесь по номеру <a href='tel:+7 7477174422' className='hover:text-danger'>+7 747 717 44 22</a>
               </p>
             </div>
          </div>
