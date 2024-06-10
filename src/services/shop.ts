@@ -28,6 +28,11 @@ class ShopAPI {
         });
         return response.data;
     }
+    
+    deleteShop = async (id: TShop["id"]) => {
+        const response = await this.axios.delete<{ success: boolean }>(`/${id}/`);
+        return response.data;
+    }
 }
 
 export const shopAPI = new ShopAPI();

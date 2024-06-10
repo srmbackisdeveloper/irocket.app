@@ -8,13 +8,16 @@ interface ShopState {
   isFetching: boolean;
   isCreating: boolean;
   isUpdating: boolean;
+  isDeleting: boolean;
   fetchError: string | null;
   createError: string | null;
   updateError: string | null;
+  deleteError: string | null;
   fetchShops: () => Promise<void>;
   fetchShop: (id: number) => Promise<void>;
   updateShopField: (id: number, fieldName: keyof TShop, newValue: any) => Promise<void>;
   createShop: (kaspiLogin: string, kaspiPassword: string) => Promise<{ success: boolean, error?: string }>;
+  deleteShop: (id: number) => Promise<{ success: boolean, error?: string }>;
 }
 
 export const useShopStore = create<ShopState>()(
@@ -25,9 +28,11 @@ export const useShopStore = create<ShopState>()(
         isFetching: false,
         isCreating: false,
         isUpdating: false,
+        isDeleting: false,
         fetchError: null,
         createError: null,
         updateError: null,
+        deleteError: null,
         fetchShops: async () => {
           set({ isFetching: true, fetchError: null });
           try {
@@ -104,7 +109,25 @@ export const useShopStore = create<ShopState>()(
             set({ createError: errorMessage, isCreating: false });
             return { success: false, error: errorMessage };
           }
-        },                
+        },
+        deleteShop: async (id: number) => {
+          set({ isDeleting: true, deleteError: null });
+          try {
+            await shopAPI.deleteShop(id);
+            set((state) => ({
+              shops: state.shops.filter((shop) => shop.id !== id),
+              isDeleting: false,
+            }));
+            return { success: true };
+          } catch (error) {
+            let errorMessage = 'An unknown error occurred';
+            if (error instanceof Error) {
+              errorMessage = error.message;
+            }
+            set({ deleteError: errorMessage, isDeleting: false });
+            return { success: false, error: errorMessage };
+          }
+        },
       }),
       {
         name: 'shop-storage',

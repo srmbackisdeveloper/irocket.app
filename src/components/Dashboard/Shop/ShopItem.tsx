@@ -37,7 +37,7 @@ export const ShopItem: FC<ShopItemProps> = ({ shop }) => {
                </div>
                <div className="flex items-center">
                   <EditModal />
-                  <DeleteModal />
+                  <DeleteModal shopId={shop.id} />
                </div>
             </div>
             {!shop.enabled && <div className="p-2 pl-6 text-danger font-semibold text-xl">Ваш магазин не активирован</div>}
